@@ -17,7 +17,6 @@ public class PersonCard extends UiPart<Region> {
 
     private static final String FXML = "PersonListCard.fxml";
 
-    private HashMap<String,String> labelColor;
     /**
      * Note: Certain keywords such as "location" and "resources" are reserved keywords in JavaFX.
      * As a consequence, UI elements' variable names cannot be set to such keywords
@@ -27,7 +26,7 @@ public class PersonCard extends UiPart<Region> {
      */
 
     public final ReadOnlyPerson person;
-
+    private HashMap<String, String> labelColor;
     @FXML
     private HBox cardPane;
     @FXML
@@ -42,6 +41,7 @@ public class PersonCard extends UiPart<Region> {
     private Label email;
     @FXML
     private FlowPane tags;
+
 
     public PersonCard(ReadOnlyPerson person, int displayedIndex) {
         super(FXML);
@@ -63,7 +63,7 @@ public class PersonCard extends UiPart<Region> {
         email.textProperty().bind(Bindings.convert(person.emailProperty()));
         person.tagProperty().addListener((observable, oldValue, newValue) -> {
             tags.getChildren().clear();
-            person.getTags().forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
+            initTags(person);
         });
     }
 
@@ -71,7 +71,7 @@ public class PersonCard extends UiPart<Region> {
      * Prepare a HashMap of colors to link tagname with a color
      */
     private void initLabelColor() {
-        labelColor = new HashMap<String,String>();
+        labelColor = new HashMap<String, String>();
         labelColor.put("colleagues", "red");
         labelColor.put("friends", "blue");
         labelColor.put("family", "brown");
@@ -80,6 +80,9 @@ public class PersonCard extends UiPart<Region> {
         labelColor.put("unknown", "grey");
     }
 
+    /**
+     * Instantiate tags
+     */
     private void initTags(ReadOnlyPerson person) {
         person.getTags().forEach(tag -> {
             Label label = new Label(tag.tagName);
