@@ -1,5 +1,7 @@
 package seedu.address.ui;
 
+import java.util.HashMap;
+
 import javafx.beans.binding.Bindings;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
@@ -15,6 +17,7 @@ public class PersonCard extends UiPart<Region> {
 
     private static final String FXML = "PersonListCard.fxml";
 
+    private HashMap<String,String> labelColor;
     /**
      * Note: Certain keywords such as "location" and "resources" are reserved keywords in JavaFX.
      * As a consequence, UI elements' variable names cannot be set to such keywords
@@ -42,6 +45,7 @@ public class PersonCard extends UiPart<Region> {
 
     public PersonCard(ReadOnlyPerson person, int displayedIndex) {
         super(FXML);
+        initLabelColor();
         this.person = person;
         id.setText(displayedIndex + ". ");
         initTags(person);
@@ -63,8 +67,34 @@ public class PersonCard extends UiPart<Region> {
         });
     }
 
+    /**
+     * Prepare a HashMap of colors to link tagname with a color
+     */
+    private void initLabelColor() {
+        labelColor = new HashMap<String,String>();
+        labelColor.put("colleagues", "red");
+        labelColor.put("friends", "blue");
+        labelColor.put("family", "brown");
+        labelColor.put("neighbours", "purple");
+        labelColor.put("classmates", "green");
+        labelColor.put("unknown", "grey");
+    }
+
     private void initTags(ReadOnlyPerson person) {
-        person.getTags().forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
+        person.getTags().forEach(tag -> {
+            Label label = new Label(tag.tagName);
+            String color = getColor(tag.tagName);
+            label.setStyle("-fx-background-color: " + color);
+            tags.getChildren().add(label);
+        });
+    }
+
+
+    /**
+     * Get color from the hashmap. If not found, classify as unknown
+     */
+    private String getColor(String tagName) {
+        return labelColor.containsKey(tagName) ? labelColor.get(tagName) : labelColor.get("unknown");
     }
 
     @Override
