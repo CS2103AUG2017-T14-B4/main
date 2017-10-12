@@ -44,6 +44,14 @@ public class ParserUtil {
         return Index.fromOneBased(Integer.parseInt(trimmedIndex));
     }
 
+    public static int parseInt(String numStr) throws IllegalValueException {
+        String trimmedNumStr = numStr.trim();
+        if (!StringUtil.isNonZeroUnsignedInteger(trimmedNumStr)) {
+            throw new IllegalValueException(MESSAGE_INVALID_INDEX);
+        }
+        return Integer.parseInt(trimmedNumStr);
+    }
+
     /**
      * Parses a {@code Optional<String> name} into an {@code Optional<Name>} if {@code name} is present.
      * See header comment of this class regarding the use of {@code Optional} parameters.
