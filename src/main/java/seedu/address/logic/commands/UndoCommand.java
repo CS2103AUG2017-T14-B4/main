@@ -2,7 +2,6 @@ package seedu.address.logic.commands;
 
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
-import seedu.address.commons.core.index.Index;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.UndoRedoStack;
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -40,7 +39,7 @@ public class UndoCommand extends Command {
     public CommandResult execute() throws CommandException {
         requireAllNonNull(model, undoRedoStack);
 
-        while (steps > 0){
+        while (steps > 0) {
             if (!undoRedoStack.canUndo()) {
                 throw new CommandException(MESSAGE_FAILURE);
             }

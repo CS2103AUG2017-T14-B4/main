@@ -44,6 +44,12 @@ public class ParserUtil {
         return Index.fromOneBased(Integer.parseInt(trimmedIndex));
     }
 
+    /**
+     * Parses a String into an integer and returns it. Leading and trailing whitespaces will be
+     * trimmed.
+     * @throws IllegalValueException if the specified number is invalid (not non-zero unsigned integer
+     * or not an integer).
+     */
     public static int parseInt(String numStr) throws IllegalValueException {
         String trimmedNumStr = numStr.trim();
         if (!StringUtil.isNonZeroUnsignedInteger(trimmedNumStr)) {
