@@ -73,6 +73,8 @@ public class PersonCard extends UiPart<Region> {
         person.favoriteProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue != oldValue) {
                 favorite.setVisible(!favorite.isVisible());
+            } else {
+                favorite.setVisible(false);
             }
         });
         person.tagProperty().addListener((observable, oldValue, newValue) -> {

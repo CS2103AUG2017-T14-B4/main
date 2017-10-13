@@ -38,7 +38,7 @@ public class Person implements ReadOnlyPerson {
         this.email = new SimpleObjectProperty<>(email);
         this.address = new SimpleObjectProperty<>(address);
         this.remark = new SimpleObjectProperty<>(remark);
-        this.favorite = new SimpleObjectProperty<>();
+        this.favorite = new SimpleObjectProperty<>(new Favorite());
         // protect internal tags from changes in the arg list
         this.tags = new SimpleObjectProperty<>(new UniqueTagList(tags));
 

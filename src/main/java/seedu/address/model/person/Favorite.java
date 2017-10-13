@@ -23,6 +23,9 @@ public class Favorite {
         return this.favorite;
     }
 
+    public int getValue() {
+        return this.favorite ? 1 : 0;
+    }
     @Override
     public String toString() {
         return favorite ? "true" : "false";

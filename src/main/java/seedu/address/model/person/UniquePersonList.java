@@ -27,6 +27,7 @@ public class UniquePersonList implements Iterable<Person> {
     // used by asObservableList()
     private final ObservableList<ReadOnlyPerson> mappedList = EasyBind.map(internalList, (person) -> person);
 
+
     /**
      * Returns true if the list contains an equivalent person as the given argument.
      */
