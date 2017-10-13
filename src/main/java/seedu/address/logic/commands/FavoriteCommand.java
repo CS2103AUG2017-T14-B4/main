@@ -54,7 +54,7 @@ public class FavoriteCommand extends UndoableCommand {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof DeleteCommand // instanceof handles nulls
+                || (other instanceof FavoriteCommand // instanceof handles nulls
                 && this.targetIndex.equals(((FavoriteCommand) other).targetIndex)); // state check
     }
 }
