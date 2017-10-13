@@ -11,6 +11,17 @@ public class Favorite {
         this.favorite = false;
     }
 
+    public Favorite(boolean favorite) {
+        this.favorite = favorite;
+    }
+
+    public void toggleFavorite() {
+        this.favorite = !this.favorite;
+    }
+
+    public boolean getFavorite() {
+        return this.favorite;
+    }
 
     @Override
     public String toString() {

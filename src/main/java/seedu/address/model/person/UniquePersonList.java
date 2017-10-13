@@ -84,6 +84,25 @@ public class UniquePersonList implements Iterable<Person> {
         return personFoundAndDeleted;
     }
 
+    /**
+     * Favorites the equivalent person in the list.
+     *
+     * @throws PersonNotFoundException if no such person could be found in the list.
+     */
+    public void favorite(ReadOnlyPerson toFavorite) throws PersonNotFoundException {
+        requireNonNull(toFavorite);
+        int index = internalList.indexOf(toFavorite);
+
+        if (index == -1) {
+            throw new PersonNotFoundException();
+        }
+
+        Person newPerson = new Person(toFavorite);
+        newPerson.getFavorite().toggleFavorite();
+
+        internalList.set(index, newPerson);
+    }
+
     public void setPersons(UniquePersonList replacement) {
         this.internalList.setAll(replacement.internalList);
     }
