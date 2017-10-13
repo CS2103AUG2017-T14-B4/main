@@ -10,7 +10,6 @@ import java.util.logging.Logger;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
-import javafx.collections.transformation.SortedList;
 import seedu.address.commons.core.ComponentManager;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.model.AddressBookChangedEvent;
@@ -40,15 +39,8 @@ public class ModelManager extends ComponentManager implements Model {
         logger.fine("Initializing with address book: " + addressBook + " and user prefs " + userPrefs);
 
         this.addressBook = new AddressBook(addressBook);
-        SortedList<ReadOnlyPerson> sortedList = new SortedList<>(this.addressBook.getPersonList());
-        sortedList.setComparator((ReadOnlyPerson p1, ReadOnlyPerson p2) -> {
-            if (!p2.getFavorite().equals(p1.getFavorite())) {
-                return p2.getFavorite().getValue() - p1.getFavorite().getValue();
-            } else {
-                return p1.getName().fullName.compareTo(p2.getName().fullName);
-            }
-        });
-        filteredPersons = new FilteredList<>(sortedList);
+
+        filteredPersons = new FilteredList<>(this.addressBook.getPersonList());
     }
 
     public ModelManager() {
