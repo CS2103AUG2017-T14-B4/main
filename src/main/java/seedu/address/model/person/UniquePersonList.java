@@ -47,6 +47,7 @@ public class UniquePersonList implements Iterable<Person> {
             throw new DuplicatePersonException();
         }
         internalList.add(new Person(toAdd));
+        sort();
     }
 
     /**
@@ -69,6 +70,7 @@ public class UniquePersonList implements Iterable<Person> {
         }
 
         internalList.set(index, new Person(editedPerson));
+        sort();
     }
 
     /**
@@ -82,6 +84,7 @@ public class UniquePersonList implements Iterable<Person> {
         if (!personFoundAndDeleted) {
             throw new PersonNotFoundException();
         }
+        sort();
         return personFoundAndDeleted;
     }
 
@@ -102,10 +105,12 @@ public class UniquePersonList implements Iterable<Person> {
         newPerson.getFavorite().toggleFavorite();
 
         internalList.set(index, newPerson);
+        sort();
     }
 
     public void setPersons(UniquePersonList replacement) {
         this.internalList.setAll(replacement.internalList);
+        sort();
     }
 
     public void setPersons(List<? extends ReadOnlyPerson> persons) throws DuplicatePersonException {
@@ -138,5 +143,18 @@ public class UniquePersonList implements Iterable<Person> {
     @Override
     public int hashCode() {
         return internalList.hashCode();
+    }
+
+    /**
+     * sort the list
+     */
+    private void sort() {
+        internalList.sort((ReadOnlyPerson p1, ReadOnlyPerson p2) -> {
+            if (!p1.getFavorite().equals(p2.getFavorite())) {
+                return p2.getFavorite().getValue() - p1.getFavorite().getValue();
+            } else {
+                return p1.getName().fullName.compareTo(p2.getName().fullName);
+            }
+        });
     }
 }
