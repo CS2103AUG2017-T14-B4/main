@@ -144,7 +144,7 @@ Deletes the 1st person in the results of the `find` command.
 === Favoriting a person : `favorite`
 
 Favorites the specified person from the address book so they will appear on top of the contact list. +
-Format: `delete INDEX`
+Format: `favorite INDEX`
 
 ****
 * Favorites the person at the specified `INDEX`.

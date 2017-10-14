@@ -145,8 +145,9 @@ public class UniquePersonList implements Iterable<Person> {
         return internalList.hashCode();
     }
 
+    //@@author: giang
     /**
-     * sort the list
+     * sort the list in default sorting order: Favorite > non-Favorite; then alphabetical order
      */
     private void sort() {
         internalList.sort((ReadOnlyPerson p1, ReadOnlyPerson p2) -> {
