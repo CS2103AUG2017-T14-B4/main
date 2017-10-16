@@ -5,11 +5,12 @@ import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailur
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
 
 import java.util.Arrays;
+import java.util.Collections;
 
 import org.junit.Test;
 
 import seedu.address.logic.commands.FindCommand;
-import seedu.address.model.person.NameContainsKeywordsPredicate;
+import seedu.address.model.person.predicates.NameContainsKeywordsPredicate;
 
 public class FindCommandParserTest {
 
@@ -29,6 +30,27 @@ public class FindCommandParserTest {
 
         // multiple whitespaces between keywords
         assertParseSuccess(parser, " \n Alice \n \t Bob  \t", expectedFindCommand);
+
+    }
+    @Test
+    public void parse_validArgsWithPrefix_returnsFindCommand() {
+        FindCommand expectedFindCommand =
+                new FindCommand(new NameContainsKeywordsPredicate(Collections.singletonList("Alice")));
+        // name by prefix n/
+        assertParseSuccess(parser, "n/alice", expectedFindCommand);
+
+        //find by number
+        assertParseSuccess(parser, "p/85355255", expectedFindCommand);
+
+    }
+
+    @Test
+    public void parse_validArgsWithMultiplePrefixes_returnsFindCommand() {
+        FindCommand expectedFindCommand =
+                new FindCommand(new NameContainsKeywordsPredicate(Collections.singletonList("Alice")));
+        // search by searchTerm with highest priority: name
+        assertParseSuccess(parser, "n/alice p/98765432", expectedFindCommand);
+
     }
 
 }
