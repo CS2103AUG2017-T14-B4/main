@@ -150,7 +150,7 @@ class AddressBookTest extends Test {
 
 //help me with my gradle test:p
 task giangTests(type: AddressBookTest) {
-    include 'systemtests/FindCommandSystemTest'
+    include 'systemtests/**'
     exclude 'guitests/**'
     exclude 'seedu/address/ui/**'
 
