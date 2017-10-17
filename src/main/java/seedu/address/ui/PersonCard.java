@@ -11,7 +11,6 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
-import javafx.scene.paint.Color;
 import seedu.address.model.person.ReadOnlyPerson;
 
 /**
@@ -135,7 +134,7 @@ public class PersonCard extends UiPart<Region> {
         } else {
             Random random = new Random();
             // create a big random number - maximum is ffffff (hex) = 16777215 (dez)
-            int nextInt = random.nextInt(256* 256* 256);
+            int nextInt = random.nextInt(256 * 256 * 256);
             // format it as hexadecimal string (with hashtag and leading zeros)
             String colorCode = String.format("#%06x", nextInt);
             labelColor.put(tagName, colorCode);

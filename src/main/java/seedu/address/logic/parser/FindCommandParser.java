@@ -22,6 +22,7 @@ import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Phone;
 import seedu.address.model.person.predicates.AddressContainsKeywordsPredicate;
+import seedu.address.model.person.predicates.AnyContainsKeywordsPredicate;
 import seedu.address.model.person.predicates.EmailContainsKeywordsPredicate;
 import seedu.address.model.person.predicates.NameContainsKeywordsPredicate;
 import seedu.address.model.person.predicates.PhoneContainsKeywordsPredicate;
@@ -72,7 +73,7 @@ public class FindCommandParser implements Parser<FindCommand> {
                 return new FindCommand(new TagContainsKeywordsPredicate(tags.get()));
             } else {
                 String[] nameKeywords = trimmedArgs.split("\\s+");
-                return new FindCommand(new NameContainsKeywordsPredicate(Arrays.asList(nameKeywords)));
+                return new FindCommand(new AnyContainsKeywordsPredicate(Arrays.asList(nameKeywords)));
             }
 
         } catch (IllegalValueException ive) {
