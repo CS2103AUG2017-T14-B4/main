@@ -17,9 +17,9 @@ public class DeleteCommand extends UndoableCommand {
     public static final String COMMAND_WORD = "delete";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Deletes the person identified by the index number used in the last person listing.\n"
+            + ": Deletes the list of person identified by the index numbers used in the last person listing.\n"
             + "Parameters: INDEX (must be a positive integer)\n"
-            + "Example: " + COMMAND_WORD + " 1";
+            + "Example: " + COMMAND_WORD + " 1 4 2";
 
     public static final String MESSAGE_DELETE_PERSON_SUCCESS = "Deleted Person: %1$s";
 
@@ -49,17 +49,34 @@ public class DeleteCommand extends UndoableCommand {
             }
         }
 
-        if (!hasExecutableIdx) {throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);}
+        if (!hasExecutableIdx) {
+            throw new CommandException(Messages.MESSAGE_INVALID_PERSON_INDEX_ALL);
+        }
 
+
+        ArrayList<ReadOnlyPerson> toDeletePerson = new ArrayList<>();
 
 
         for (int idx : executableIdx) {
             try {
+                toDeletePerson.add(lastShownList.get(idx));
                 model.deletePerson(lastShownList.get(idx));
             } catch (PersonNotFoundException e) {
                 assert false : "The target person cannot be missing";
             }
         }
+
+        StringBuilder sb = new StringBuilder();
+        sb.append("Deleted Person:\n");
+
+        for (int i = 0; i < toDeletePerson.size(); i++) {
+            sb.append(i + 1);
+            sb.append(". ");
+            sb.append(toDeletePerson.get(i));
+            sb.append("\n");
+        }
+
+        return new CommandResult(sb.toString());
     /*
         ArrayList<ReadOnlyPerson> peopleToDelete = new ArrayList<>();
         for (int idx : executableIdx) {
@@ -74,8 +91,6 @@ public class DeleteCommand extends UndoableCommand {
             }
         }
         */
-
-        return new CommandResult("Delete Command WIP");
 
     /*
         if (targetIndex.getZeroBased() >= lastShownList.size()) {
