@@ -21,7 +21,7 @@ public class DeleteCommand extends UndoableCommand {
             + "Parameters: INDEX (must be a positive integer)\n"
             + "Example: " + COMMAND_WORD + " 1 4 2";
 
-    public static final String MESSAGE_DELETE_PERSON_SUCCESS = "Deleted Person: %1$s";
+    public static final String MESSAGE_DELETE_PERSON_SUCCESS = "Deleted Person:\n";
 
     private ArrayList<Index> targetIdxs;
 
@@ -67,7 +67,7 @@ public class DeleteCommand extends UndoableCommand {
         }
 
         StringBuilder sb = new StringBuilder();
-        sb.append("Deleted Person:\n");
+        sb.append(MESSAGE_DELETE_PERSON_SUCCESS);
 
         for (int i = 0; i < toDeletePerson.size(); i++) {
             sb.append(i + 1);

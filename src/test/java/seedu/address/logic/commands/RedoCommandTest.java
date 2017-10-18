@@ -7,6 +7,7 @@ import static seedu.address.logic.commands.CommandTestUtil.deleteFirstPerson;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -33,17 +34,16 @@ public class RedoCommandTest {
 
     @Before
     public void setUp() {
-        deleteCommandOne.setData(model, EMPTY_COMMAND_HISTORY, EMPTY_STACK);
-        deleteCommandTwo.setData(model, EMPTY_COMMAND_HISTORY, EMPTY_STACK);
 
         testIndexes.add(TypicalIndexes.INDEX_FIRST_PERSON);
         deleteCommandOne = new DeleteCommand(testIndexes);
 
-        testIndexes.clear();
-        testIndexes.add(TypicalIndexes.INDEX_SECOND_PERSON);
-        deleteCommandTwo = new DeleteCommand(testIndexes);
+        ArrayList<Index> testIndexes1 = new ArrayList<>();
+        testIndexes1.add(TypicalIndexes.INDEX_FIRST_PERSON);
+        deleteCommandTwo = new DeleteCommand(testIndexes1);
 
-
+        deleteCommandOne.setData(model, EMPTY_COMMAND_HISTORY, EMPTY_STACK);
+        deleteCommandTwo.setData(model, EMPTY_COMMAND_HISTORY, EMPTY_STACK);
 
     }
 
