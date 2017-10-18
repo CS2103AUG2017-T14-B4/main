@@ -23,7 +23,8 @@ public class DeleteCommandParserTest {
     private ArrayList<Index> testIndexes = new ArrayList<Index>();
 
     private DeleteCommandParser parser = new DeleteCommandParser();
-    private final String DELETE_PARSE_FAIL = String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE);
+    private final String deleteParseFail = String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+            DeleteCommand.MESSAGE_USAGE);
 
     @Test
     public void parse_validArgs_returnsDeleteCommand() {
@@ -39,9 +40,9 @@ public class DeleteCommandParserTest {
 
     @Test
     public void parse_invalidArgs_throwsParseException() {
-        assertParseFailure(parser, " ", DELETE_PARSE_FAIL);
-        assertParseFailure(parser, "a", DELETE_PARSE_FAIL);
-        assertParseFailure(parser, "1 3 a", DELETE_PARSE_FAIL);
+        assertParseFailure(parser, " ", deleteParseFail);
+        assertParseFailure(parser, "a", deleteParseFail);
+        assertParseFailure(parser, "1 3 a", deleteParseFail);
 
     }
 }

@@ -32,7 +32,7 @@ public class DeleteCommandTest {
     private ArrayList<Index> testIndexes = new ArrayList<>();
 
     @Test
-    public void execute_validIndexUnfilteredList_singlePerson_success() throws Exception {
+    public void execute_validIndexUnfilteredListSinglePerson_success() throws Exception {
         ReadOnlyPerson personToDelete = model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
 
         testIndexes.clear();
@@ -53,7 +53,7 @@ public class DeleteCommandTest {
     }
 
     @Test
-    public void execute_invalidIndexUnfilteredList_singleOutOfBound_throwsCommandException() throws Exception {
+    public void execute_invalidIndexUnfilteredListSingleOutOfBound_throwsCommandException() throws Exception {
         Index outOfBoundIndex = Index.fromOneBased(model.getFilteredPersonList().size() + 1);
         testIndexes.clear();
         testIndexes.add(outOfBoundIndex);
