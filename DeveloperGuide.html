@@ -50,7 +50,8 @@
 <li><a href="#undo-redo-mechanism">3.1. Undo/Redo mechanism</a></li>
 <li><a href="#logging">3.2. Logging</a></li>
 <li><a href="#configuration">3.3. Configuration</a></li>
-<li><a href="#favorite">3.4. Favorite</a></li>
+<li><a href="#storage-with-back-up">3.4. Storage with back up</a></li>
+<li><a href="#favorite">3.5. Favorite</a></li>
 </ul>
 </li>
 <li><a href="#documentation">4. Documentation</a>
@@ -816,7 +817,58 @@ If the <code>redoStack</code> is empty, then there are no other commands left to
 </div>
 </div>
 <div class="sect2">
-<h3 id="favorite"><a class="link" href="#favorite">3.4. Favorite</a></h3>
+<h3 id="storage-with-back-up"><a class="link" href="#storage-with-back-up">3.4. Storage with back up</a></h3>
+<div class="paragraph">
+<p>Upon the first-time run of this application, user is provided with a sample list of people, provided by <a href="https://github.com/CS2103AUG2017-T14-B4/main/src/main/java/seedu/address/storage/model/util/SampleDataUtil.java"><code>SampleDataUtil.java</code></a>. This is to give the user an idea of how the working application should look like.</p>
+</div>
+<div class="paragraph">
+<p>If this is not a first-time run, under normal operation, addressbook.xml storage file in application directory/main/data is used to instantiate model for current session.</p>
+</div>
+<div class="paragraph">
+<p>However if user&#8217;s main storage file addressbook.xml is non-existant, of incorrect format or unreadable, we make a best effort retrieval of back up data in addressbook.xml-backup.xml.</p>
+</div>
+<div class="paragraph">
+<p>Pseudo code for initiation of model:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="java"><span class="directive">private</span> Model initModelManager(Storage storage, UserPrefs userPrefs) {
+    ...
+    try {
+        read addressbook using storage
+        <span class="keyword">if</span> storage file is not present:
+            initModelWithBackup
+    } <span class="keyword">catch</span> (addressbook has incorrect format) {
+        initModelWithBackup
+    } <span class="keyword">catch</span> (unreadable addressbook) {
+        initModelWithBackup
+    }
+    ...
+}
+
+<span class="directive">private</span> Model initModelWithBackup(Storage storage, UserPrefs userPrefs) {
+    ...
+    try {
+        read backup addressbook using storage
+        <span class="keyword">if</span> backup storage file is present:
+            retrieve back up addressbook
+            save back up addressbook content to addressbook
+        <span class="keyword">else</span>:
+            retrieve sample addressbook
+    } <span class="keyword">catch</span> (addressbook has incorrect format) {
+        create empty addressbook
+    } <span class="keyword">catch</span> (unreadable addressbook) {
+        create empty addressbook
+    }
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Back up file is kept up-to-date by updating itself when an AddressBookChangedEvent is raised.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="favorite"><a class="link" href="#favorite">3.5. Favorite</a></h3>
 <div class="paragraph">
 <p>The Favorite function is created for frequent users who have have certain "close contacts" and
 want the contacts on top of their list for the ease of access.
@@ -833,7 +885,7 @@ In order to implement such feature, two things need to be implemented:</p>
 </ul>
 </div>
 <div class="sect3">
-<h4 id="favorite-class"><a class="link" href="#favorite-class">3.4.1. Favorite class</a></h4>
+<h4 id="favorite-class"><a class="link" href="#favorite-class">3.5.1. Favorite class</a></h4>
 <div class="paragraph">
 <p>A favorite class is implemented and used by Person class. A person object does not construct with a favorite object but it is
 able to setFavorite a new favorite object (Since when a new person is created, there&#8217;s no reason to instantly 'favorite' the person).
@@ -888,7 +940,7 @@ favorited. The labels are <code>setGraphic</code> to followed image:</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="sorting"><a class="link" href="#sorting">3.4.2. Sorting</a></h4>
+<h4 id="sorting"><a class="link" href="#sorting">3.5.2. Sorting</a></h4>
 <div class="paragraph">
 <p>A sorting algorithm needs to be implemented for the <code>UniquePersonList</code> of the <code>Model</code> Component.
 Fortunately, it can be easily done with <code>List.sort()</code> and  <code>Java predicate</code>. The priority of sorting is such that
@@ -914,7 +966,7 @@ Edit a person, Add a person or Favorite a person.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="design-considerations-2"><a class="link" href="#design-considerations-2">3.4.3. Design Considerations</a></h4>
+<h4 id="design-considerations-2"><a class="link" href="#design-considerations-2">3.5.3. Design Considerations</a></h4>
 <div class="paragraph">
 <p><strong>Aspect:</strong> Implementation of <code>Favorite</code><br>
 <strong>Alternative 1 (current choice):</strong> Use a non-final boolean value and implement <code>toggleFavorite()</code><br>
@@ -2225,7 +2277,7 @@ for <code>RemarkCommandParser</code>.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2017-10-19 14:52:18 +00:00
+Last updated 2017-10-19 15:39:43 +00:00
 </div>
 </div>
 </body>
