@@ -434,19 +434,16 @@ Finally, this method needs to be called whenever an event that causes changes to
 Edit a person, Add a person or Favorite a person.
 
 
-
 ==== Design Considerations
-
 
 **Aspect:** Where sorting should occurs +
 **Alternative 1 (current choice):** On the lowest layer of `Model`, which is `UniquePersonList` +
 **Pros:** No need to have sorting in upper layer. +
 **Cons:** Permanently mutate the data list. +
-**Alternative 2:** Only sorting on the surface of  `UI` component +
+**Alternative 2:** Only sorting on the surface of `UI` component +
 **Pros:** No mutation of data list. +
 **Cons:** Difficult to implement system tests. +
 // end::favorite[]
-
 
 == Documentation
 
