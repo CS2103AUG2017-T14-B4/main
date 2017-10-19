@@ -35,7 +35,7 @@ public class DeleteCommandParserTest {
         testIndexes.add(TypicalIndexes.INDEX_FIFTH_PERSON);
         testIndexes.add(TypicalIndexes.INDEX_EIGHTH_PERSON);
         testIndexes.add(TypicalIndexes.INDEX_THIRDTEENTH_PERSON);
-        assertParseSuccess(parser, "5 9 15", new DeleteCommand(testIndexes));
+        assertParseSuccess(parser, "5 8 13", new DeleteCommand(testIndexes));
     }
 
     @Test

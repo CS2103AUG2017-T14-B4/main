@@ -56,7 +56,7 @@ public class DeleteCommand extends UndoableCommand {
         ArrayList<ReadOnlyPerson> toDeletePerson = new ArrayList<>();
 
         for (int idx : executableIdx) {
-                toDeletePerson.add(lastShownList.get(idx));
+            toDeletePerson.add(lastShownList.get(idx));
         }
 
         for (int i = 0; i < executableIdx.size(); i++) {
@@ -78,36 +78,6 @@ public class DeleteCommand extends UndoableCommand {
         }
 
         return new CommandResult(sb.toString());
-    /*
-        ArrayList<ReadOnlyPerson> peopleToDelete = new ArrayList<>();
-        for (int idx : executableIdx) {
-            peopleToDelete.add(lastShownList.get(idx));
-        }
-
-        for (ReadOnlyPerson person : peopleToDelete) {
-            try {
-                model.deletePerson(person);
-            } catch (PersonNotFoundException e) {
-                assert false : "The target person cannot be missing";
-            }
-        }
-        */
-
-    /*
-        if (targetIndex.getZeroBased() >= lastShownList.size()) {
-            throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
-        }
-
-        ReadOnlyPerson personToDelete = lastShownList.get(targetIndex.getZeroBased());
-
-        try {
-            model.deletePerson(personToDelete);
-        } catch (PersonNotFoundException pnfe) {
-            assert false : "The target person cannot be missing";
-        }
-
-        return new CommandResult(String.format(MESSAGE_DELETE_PERSON_SUCCESS, personToDelete));
-        */
     }
 
     @Override
