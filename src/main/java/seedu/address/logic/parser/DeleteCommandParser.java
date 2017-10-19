@@ -46,7 +46,11 @@ public class DeleteCommandParser implements Parser<DeleteCommand> {
         ArrayList<Index> indexes = new ArrayList<>();
 
         for (int i = 0; i < indexInts.size(); i++) {
-            indexes.add(Index.fromOneBased(indexInts.get(i) - i));
+            indexes.add(Index.fromOneBased(indexInts.get(i)));
+        }
+
+        for (Index inx : indexes) {
+            System.out.println(inx.getOneBased());
         }
 
         return new DeleteCommand(indexes);

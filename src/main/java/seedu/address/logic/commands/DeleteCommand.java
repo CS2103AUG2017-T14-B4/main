@@ -53,14 +53,15 @@ public class DeleteCommand extends UndoableCommand {
             throw new CommandException(Messages.MESSAGE_INVALID_PERSON_INDEX_ALL);
         }
 
-
         ArrayList<ReadOnlyPerson> toDeletePerson = new ArrayList<>();
 
-
         for (int idx : executableIdx) {
-            try {
                 toDeletePerson.add(lastShownList.get(idx));
-                model.deletePerson(lastShownList.get(idx));
+        }
+
+        for (int i = 0; i < executableIdx.size(); i++) {
+            try {
+                model.deletePerson(toDeletePerson.get(i));
             } catch (PersonNotFoundException e) {
                 assert false : "The target person cannot be missing";
             }
