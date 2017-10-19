@@ -444,7 +444,7 @@ Edit a person, Add a person or Favorite a person.
 **Cons:** Permanently mutate the data list. +
 **Alternative 2:** Only sorting on the surface of  `UI` component +
 **Pros:** No mutation of data list. +
-**Cons:** Difficult to implement system tests.
+**Cons:** Difficult to implement system tests. +
 // end::favorite[]
 
 
