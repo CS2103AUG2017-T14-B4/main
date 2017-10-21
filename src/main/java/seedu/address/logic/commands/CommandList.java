@@ -20,8 +20,8 @@ public class CommandList {
         commandList.add(FindCommand.COMMAND_WORD);
         commandList.add(HelpCommand.COMMAND_WORD);
         commandList.add(HistoryCommand.COMMAND_WORD);
-        commandList.add(ListAlphabetCommand.COMMAND_WORD);
         commandList.add(ListCommand.COMMAND_WORD);
+        commandList.add(ListAlphabetCommand.COMMAND_WORD);
         commandList.add(RedoCommand.COMMAND_WORD);
         commandList.add(RemarkCommand.COMMAND_WORD);
         commandList.add(SelectCommand.COMMAND_WORD);

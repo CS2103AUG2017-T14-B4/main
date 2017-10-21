@@ -6,7 +6,7 @@ import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import seedu.address.commons.util.AutoCompletionUtil;
+import seedu.address.commons.util.LanguageUtil;
 import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.Command;
@@ -115,9 +115,9 @@ public class AddressBookParser {
             return new DeleteTagCommandParser().parse(arguments);
 
         default:
-            String recommended = AutoCompletionUtil.getClosestCommand(commandWord);
+            String recommended = LanguageUtil.getClosestCommand(commandWord);
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND
-            + "\nPerhaps you meant '" + recommended + "'");
+            + "\nPerhaps you meant '" + recommended + "' ?");
 
         }
     }

@@ -15,5 +15,13 @@ public class CommandWord {
         this.commandWord = commandWord;
         this.distance = distance;
     }
+
+    public String getCommandWord() {
+        return this.commandWord;
+    }
+
+    public Integer getDistance() {
+        return this.distance;
+    }
 }
 //@@author
