@@ -28,7 +28,7 @@ public class CommandList {
         commandList.add(UndoCommand.COMMAND_WORD);
     }
 
-    public ArrayList<String> getCommandList(){
+    public ArrayList<String> getCommandList() {
         return this.commandList;
     }
 }
