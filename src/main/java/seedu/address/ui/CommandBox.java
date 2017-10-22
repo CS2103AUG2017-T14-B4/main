@@ -56,6 +56,7 @@ public class CommandBox extends UiPart<Region> {
         // calls #setStyleToDefault() whenever there is a change to the text of the command box.
         commandTextField.textProperty().addListener((unused1, unused2, unused3) -> {
             setStyleToDefault();
+            //@@author A0143832J
             String enteredText = commandTextField.getText();
             //always hide suggestion if nothing has been entered (only "spacebars"
             // are dissalowed in TextFieldWithLengthLimit)
@@ -69,15 +70,21 @@ public class CommandBox extends UiPart<Region> {
                 //some suggestions are found
                 if (!filteredEntries.isEmpty()) {
                     //build popup - list of "CustomMenuItem"
-                    populatePopup(filteredEntries, enteredText);
-                    if (!commandContextMenu.isShowing()) { //optional
-                        commandContextMenu.show(commandTextField, Side.BOTTOM, 0, 0); //position of popup
+                    // check if the context menu contains only 1 recommend and its the same as command text input
+                    if (filteredEntries.get(0).equalsIgnoreCase(enteredText)) {
+                        commandContextMenu.hide();
+                    } else {
+                        populatePopup(filteredEntries, enteredText);
+                        if (!commandContextMenu.isShowing()) { //optional
+                            commandContextMenu.show(commandTextField, Side.BOTTOM, 0, 0); //position of popup
+                        }
                     }
                     //no suggestions -> hide
                 } else {
                     commandContextMenu.hide();
                 }
             }
+            //@@author
         });
         historySnapshot = logic.getHistorySnapshot();
     }
@@ -135,21 +142,6 @@ public class CommandBox extends UiPart<Region> {
 
         replaceText(historySnapshot.next());
     }
-
-    /**
-     * Fill up the command word from the characters
-     * if there exists a command word with the same starting chars
-     */
-    private void fillInRecommendedCommand() {
-        ArrayList<String> commandListString = new CommandList().getCommandList();
-        for (String command : commandListString) {
-            if (command.startsWith(commandTextField.getText())) {
-                replaceText(command);
-                return;
-            }
-        }
-    }
-
 
     /**
      * Sets {@code CommandBox}'s text field with {@code text} and
@@ -214,6 +206,21 @@ public class CommandBox extends UiPart<Region> {
         styleClass.add(ERROR_STYLE_CLASS);
     }
 
+    //@@author A0143832J
+    /**
+     * Fill up the command word from the characters
+     * if there exists a command word with the same starting chars
+     */
+    private void fillInRecommendedCommand() {
+        ArrayList<String> commandListString = new CommandList().getCommandList();
+        for (String command : commandListString) {
+            if (command.startsWith(commandTextField.getText())) {
+                replaceText(command);
+                return;
+            }
+        }
+    }
+
     /**
      * Populate the entry set with the given search results. Display is limited to 10 entries, for performance.
      *
@@ -275,7 +282,5 @@ public class CommandBox extends UiPart<Region> {
         textFilter.setFont(Font.font("Helvetica", FontWeight.BOLD, 12.00));
         return new TextFlow(textBefore, textFilter, textAfter);
     }
-
-
-
+    //@@author
 }

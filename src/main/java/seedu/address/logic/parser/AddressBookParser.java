@@ -37,6 +37,17 @@ public class AddressBookParser {
     private static final Pattern BASIC_COMMAND_FORMAT = Pattern.compile("(?<commandWord>\\S+)(?<arguments>.*)");
 
     /**
+     * Take in an invalid command and return a command exception with recommended command
+     * @param invalidCommand
+     * @return recommended command
+     */
+    public static String getUnknownRecommendedCommand(String invalidCommand) {
+        String recommended = LanguageUtil.getClosestCommand(invalidCommand);
+        return MESSAGE_UNKNOWN_COMMAND
+                + "\nPerhaps you meant '" + recommended + "' ?";
+    }
+
+    /**
      * Parses user input into command for execution.
      *
      * @param userInput full user input string
@@ -115,9 +126,7 @@ public class AddressBookParser {
             return new DeleteTagCommandParser().parse(arguments);
 
         default:
-            String recommended = LanguageUtil.getClosestCommand(commandWord);
-            throw new ParseException(MESSAGE_UNKNOWN_COMMAND
-            + "\nPerhaps you meant '" + recommended + "' ?");
+            throw new ParseException(getUnknownRecommendedCommand(commandWord));
 
         }
     }
