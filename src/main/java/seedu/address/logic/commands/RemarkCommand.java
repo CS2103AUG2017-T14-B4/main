@@ -11,6 +11,7 @@ import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.person.Address;
+import seedu.address.model.person.Birthday;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
@@ -79,14 +80,16 @@ public class RemarkCommand extends UndoableCommand {
      * @param remark new Remark object to be insert
      * @return a new Readonly person with the remark object
      */
-    private Person addOrChangeRemark(ReadOnlyPerson person, Remark remark) {
+    public static Person addOrChangeRemark(ReadOnlyPerson person, Remark remark) {
         Name updatedName = person.getName();
         Phone updatedPhone = person.getPhone();
         Email updatedEmail = person.getEmail();
         Address updatedAddress = person.getAddress();
+        Birthday updatedBirthday = person.getBirthday();
         Set<Tag> updatedTags = person.getTags();
 
-        return new Person(updatedName, updatedPhone, updatedEmail, updatedAddress, remark, updatedTags);
+        return new Person(updatedName, updatedPhone,
+                updatedEmail, updatedAddress, updatedBirthday, remark, updatedTags);
     }
 
 }
