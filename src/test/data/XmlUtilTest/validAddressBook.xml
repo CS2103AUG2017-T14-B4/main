@@ -5,7 +5,6 @@
         <phone isPrivate="false">9482424</phone>
         <email isPrivate="false">hans@example.com</email>
         <address isPrivate="false">4th street</address>
-        <birthday isPrivate="false">01/01/1991</birthday>
         <remark></remark>
         <birthday>01/01/1991</birthday>
         <favorite></favorite>
@@ -17,7 +16,6 @@
         <address isPrivate="false">81th street</address>
         <birthday isPrivate="false">01/01/1991</birthday>
         <remark></remark>
-        <birthday>01/01/1991</birthday>
         <favorite></favorite>
     </persons>
     <persons>
@@ -27,7 +25,6 @@
         <address isPrivate="false">wall street</address>
         <birthday isPrivate="false">01/01/1991</birthday>
         <remark></remark>
-        <birthday>01/01/1991</birthday>
         <favorite></favorite>
     </persons>
     <persons>
@@ -37,7 +34,6 @@
         <address isPrivate="false">10th street</address>
         <birthday isPrivate="false">01/01/1991</birthday>
         <remark></remark>
-        <birthday>01/01/1991</birthday>
         <favorite></favorite>
     </persons>
     <persons>
@@ -47,7 +43,6 @@
         <address isPrivate="false">michegan ave</address>
         <birthday isPrivate="false">01/01/1991</birthday>
         <remark></remark>
-        <birthday>01/01/1991</birthday>
         <favorite></favorite>
     </persons>
     <persons>
@@ -57,7 +52,6 @@
         <address isPrivate="false">little tokyo</address>
         <birthday isPrivate="false">01/01/1991</birthday>
         <remark></remark>
-        <birthday>01/01/1991</birthday>
         <favorite></favorite>
     </persons>
     <persons>
@@ -67,7 +61,6 @@
         <address isPrivate="false">4th street</address>
         <birthday isPrivate="false">01/01/1991</birthday>
         <remark></remark>
-        <birthday>01/01/1991</birthday>
         <favorite></favorite>
     </persons>
     <persons>
@@ -77,7 +70,6 @@
         <address isPrivate="false">little india</address>
         <birthday isPrivate="false">01/01/1991</birthday>
         <remark></remark>
-        <birthday>01/01/1991</birthday>
         <favorite></favorite>
     </persons>
     <persons>
@@ -87,7 +79,6 @@
         <address isPrivate="false">chicago ave</address>
         <birthday isPrivate="false">01/01/1991</birthday>
         <remark></remark>
-        <birthday>01/01/1991</birthday>
         <favorite></favorite>
     </persons>
 </addressbook>
