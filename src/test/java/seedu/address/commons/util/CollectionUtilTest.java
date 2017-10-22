@@ -119,6 +119,17 @@ public class CollectionUtilTest {
         list1.add(new Tag("friends"));
         list2.add(new Tag("frie"));
         assertMutualOrContain(list1.toSet(), list2.toSet());
+
+        //disjoint
+        list2.add(new Tag("friend"));
+        assertMutualOrContain(list1.toSet(), list2.toSet());
+
+        //return false
+        UniqueTagList list3 = new UniqueTagList();
+        list3.add(new Tag("cs2103"));
+        assertNotMutualOrContain(list1.toSet(), list3.toSet());
+
+
     }
     //@@author
 
@@ -166,5 +177,9 @@ public class CollectionUtilTest {
 
     private void assertMutualOrContain(Set<Tag> s1, Set<Tag> s2) {
         assertTrue(CollectionUtil.mutualOrContains(s1, s2));
+    }
+
+    private void assertNotMutualOrContain(Set<Tag> s1, Set<Tag> s2) {
+        assertFalse(CollectionUtil.mutualOrContains(s1, s2));
     }
 }
