@@ -76,7 +76,7 @@ public class DeleteCommand extends UndoableCommand {
      * @param persons to be deleted
      * @return a String with all details listed
      */
-    private String getSb(ArrayList<ReadOnlyPerson> persons) {
+    public static String getSb(ArrayList<ReadOnlyPerson> persons) {
         StringBuilder sb = new StringBuilder();
         sb.append(MESSAGE_DELETE_PERSON_SUCCESS);
 

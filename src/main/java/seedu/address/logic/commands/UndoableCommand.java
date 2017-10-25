@@ -56,7 +56,7 @@ public abstract class UndoableCommand extends Command {
     /**
      * Creates a string representing the list of person of concern.
      */
-    public void appendPersonList(StringBuilder sb, List<ReadOnlyPerson> persons) {
+    public static void appendPersonList(StringBuilder sb, List<ReadOnlyPerson> persons) {
         for (int i = 0; i < persons.size(); i++) {
             sb.append(i + 1);
             sb.append(". ");
