@@ -11,12 +11,13 @@ import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.DeleteCommand;
+import seedu.address.logic.commands.DeleteGroupCommand;
 import seedu.address.logic.commands.DeleteTagCommand;
 import seedu.address.logic.commands.EditCommand;
 import seedu.address.logic.commands.ExitCommand;
-import seedu.address.logic.commands.GroupingCommand;
 import seedu.address.logic.commands.FavoriteCommand;
 import seedu.address.logic.commands.FindCommand;
+import seedu.address.logic.commands.GroupingCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.HistoryCommand;
 import seedu.address.logic.commands.ListAlphabetCommand;
@@ -25,6 +26,7 @@ import seedu.address.logic.commands.RedoCommand;
 import seedu.address.logic.commands.RemarkCommand;
 import seedu.address.logic.commands.SelectCommand;
 import seedu.address.logic.commands.UndoCommand;
+import seedu.address.logic.commands.ViewGroupsCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 
 /**
@@ -92,6 +94,12 @@ public class AddressBookParser {
 
         case GroupingCommand.COMMAND_WORD:
             return new GroupingCommandParser().parse(arguments);
+
+        case ViewGroupsCommand.COMMAND_WORD:
+            return new ViewGroupsCommand();
+
+        case DeleteGroupCommand.COMMAND_WORD:
+            return new DeleteGroupCommand(arguments);
 
         case ListCommand.COMMAND_WORD:
             return new ListCommand();

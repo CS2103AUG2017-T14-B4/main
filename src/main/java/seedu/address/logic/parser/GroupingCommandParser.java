@@ -14,8 +14,9 @@ import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.logic.commands.GroupingCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 
-import seedu.address.logic.parser.exceptions.ParseException;
-
+/**
+ * Parses the input argument and creates a new GroupingCommand object
+ */
 public class GroupingCommandParser implements Parser<GroupingCommand> {
 
     /**
@@ -61,6 +62,6 @@ public class GroupingCommandParser implements Parser<GroupingCommand> {
             System.out.println("indexes are: " + idx.getZeroBased());
         }
 
-        return new GroupingCommand(indexList);
+        return new GroupingCommand(grpName, indexList);
     }
 }

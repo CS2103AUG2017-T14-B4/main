@@ -55,6 +55,7 @@ public class DeleteCommand extends UndoableCommand {
         for (int i = 0; i < executableIdx.size(); i++) {
             try {
                 model.deletePerson(toDeletePerson.get(i));
+                model.propagateToGroup(toDeletePerson.get(i), null);
             } catch (PersonNotFoundException e) {
                 assert false : "The target person cannot be missing";
             }
@@ -75,16 +76,11 @@ public class DeleteCommand extends UndoableCommand {
      * @param persons to be deleted
      * @return a String with all details listed
      */
-    public static String getSb(ArrayList<ReadOnlyPerson> persons) {
+    private String getSb(ArrayList<ReadOnlyPerson> persons) {
         StringBuilder sb = new StringBuilder();
         sb.append(MESSAGE_DELETE_PERSON_SUCCESS);
 
-        for (int i = 0; i < persons.size(); i++) {
-            sb.append(i + 1);
-            sb.append(". ");
-            sb.append(persons.get(i));
-            sb.append("\n");
-        }
+        appendPersonList(sb, persons);
         return sb.toString();
     }
 }
