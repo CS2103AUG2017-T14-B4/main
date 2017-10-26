@@ -35,18 +35,19 @@
 <li><a href="#listing-all-persons-code-list-code">2.3. Listing all persons : <code>list</code></a></li>
 <li><a href="#editing-a-person-code-edit-code">2.4. Editing a person : <code>edit</code></a></li>
 <li><a href="#locating-persons-by-name-code-find-code">2.5. Locating persons by name: <code>find</code></a></li>
-<li><a href="#searching-all-persons-whose-name-starts-with-a-certain-alphabet-listalp">2.6. Searching all persons whose name starts with a certain alphabet: 'listalp'</a></li>
-<li><a href="#deleting-a-person-code-delete-code">2.7. Deleting a person : <code>delete</code></a></li>
-<li><a href="#favoriting-a-person-code-favorite-code">2.8. Favoriting a person : <code>favorite</code></a></li>
-<li><a href="#selecting-a-person-code-select-code">2.9. Selecting a person : <code>select</code></a></li>
-<li><a href="#remarking-a-person-code-remark-code">2.10. Remarking a person : <code>remark</code></a></li>
-<li><a href="#deleting-tags-from-all-persons-code-deletetag-code">2.11. Deleting tags from all persons : <code>deleteTag</code></a></li>
-<li><a href="#listing-entered-commands-code-history-code">2.12. Listing entered commands : <code>history</code></a></li>
-<li><a href="#undoing-previous-command-code-undo-code">2.13. Undoing previous command : <code>undo</code></a></li>
-<li><a href="#redoing-the-previously-undone-command-code-redo-code">2.14. Redoing the previously undone command : <code>redo</code></a></li>
-<li><a href="#clearing-all-entries-code-clear-code">2.15. Clearing all entries : <code>clear</code></a></li>
-<li><a href="#exiting-the-program-code-exit-code">2.16. Exiting the program : <code>exit</code></a></li>
-<li><a href="#saving-the-data">2.17. Saving the data</a></li>
+<li><a href="#searching-all-persons-whose-name-starts-with-a-certain-alphabet-code-listalp-code">2.6. Searching all persons whose name starts with a certain alphabet: <code>listalp</code></a></li>
+<li><a href="#creating-a-group-code-creategroup-code">2.7. Creating a group: <code>createGroup</code></a></li>
+<li><a href="#deleting-a-person-code-delete-code">2.8. Deleting a person : <code>delete</code></a></li>
+<li><a href="#favoriting-a-person-code-favorite-code">2.9. Favoriting a person : <code>favorite</code></a></li>
+<li><a href="#selecting-a-person-code-select-code">2.10. Selecting a person : <code>select</code></a></li>
+<li><a href="#remarking-a-person-code-remark-code">2.11. Remarking a person : <code>remark</code></a></li>
+<li><a href="#deleting-tags-from-all-persons-code-deletetag-code">2.12. Deleting tags from all persons : <code>deleteTag</code></a></li>
+<li><a href="#listing-entered-commands-code-history-code">2.13. Listing entered commands : <code>history</code></a></li>
+<li><a href="#undoing-previous-command-code-undo-code">2.14. Undoing previous command : <code>undo</code></a></li>
+<li><a href="#redoing-the-previously-undone-command-code-redo-code">2.15. Redoing the previously undone command : <code>redo</code></a></li>
+<li><a href="#clearing-all-entries-code-clear-code">2.16. Clearing all entries : <code>clear</code></a></li>
+<li><a href="#exiting-the-program-code-exit-code">2.17. Exiting the program : <code>exit</code></a></li>
+<li><a href="#saving-the-data">2.18. Saving the data</a></li>
 </ul>
 </li>
 <li><a href="#faq">3. FAQ</a></li>
@@ -315,7 +316,7 @@ Returns any person having tags <code>cs2103</code></p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="searching-all-persons-whose-name-starts-with-a-certain-alphabet-listalp"><a class="link" href="#searching-all-persons-whose-name-starts-with-a-certain-alphabet-listalp">2.6. Searching all persons whose name starts with a certain alphabet: 'listalp'</a></h3>
+<h3 id="searching-all-persons-whose-name-starts-with-a-certain-alphabet-code-listalp-code"><a class="link" href="#searching-all-persons-whose-name-starts-with-a-certain-alphabet-code-listalp-code">2.6. Searching all persons whose name starts with a certain alphabet: <code>listalp</code></a></h3>
 <div class="paragraph">
 <p>Finds persons whose names start with the given alphabet.<br>
 Format: 'listalp ALPHABET'</p>
@@ -333,10 +334,63 @@ Format: 'listalp ALPHABET'</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="deleting-a-person-code-delete-code"><a class="link" href="#deleting-a-person-code-delete-code">2.7. Deleting a person : <code>delete</code></a></h3>
+<h3 id="creating-a-group-code-creategroup-code"><a class="link" href="#creating-a-group-code-creategroup-code">2.7. Creating a group: <code>createGroup</code></a></h3>
+<div class="paragraph">
+<p>Creates a group including a list of person from the address book.<br>
+Format: <code>createGroup GROUP_NAME INDEX [INDEX]&#8230;&#8203;</code></p>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="ulist">
+<ul>
+<li>
+<p>Creates the group with group name <code>GROUP_NAME</code> including the list of people specified by <code>INDEX</code> s.</p>
+</li>
+<li>
+<p>Group name cannot be empty.</p>
+</li>
+<li>
+<p>Creating group with group name already existent in the addressbook will fail.</p>
+</li>
+<li>
+<p>The index refers to the index number shown in the most recent listing.</p>
+</li>
+<li>
+<p>The index <strong>must be a positive integer</strong> 1, 2, 3, &#8230;&#8203;</p>
+</li>
+<li>
+<p>There must be <strong>at least one</strong> index to successfully create the group.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p>Examples:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>createGroup SoSmart 1 3 5</code><br>
+Creates the group of group name SoSmart with the 1st, 3rd and 5th person in the current view.</p>
+</li>
+<li>
+<p><code>createGroup SoSmart 1 3 5</code><br>
+<code>createGroup SoSmart 2 4</code><br>
+Operation fails because group <code>SoSmart</code> already exists in the address book.</p>
+</li>
+<li>
+<p><code>createGroup YouSmart?</code><br>
+Operation fails because no <code>index</code> is provided.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="deleting-a-person-code-delete-code"><a class="link" href="#deleting-a-person-code-delete-code">2.8. Deleting a person : <code>delete</code></a></h3>
 <div class="paragraph">
 <p>Deletes the specified person from the address book.<br>
-Format: <code>delete INDEX [INDEX]</code></p>
+Format: <code>delete INDEX [INDEX]&#8230;&#8203;</code></p>
 </div>
 <div class="sidebarblock">
 <div class="content">
@@ -381,7 +435,7 @@ Deletes the 1st, 3rd, 7th person in the results of the <code>find</code> command
 </div>
 </div>
 <div class="sect2">
-<h3 id="favoriting-a-person-code-favorite-code"><a class="link" href="#favoriting-a-person-code-favorite-code">2.8. Favoriting a person : <code>favorite</code></a></h3>
+<h3 id="favoriting-a-person-code-favorite-code"><a class="link" href="#favoriting-a-person-code-favorite-code">2.9. Favoriting a person : <code>favorite</code></a></h3>
 <div class="paragraph">
 <p>Favorites the specified person from the address book so they will appear on top of the contact list.<br>
 Format: <code>favorite INDEX</code></p>
@@ -422,7 +476,7 @@ Favorite the 1st person in the results of the <code>find</code> command.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="selecting-a-person-code-select-code"><a class="link" href="#selecting-a-person-code-select-code">2.9. Selecting a person : <code>select</code></a></h3>
+<h3 id="selecting-a-person-code-select-code"><a class="link" href="#selecting-a-person-code-select-code">2.10. Selecting a person : <code>select</code></a></h3>
 <div class="paragraph">
 <p>Selects the person identified by the index number used in the last person listing.<br>
 Format: <code>select INDEX</code></p>
@@ -463,21 +517,21 @@ Selects the 1st person in the results of the <code>find</code> command.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="remarking-a-person-code-remark-code"><a class="link" href="#remarking-a-person-code-remark-code">2.10. Remarking a person : <code>remark</code></a></h3>
+<h3 id="remarking-a-person-code-remark-code"><a class="link" href="#remarking-a-person-code-remark-code">2.11. Remarking a person : <code>remark</code></a></h3>
 <div class="paragraph">
 <p>Add a remark to a person in the contact list.<br>
 Format: <code>edit INDEX [r/REMARK]</code></p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="deleting-tags-from-all-persons-code-deletetag-code"><a class="link" href="#deleting-tags-from-all-persons-code-deletetag-code">2.11. Deleting tags from all persons : <code>deleteTag</code></a></h3>
+<h3 id="deleting-tags-from-all-persons-code-deletetag-code"><a class="link" href="#deleting-tags-from-all-persons-code-deletetag-code">2.12. Deleting tags from all persons : <code>deleteTag</code></a></h3>
 <div class="paragraph">
 <p>Delete one specific tag from all persons in the contact list.<br>
 Format: <code>deleteTag [KEYWORD]</code></p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="listing-entered-commands-code-history-code"><a class="link" href="#listing-entered-commands-code-history-code">2.12. Listing entered commands : <code>history</code></a></h3>
+<h3 id="listing-entered-commands-code-history-code"><a class="link" href="#listing-entered-commands-code-history-code">2.13. Listing entered commands : <code>history</code></a></h3>
 <div class="paragraph">
 <p>Lists all the commands that you have entered in reverse chronological order.<br>
 Format: <code>history</code></p>
@@ -498,7 +552,7 @@ Format: <code>history</code></p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="undoing-previous-command-code-undo-code"><a class="link" href="#undoing-previous-command-code-undo-code">2.13. Undoing previous command : <code>undo</code></a></h3>
+<h3 id="undoing-previous-command-code-undo-code"><a class="link" href="#undoing-previous-command-code-undo-code">2.14. Undoing previous command : <code>undo</code></a></h3>
 <div class="paragraph">
 <p>Restores the address book to the state before the <em>undoable</em> commands were executed, specified by the the number of commands to undo<br>
 Format: <code>undo [STEPS]</code><br>
@@ -551,7 +605,7 @@ The <code>undo</code> command fails as there are no undoable commands executed p
 </div>
 </div>
 <div class="sect2">
-<h3 id="redoing-the-previously-undone-command-code-redo-code"><a class="link" href="#redoing-the-previously-undone-command-code-redo-code">2.14. Redoing the previously undone command : <code>redo</code></a></h3>
+<h3 id="redoing-the-previously-undone-command-code-redo-code"><a class="link" href="#redoing-the-previously-undone-command-code-redo-code">2.15. Redoing the previously undone command : <code>redo</code></a></h3>
 <div class="paragraph">
 <p>Reverses the most recent <code>undo</code> command.<br>
 Format: <code>redo</code></p>
@@ -583,21 +637,21 @@ The <code>redo</code> command fails as there are no <code>undo</code> commands e
 </div>
 </div>
 <div class="sect2">
-<h3 id="clearing-all-entries-code-clear-code"><a class="link" href="#clearing-all-entries-code-clear-code">2.15. Clearing all entries : <code>clear</code></a></h3>
+<h3 id="clearing-all-entries-code-clear-code"><a class="link" href="#clearing-all-entries-code-clear-code">2.16. Clearing all entries : <code>clear</code></a></h3>
 <div class="paragraph">
 <p>Clears all entries from the address book.<br>
 Format: <code>clear</code></p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="exiting-the-program-code-exit-code"><a class="link" href="#exiting-the-program-code-exit-code">2.16. Exiting the program : <code>exit</code></a></h3>
+<h3 id="exiting-the-program-code-exit-code"><a class="link" href="#exiting-the-program-code-exit-code">2.17. Exiting the program : <code>exit</code></a></h3>
 <div class="paragraph">
 <p>Exits the program.<br>
 Format: <code>exit</code></p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="saving-the-data"><a class="link" href="#saving-the-data">2.17. Saving the data</a></h3>
+<h3 id="saving-the-data"><a class="link" href="#saving-the-data">2.18. Saving the data</a></h3>
 <div class="paragraph">
 <p>Address book data are saved in the hard disk automatically after any command that changes the data.<br>
 There is no need to save manually.</p>
@@ -670,7 +724,7 @@ e.g.<code>select 2</code></p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2017-10-25 17:29:35 +00:00
+Last updated 2017-10-26 03:39:50 +00:00
 </div>
 </div>
 </body>

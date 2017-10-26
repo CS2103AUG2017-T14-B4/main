@@ -52,7 +52,8 @@
 <li><a href="#logging">3.3. Logging</a></li>
 <li><a href="#configuration">3.4. Configuration</a></li>
 <li><a href="#storage-with-back-up">3.5. Storage with back up</a></li>
-<li><a href="#favorite">3.6. Favorite</a></li>
+<li><a href="#grouping">3.6. Grouping</a></li>
+<li><a href="#favorite">3.7. Favorite</a></li>
 </ul>
 </li>
 <li><a href="#birthday-detail">4. Birthday Detail</a>
@@ -902,7 +903,42 @@ If the <code>redoStack</code> is empty, then there are no other commands left to
 </div>
 </div>
 <div class="sect2">
-<h3 id="favorite"><a class="link" href="#favorite">3.6. Favorite</a></h3>
+<h3 id="grouping"><a class="link" href="#grouping">3.6. Grouping</a></h3>
+<div class="paragraph">
+<p>The grouping function is created to allow user to better organise his contacts.
+This is achieved by introducing <code>UniqueGroupList</code> into the <code>addressbook</code>, which is a list of <code>Group</code> objects.</p>
+</div>
+<div class="paragraph">
+<p><code>Group</code> objects are extensions of <code>UniquePersonList</code>, and contain all information of <code>Person</code> objects seperately
+from <code>UniquePersonList</code> in <code>addressbook</code> as a result of current implementation of <code>UniquePersonList</code>, which does
+not return direct reference to <code>Person</code> objects of interest.</p>
+</div>
+<div class="paragraph">
+<p>As <code>Person</code> in a <code>Group</code> and the corresponding <code>Person</code> in the <code>addressbook</code> are seperately kept, synchronization
+is done to all operations that cause a change in existing <code>Person</code> to propagate the changes down to <code>Group</code>.</p>
+</div>
+<div class="paragraph">
+<p>Code snippet demonstrating propagation of change using EditCommand as an example:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="java"><span class="directive">public</span> CommandResult executeUndoableCommand() <span class="directive">throws</span> CommandException {
+    ...
+    try {
+        model.updatePerson(personToEdit, editedPerson);
+        model.propagateToGroup(personToEdit, editedPerson);
+    } <span class="keyword">catch</span> (DuplicatePersonException dpe) {
+        <span class="keyword">throw</span> <span class="keyword">new</span> CommandException(MESSAGE_DUPLICATE_PERSON);
+    } <span class="keyword">catch</span> (PersonNotFoundException pnfe) {
+        <span class="keyword">throw</span> <span class="keyword">new</span> <span class="exception">AssertionError</span>(<span class="string"><span class="delimiter">&quot;</span><span class="content">The target person cannot be missing</span><span class="delimiter">&quot;</span></span>);
+    }
+    ....
+}</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="favorite"><a class="link" href="#favorite">3.7. Favorite</a></h3>
 <div class="paragraph">
 <p>The Favorite function is created for frequent users who have have certain "close contacts" and
 want the contacts on top of their list for the ease of access.
@@ -919,7 +955,7 @@ In order to implement such feature, two things need to be implemented:</p>
 </ul>
 </div>
 <div class="sect3">
-<h4 id="favorite-class"><a class="link" href="#favorite-class">3.6.1. Favorite class</a></h4>
+<h4 id="favorite-class"><a class="link" href="#favorite-class">3.7.1. Favorite class</a></h4>
 <div class="paragraph">
 <p>A favorite class is implemented and used by Person class. A person object does not construct with a favorite object but it is
 able to setFavorite a new favorite object.
@@ -964,7 +1000,7 @@ favorited. The labels are <code>setGraphic</code> to followed image:</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="sorting"><a class="link" href="#sorting">3.6.2. Sorting</a></h4>
+<h4 id="sorting"><a class="link" href="#sorting">3.7.2. Sorting</a></h4>
 <div class="paragraph">
 <p>A sorting algorithm needs to be implemented for the <code>UniquePersonList</code> of the <code>Model</code> Component.
 Fortunately, it can be easily done with <code>List.sort()</code> and  <code>Java predicate</code>. The priority of sorting is such that
@@ -990,7 +1026,7 @@ Edit a person, Add a person or Favorite a person.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="design-considerations-2"><a class="link" href="#design-considerations-2">3.6.3. Design Considerations</a></h4>
+<h4 id="design-considerations-2"><a class="link" href="#design-considerations-2">3.7.3. Design Considerations</a></h4>
 <div class="paragraph">
 <p><strong>Aspect:</strong> Where sorting should occurs<br>
 <strong>Alternative 1 (current choice):</strong> On the lowest layer of <code>Model</code>, which is <code>UniquePersonList</code><br>
@@ -2311,7 +2347,7 @@ for <code>RemarkCommandParser</code>.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2017-10-25 17:29:35 +00:00
+Last updated 2017-10-26 03:39:50 +00:00
 </div>
 </div>
 </body>
