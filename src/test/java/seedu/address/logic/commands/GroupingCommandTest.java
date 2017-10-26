@@ -6,7 +6,6 @@ import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
 
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -53,7 +52,7 @@ public class GroupingCommandTest {
     }
 
     @Test
-    public void execute_newGroup_someIndexOutofBound_success() {
+    public void execute_newGroupSomeIndexOutOfBound_success() {
         List<Index> testIndexes = new ArrayList<>();
         testIndexes.add(Index.fromOneBased(1));
         testIndexes.add(Index.fromOneBased(20));
@@ -91,7 +90,7 @@ public class GroupingCommandTest {
     }
 
     @Test
-    public void execute_addNewGroup_noValidIndex_failure() {
+    public void execute_addNewGroupNoValidIndex_failure() {
         List<Index> testIndexes = new ArrayList<>();
         testIndexes.add(Index.fromOneBased(9));
         testIndexes.add(Index.fromOneBased(10));
@@ -130,6 +129,12 @@ public class GroupingCommandTest {
 
     }
 
+    /**
+     * helper function to create a grouping command
+     * @param grpName
+     * @param index of people to include in the group
+     * @return the grouping command
+     */
     private GroupingCommand prepareCommand(String grpName, List<Index> index) {
         //testIndexes.clear();
         GroupingCommand grpCommand = new GroupingCommand(grpName, index);
