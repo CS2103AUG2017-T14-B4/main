@@ -72,7 +72,7 @@ public class GroupingCommand extends UndoableCommand {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof GroupingCommand // instanceof handles nulls
-                && this.targetIdxs.equals(((GroupingCommand) other).targetIdxs)); // state check
+                && this.groupName.equals(((GroupingCommand) other).groupName)); // state check
     }
 
     /**
@@ -80,7 +80,7 @@ public class GroupingCommand extends UndoableCommand {
      * @param persons to be deleted
      * @return a String with all details listed
      */
-    private String getSb(String grpName, List<ReadOnlyPerson> persons) {
+    public static String getSb(String grpName, List<ReadOnlyPerson> persons) {
         StringBuilder sb = new StringBuilder();
         sb.append(String.format(MESSAGE_GROUPING_PERSON_SUCCESS, grpName));
 

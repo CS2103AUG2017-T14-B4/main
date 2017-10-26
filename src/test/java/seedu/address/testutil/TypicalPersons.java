@@ -16,7 +16,10 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import seedu.address.logic.commands.GroupingCommand;
 import seedu.address.model.AddressBook;
+import seedu.address.model.group.DuplicateGroupException;
+import seedu.address.model.group.Group;
 import seedu.address.model.person.ReadOnlyPerson;
 import seedu.address.model.person.exceptions.DuplicatePersonException;
 
@@ -82,6 +85,25 @@ public class TypicalPersons {
                 assert false : "not possible";
             }
         }
+        List<ReadOnlyPerson> testGrpPersons = new ArrayList<>();
+        testGrpPersons.add(HOON);
+        testGrpPersons.add(IDA);
+        try {
+            ab.addGroup("testGrp1", testGrpPersons);
+        } catch (DuplicateGroupException e) {
+            assert false : "not possible";
+        }
+
+        testGrpPersons.clear();
+        testGrpPersons.add(HOON);
+        testGrpPersons.add(ALICE);
+        testGrpPersons.add(AMY);
+        try {
+            ab.addGroup("testGrp2", testGrpPersons);
+        } catch (DuplicateGroupException e) {
+            assert false : "not possible";
+        }
+
         return ab;
     }
 
