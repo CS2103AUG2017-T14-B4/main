@@ -57,7 +57,7 @@ public class DeleteCommand extends UndoableCommand {
         for (int i = 0; i < executableIdx.size(); i++) {
             try {
                 model.deletePerson(toDeletePerson.get(i));
-                model.propagateToGroup(toDeletePerson.get(i), null);
+                model.propagateToGroup(toDeletePerson.get(i), null, this.getClass());
             } catch (PersonNotFoundException e) {
                 assert false : "The target person cannot be missing";
             }

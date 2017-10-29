@@ -27,7 +27,8 @@ import seedu.address.logic.commands.RemarkCommand;
 import seedu.address.logic.commands.SelectCommand;
 import seedu.address.logic.commands.SortCommand;
 import seedu.address.logic.commands.UndoCommand;
-import seedu.address.logic.commands.ViewGroupsCommand;
+import seedu.address.logic.commands.ListGroupsCommand;
+import seedu.address.logic.commands.ViewGroupCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 
 /**
@@ -99,11 +100,14 @@ public class AddressBookParser {
         case GroupingCommand.COMMAND_WORD:
             return new GroupingCommandParser().parse(arguments);
 
-        case ViewGroupsCommand.COMMAND_WORD:
-            return new ViewGroupsCommand();
+        case ListGroupsCommand.COMMAND_WORD:
+            return new ListGroupsCommand();
 
         case DeleteGroupCommand.COMMAND_WORD:
             return new DeleteGroupCommand(arguments);
+
+        case ViewGroupCommand.COMMAND_WORD:
+            return new ViewGroupCommandParser().parse(arguments);
 
         case ListCommand.COMMAND_WORD:
             return new ListCommand();

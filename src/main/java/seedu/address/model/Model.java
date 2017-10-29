@@ -68,7 +68,7 @@ public interface Model {
     /**
      * Propagates the edit to group list
      */
-    void propagateToGroup(ReadOnlyPerson personToEdit, Person editedPerson);
+    void propagateToGroup(ReadOnlyPerson personToEdit, Person editedPerson, Class commandClass);
 
     /**
      * Deletes the group from group list

@@ -9,9 +9,9 @@ import seedu.address.model.group.Group;
  * Shows all groups in the addressbook
  * a temporary implementation
  */
-public class ViewGroupsCommand extends Command {
+public class ListGroupsCommand extends Command {
 
-    public static final String COMMAND_WORD = "viewGroups";
+    public static final String COMMAND_WORD = "listGroups";
 
     public static final String MESSAGE_SUCCESS = "Listing all groups:\n";
 
@@ -25,10 +25,16 @@ public class ViewGroupsCommand extends Command {
         }
         StringBuilder sb = new StringBuilder();
         sb.append(MESSAGE_SUCCESS);
-        model.getAddressBook().getGroupList().forEach(group -> {
-            sb.append(group.getGrpName());
-            sb.append("\n");
-        });
+
+        int grpListSize = model.getAddressBook().getGroupList().size();
+
+        for (int i = 1; i <= grpListSize; i++) {
+            sb.append(i + ". ");
+            sb.append(model.getAddressBook().getGroupList().get(i-1).getGrpName());
+            if (i != grpListSize) {
+                sb.append("\n");
+            }
+        }
         return new CommandResult(sb.toString());
     }
 }

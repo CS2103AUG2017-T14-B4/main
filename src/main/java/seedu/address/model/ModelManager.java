@@ -92,10 +92,10 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     @Override
-    public void propagateToGroup(ReadOnlyPerson personToEdit, Person editedPerson) {
+    public void propagateToGroup(ReadOnlyPerson personToEdit, Person editedPerson, Class commandClass) {
         requireNonNull(personToEdit);
 
-        addressBook.checkPersonInGroupList(personToEdit, editedPerson);
+        addressBook.checkPersonInGroupList(personToEdit, editedPerson, commandClass);
         indicateAddressBookChanged();
     }
 

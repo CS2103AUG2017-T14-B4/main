@@ -10,6 +10,9 @@ import java.util.Objects;
 import java.util.Set;
 
 import javafx.collections.ObservableList;
+import seedu.address.logic.commands.DeleteCommand;
+import seedu.address.logic.commands.DeleteGroupCommand;
+import seedu.address.logic.commands.FavoriteCommand;
 import seedu.address.model.group.DuplicateGroupException;
 import seedu.address.model.group.Group;
 import seedu.address.model.group.UniqueGroupList;
@@ -253,9 +256,18 @@ public class AddressBook implements ReadOnlyAddressBook {
      * @param personToEdit original person to be updated
      * @param editedPerson the person to update to. If null, it is a deletion
      */
-    public void checkPersonInGroupList(ReadOnlyPerson personToEdit, Person editedPerson) {
-        // special condition for deletion of person
-        if (editedPerson == null) {
+    public void checkPersonInGroupList(ReadOnlyPerson personToEdit, Person editedPerson, Class commandClass) {
+        if (commandClass.equals(FavoriteCommand.class)) {
+            this.groups.forEach(group -> {
+                if (group.contains(personToEdit)) {
+                    try {
+                        group.favorite(personToEdit);
+                    } catch (PersonNotFoundException pnfe) {
+                        throw new AssertionError("The target person cannot be missing");
+                    }
+                }
+            });
+        } else if (commandClass.equals(DeleteCommand.class)) {
             this.groups.forEach(group -> {
                 if (group.contains(personToEdit)) {
                     try {

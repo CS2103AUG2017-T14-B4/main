@@ -45,6 +45,7 @@ public class FavoriteCommand extends UndoableCommand {
         ReadOnlyPerson personToFavorite = lastShownList.get(targetIndex.getZeroBased());
         try {
             model.favoritePerson(personToFavorite);
+            model.propagateToGroup(personToFavorite, null, this.getClass());
         } catch (PersonNotFoundException pnfe) {
             assert false : "The target person cannot be missing";
         }
