@@ -63,7 +63,7 @@ public class AddressBook implements ReadOnlyAddressBook {
         this.persons.setPersons(persons);
     }
 
-    public void setGroups(List<? extends Group> groups) throws DuplicateGroupException {
+    public void setGroups(List<? extends Group> groups) throws DuplicateGroupException, DuplicatePersonException {
         this.groups.setGroups(groups);
     }
 
@@ -117,7 +117,7 @@ public class AddressBook implements ReadOnlyAddressBook {
         Group newGroup = new Group(groupName);
         personToGroup.forEach(person -> {
             try {
-                newGroup.add(person);
+                newGroup.add(new Person(person));
             } catch (DuplicatePersonException e) {
                 throw new AssertionError("Shouldn't exist duplicate person");
             }

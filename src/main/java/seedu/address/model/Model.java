@@ -75,4 +75,10 @@ public interface Model {
      * @param grpToDelete
      */
     void deleteGroup(Group grpToDelete);
+
+    void setGrpName(Group targetGrp, String detail);
+
+    void addPersonToGroup(Group targetGrp, ReadOnlyPerson targetPerson) throws DuplicatePersonException;
+
+    void removePersonFromGroup(Group targetGrp, ReadOnlyPerson targetPerson) throws PersonNotFoundException;
 }

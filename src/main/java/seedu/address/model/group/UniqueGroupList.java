@@ -8,6 +8,7 @@ import java.util.List;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import seedu.address.model.person.exceptions.DuplicatePersonException;
 
 /**
  * A list of groups that enforces uniqueness between its elements and does not allow nulls.
@@ -63,10 +64,10 @@ public class UniqueGroupList implements Iterable<Group> {
         return FXCollections.unmodifiableObservableList(internalList);
     }
 
-    public void setGroups(List<? extends Group> groups) throws DuplicateGroupException {
+    public void setGroups(List<? extends Group> groups) throws DuplicateGroupException, DuplicatePersonException {
         final UniqueGroupList replacement = new UniqueGroupList();
         for (final Group grp : groups) {
-            replacement.add(grp);
+            replacement.add(new Group(grp));
         }
         this.internalList.setAll(replacement.internalList);
         sort();

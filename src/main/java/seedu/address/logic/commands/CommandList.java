@@ -30,6 +30,7 @@ public class CommandList {
         commandList.add(ListGroupsCommand.COMMAND_WORD);
         commandList.add(DeleteGroupCommand.COMMAND_WORD);
         commandList.add(ViewGroupCommand.COMMAND_WORD);
+        commandList.add(EditGroupCommand.COMMAND_WORD);
     }
 
     public ArrayList<String> getCommandList() {

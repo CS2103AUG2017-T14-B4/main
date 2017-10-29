@@ -100,10 +100,36 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     @Override
-    public void deleteGroup(Group grpToDelete) {
+    public synchronized void deleteGroup(Group grpToDelete) {
         requireNonNull(grpToDelete);
 
         addressBook.removeGroup(grpToDelete);
+        indicateAddressBookChanged();
+    }
+
+    @Override
+    public synchronized void setGrpName(Group targetGrp, String newName) {
+        requireAllNonNull(targetGrp, newName);
+
+        targetGrp.setGrpName(newName);
+        indicateAddressBookChanged();
+    }
+
+    @Override
+    public synchronized void addPersonToGroup(Group targetGrp, ReadOnlyPerson targetPerson) throws DuplicatePersonException {
+        requireAllNonNull(targetGrp, targetPerson);
+
+        targetGrp.add(targetPerson);
+
+        indicateAddressBookChanged();
+    }
+
+    @Override
+    public synchronized void removePersonFromGroup(Group targetGrp, ReadOnlyPerson targetPerson) throws PersonNotFoundException {
+        requireAllNonNull(targetGrp, targetPerson);
+
+        targetGrp.remove(targetPerson);
+
         indicateAddressBookChanged();
     }
 
