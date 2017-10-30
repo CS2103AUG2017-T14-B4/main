@@ -1,5 +1,6 @@
 package seedu.address.logic.commands;
 
+import static seedu.address.commons.core.Messages.MESSAGE_EXECUTION_FAILURE;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import seedu.address.logic.CommandHistory;
@@ -43,7 +44,7 @@ public class UndoCommand extends Command {
         while (steps > 0) {
             if (!undoRedoStack.canUndo()) {
                 if (occurence == 0) {
-                    throw new CommandException(MESSAGE_FAILURE);
+                    throw new CommandException(MESSAGE_EXECUTION_FAILURE, MESSAGE_FAILURE);
                 } else {
                     return new CommandResult(MESSAGE_SUCCESS);
                 }

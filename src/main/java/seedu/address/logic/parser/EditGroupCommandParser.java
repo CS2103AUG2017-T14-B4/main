@@ -27,8 +27,7 @@ public class EditGroupCommandParser implements Parser<EditGroupCommand> {
         requireNonNull(userInput);
         userInput = userInput.trim();
         if (userInput.equals("")) {
-            throw new ParseException(
-                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditGroupCommand.MESSAGE_USAGE));
+            throw new ParseException(MESSAGE_INVALID_COMMAND_FORMAT, EditGroupCommand.MESSAGE_USAGE);
         }
 
         List<String> argsList = Arrays.asList(userInput.split(" "));
@@ -51,11 +50,9 @@ public class EditGroupCommandParser implements Parser<EditGroupCommand> {
                 }
             }
         } catch (IndexOutOfBoundsException e) {
-            throw new ParseException(
-                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditGroupCommand.MESSAGE_USAGE));
+            throw new ParseException(MESSAGE_INVALID_COMMAND_FORMAT, EditGroupCommand.MESSAGE_USAGE);
         } catch (Exception e) {
-            throw new ParseException(
-                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditGroupCommand.MESSAGE_USAGE));
+            throw new ParseException(MESSAGE_INVALID_COMMAND_FORMAT, EditGroupCommand.MESSAGE_USAGE);
         }
 
         return new EditGroupCommand(grpName, operation, detail);

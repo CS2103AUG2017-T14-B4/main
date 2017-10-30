@@ -1,5 +1,6 @@
 package seedu.address.logic.commands;
 
+import static seedu.address.commons.core.Messages.MESSAGE_EXECUTION_FAILURE;
 import static seedu.address.logic.commands.UndoableCommand.appendPersonList;
 
 import java.util.List;
@@ -44,7 +45,7 @@ public class ViewGroupCommand extends Command {
                 System.out.println(index.getZeroBased() + "\n" + grpList.size());
                 return new CommandResult(personListAsString(grpToView));
             } catch (IndexOutOfBoundsException e) {
-                throw new CommandException(Messages.MESSAGE_INVALID_GROUP_DISPLAYED_INDEX);
+                throw new CommandException(MESSAGE_EXECUTION_FAILURE, Messages.MESSAGE_INVALID_GROUP_DISPLAYED_INDEX);
             }
         } else { //either index or grpName should be non-null
             for (int i = 0; i < grpList.size(); i++) {
@@ -53,7 +54,7 @@ public class ViewGroupCommand extends Command {
                 }
             }
         }
-        throw new CommandException(MESSAGE_GROUP_NONEXISTENT);
+        throw new CommandException(MESSAGE_EXECUTION_FAILURE, MESSAGE_GROUP_NONEXISTENT);
     }
 
     private String personListAsString(Group grpToView) {

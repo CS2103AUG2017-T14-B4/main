@@ -1,6 +1,8 @@
 /** @@author: Junting **/
 package seedu.address.logic.commands;
 
+import static seedu.address.commons.core.Messages.MESSAGE_EXECUTION_FAILURE;
+
 import java.util.List;
 import java.util.Set;
 
@@ -79,9 +81,9 @@ public class DeleteTagCommand extends Command {
                 model.updatePerson(originalPerson, newPerson);
                 model.propagateToGroup(originalPerson, newPerson, this.getClass());
             } catch (DuplicatePersonException dpe) {
-                throw new CommandException("duplicate person found in addressbook");
+                throw new CommandException(MESSAGE_EXECUTION_FAILURE, "Duplicate person found in addressbook");
             } catch (PersonNotFoundException pnfe) {
-                throw new CommandException("person not found exception");
+                throw new CommandException(MESSAGE_EXECUTION_FAILURE, "Person not found exception");
             }
         }
         return isTagDeleted;

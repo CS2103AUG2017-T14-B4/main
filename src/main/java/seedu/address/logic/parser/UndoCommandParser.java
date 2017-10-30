@@ -26,8 +26,7 @@ public class UndoCommandParser implements Parser<UndoCommand> {
                 int steps = ParserUtil.parseInt(args);
                 return new UndoCommand(steps);
             } catch (IllegalValueException ive) {
-                throw new ParseException(
-                        String.format(MESSAGE_INVALID_COMMAND_FORMAT, UndoCommand.MESSAGE_USAGE));
+                throw new ParseException(MESSAGE_INVALID_COMMAND_FORMAT, UndoCommand.MESSAGE_USAGE);
             }
         }
     }

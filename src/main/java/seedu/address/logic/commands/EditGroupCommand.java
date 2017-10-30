@@ -1,5 +1,7 @@
 package seedu.address.logic.commands;
 
+import static seedu.address.commons.core.Messages.MESSAGE_EXECUTION_FAILURE;
+
 import java.util.List;
 
 import seedu.address.commons.core.Messages;
@@ -24,7 +26,7 @@ public class EditGroupCommand extends UndoableCommand {
             + "OR: GROUP_NAME add INDEX\n"
             + "OR: GROUP_NAME delete INDEX\n"
             + "Examples: " + COMMAND_WORD + " SmartOnes grpName SuperSmartOnes\n"
-            + COMMAND_WORD + " SmartOnes add 3"
+            + COMMAND_WORD + " SmartOnes add 3\n"
             + COMMAND_WORD + " SmartOnes delete 4";
 
     public static final String MESSAGE_ADD_PERSON_SUCCESS = "Added person to group '%s':\n'%s'";
@@ -59,7 +61,7 @@ public class EditGroupCommand extends UndoableCommand {
         }
 
         if (targetGrp == null) {
-            throw new CommandException(MESSAGE_GROUP_NONEXISTENT);
+            throw new CommandException(MESSAGE_EXECUTION_FAILURE, MESSAGE_GROUP_NONEXISTENT);
         }
 
         // use 'detail' differently according to operation type
@@ -79,7 +81,7 @@ public class EditGroupCommand extends UndoableCommand {
         } else {
             ReadOnlyPerson targetPerson;
             Person copiedPerson;
-            if (operation.equals("add")) {
+            if (operation.equals("add")) { //add operation
 
                 List<ReadOnlyPerson> lastShownList = model.getFilteredPersonList();
                 if (idx.getZeroBased() >= lastShownList.size()) {
@@ -94,11 +96,11 @@ public class EditGroupCommand extends UndoableCommand {
                 } catch (DuplicatePersonException e) {
                     throw new CommandException(MESSAGE_DUPLICATE_PERSON);
                 }
-            } else {
+            } else { //delete operation
 
                 List<ReadOnlyPerson> grpPersonList = targetGrp.getPersonList();
                 if (idx.getZeroBased() >= grpPersonList.size()) {
-                    throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+                    throw new CommandException(MESSAGE_EXECUTION_FAILURE, Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
                 }
                 targetPerson = grpPersonList.get(idx.getZeroBased());
                 copiedPerson = new Person(targetPerson);

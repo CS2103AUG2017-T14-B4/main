@@ -1,5 +1,7 @@
 package seedu.address.logic.commands;
 
+import static seedu.address.commons.core.Messages.MESSAGE_EXECUTION_FAILURE;
+
 import java.util.List;
 
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -35,7 +37,7 @@ public class DeleteGroupCommand extends UndoableCommand {
             model.deleteGroup(grpToDelete);
             return new CommandResult(String.format(MESSAGE_DELETE_GROUP_SUCCESS, groupName));
         } else {
-            throw new CommandException(String.format(MESSAGE_NONEXISTENT_GROUP, groupName));
+            throw new CommandException(MESSAGE_EXECUTION_FAILURE, String.format(MESSAGE_NONEXISTENT_GROUP, groupName));
         }
 
     }

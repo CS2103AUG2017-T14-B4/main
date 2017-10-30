@@ -21,7 +21,7 @@ public class ListGroupsCommand extends Command {
     public CommandResult execute() throws CommandException {
         List<Group> groupList = model.getAddressBook().getGroupList();
         if (groupList.size() == 0) {
-            throw new CommandException(MESSAGE_EMPTY_GROUP_LIST);
+            return new CommandResult(MESSAGE_EMPTY_GROUP_LIST);
         }
         StringBuilder sb = new StringBuilder();
         sb.append(MESSAGE_SUCCESS);

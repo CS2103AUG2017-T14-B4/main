@@ -1,5 +1,6 @@
 package seedu.address.logic.commands;
 
+import static seedu.address.commons.core.Messages.MESSAGE_EXECUTION_FAILURE;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 
 import java.util.ArrayList;
@@ -51,7 +52,7 @@ public class GroupingCommand extends UndoableCommand {
         }
 
         if (!hasExecutableIdx) {
-            throw new CommandException(Messages.MESSAGE_INVALID_PERSON_INDEX_ALL);
+            throw new CommandException(MESSAGE_EXECUTION_FAILURE, Messages.MESSAGE_INVALID_PERSON_INDEX_ALL);
         }
 
         List<ReadOnlyPerson> personToGroup = new ArrayList<>();
@@ -60,7 +61,7 @@ public class GroupingCommand extends UndoableCommand {
         try {
             model.createGroup(groupName, personToGroup);
         } catch (DuplicateGroupException e) {
-            throw new CommandException(MESSAGE_DUPLICATE_GROUP_NAME);
+            throw new CommandException(MESSAGE_EXECUTION_FAILURE, MESSAGE_DUPLICATE_GROUP_NAME);
         }
 
         model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);

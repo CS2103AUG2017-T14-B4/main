@@ -37,8 +37,7 @@ public class GroupingCommandParser implements Parser<GroupingCommand> {
             grpName = argsList.get(0);
             indStrList = argsList.subList(1, argsList.size());
         } else {
-            throw new ParseException(
-                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, GroupingCommand.MESSAGE_USAGE));
+            throw new ParseException(MESSAGE_INVALID_COMMAND_FORMAT, GroupingCommand.MESSAGE_USAGE);
         }
 
         // using hashset to eliminate any duplicates
@@ -48,8 +47,7 @@ public class GroupingCommandParser implements Parser<GroupingCommand> {
             try {
                 indexIntsSet.add(ParserUtil.parseInt(indexStr));
             } catch (IllegalValueException e) {
-                throw new ParseException(
-                        String.format(MESSAGE_INVALID_COMMAND_FORMAT, GroupingCommand.MESSAGE_USAGE));
+                throw new ParseException(MESSAGE_INVALID_COMMAND_FORMAT, GroupingCommand.MESSAGE_USAGE);
             }
         }
 

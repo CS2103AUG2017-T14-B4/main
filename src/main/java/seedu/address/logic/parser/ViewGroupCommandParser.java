@@ -26,7 +26,7 @@ public class ViewGroupCommandParser implements Parser<ViewGroupCommand> {
         List<String> argsList = Arrays.asList(userInput.split(" "));
 
         if (argsList.size() > 1 || argsList.get(0).equals("")) { throw new ParseException(
-                String.format(MESSAGE_INVALID_COMMAND_FORMAT, ViewGroupCommand.MESSAGE_USAGE));}
+                MESSAGE_INVALID_COMMAND_FORMAT, ViewGroupCommand.MESSAGE_USAGE);}
 
         Index index;
         try {
