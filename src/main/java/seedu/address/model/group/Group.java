@@ -26,7 +26,9 @@ public class Group extends UniquePersonList {
         return grpName;
     }
 
-    public void setGrpName(String grpName) { this.grpName = grpName; }
+    public void setGrpName(String grpName) {
+        this.grpName = grpName;
+    }
 
     public ObservableList<ReadOnlyPerson> getPersonList() {
         return this.asObservableList();

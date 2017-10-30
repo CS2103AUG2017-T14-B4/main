@@ -11,6 +11,9 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.group.Group;
 import seedu.address.model.person.ReadOnlyPerson;
 
+/**
+ * Lists all person within the group
+ */
 public class ViewGroupCommand extends Command {
 
     public static final String COMMAND_WORD = "viewGroup";
@@ -27,9 +30,13 @@ public class ViewGroupCommand extends Command {
     private Index index = null;
     private String grpName = null;
 
-    public ViewGroupCommand(Index idx) {this.index = idx;}
+    public ViewGroupCommand(Index idx) {
+        this.index = idx;
+    }
 
-    public ViewGroupCommand(String grpName) {this.grpName = grpName;}
+    public ViewGroupCommand(String grpName) {
+        this.grpName = grpName;
+    }
 
     @Override
     public CommandResult execute() throws CommandException {
@@ -57,6 +64,11 @@ public class ViewGroupCommand extends Command {
         throw new CommandException(MESSAGE_EXECUTION_FAILURE, MESSAGE_GROUP_NONEXISTENT);
     }
 
+    /**
+     * creates and returns a string to represent the list of person in the group
+     * @param grpToView the target group
+     * @return string to represent list of person
+     */
     private String personListAsString(Group grpToView) {
         List<ReadOnlyPerson> personList = grpToView.getPersonList();
 

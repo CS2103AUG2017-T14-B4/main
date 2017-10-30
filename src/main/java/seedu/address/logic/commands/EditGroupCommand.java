@@ -15,13 +15,16 @@ import seedu.address.model.person.ReadOnlyPerson;
 import seedu.address.model.person.exceptions.DuplicatePersonException;
 import seedu.address.model.person.exceptions.PersonNotFoundException;
 
+/**
+ * Edits the group, either 1.change group name, 2.adds a person to the group or 3.deletes a person from the group
+ */
 public class EditGroupCommand extends UndoableCommand {
 
     public static final String COMMAND_WORD = "editGroup";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": edits the group. Supports three kinds of operations: 1. change group name 2. add a person 3. delete" +
-            " a person\n"
+            + ": edits the group. Supports three kinds of operations: 1. change group name 2. add a person 3. delete"
+            + " a person\n"
             + "Parameters: GROUP_NAME grpName NEW_GROUP_NAME\n"
             + "OR: GROUP_NAME add INDEX\n"
             + "OR: GROUP_NAME delete INDEX\n"
@@ -37,9 +40,11 @@ public class EditGroupCommand extends UndoableCommand {
 
     public static final String MESSAGE_GROUP_NONEXISTENT = "This group does not exist!\n";
 
-    private String MESSAGE_DUPLICATE_PERSON = "This person is already in the group";
+    public static final String MESSAGE_DUPLICATE_PERSON = "This person is already in the group";
 
-    private String grpName, operation, detail;
+    private String grpName;
+    private String operation;
+    private String detail;
 
     public EditGroupCommand(String grpName, String operation, String detail) {
         this.grpName = grpName;
@@ -92,7 +97,8 @@ public class EditGroupCommand extends UndoableCommand {
 
                 try {
                     model.addPersonToGroup(targetGrp, copiedPerson);
-                    return new CommandResult(String.format(MESSAGE_ADD_PERSON_SUCCESS, grpName, copiedPerson.toString()));
+                    return new CommandResult(String.format(MESSAGE_ADD_PERSON_SUCCESS, grpName,
+                            copiedPerson.toString()));
                 } catch (DuplicatePersonException e) {
                     throw new CommandException(MESSAGE_DUPLICATE_PERSON);
                 }
@@ -100,14 +106,16 @@ public class EditGroupCommand extends UndoableCommand {
 
                 List<ReadOnlyPerson> grpPersonList = targetGrp.getPersonList();
                 if (idx.getZeroBased() >= grpPersonList.size()) {
-                    throw new CommandException(MESSAGE_EXECUTION_FAILURE, Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+                    throw new CommandException(MESSAGE_EXECUTION_FAILURE,
+                            Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
                 }
                 targetPerson = grpPersonList.get(idx.getZeroBased());
                 copiedPerson = new Person(targetPerson);
 
                 try {
                     model.removePersonFromGroup(targetGrp, copiedPerson);
-                    return new CommandResult(String.format(MESSAGE_DELETE_PERSON_SUCCESS, grpName, copiedPerson.toString()));
+                    return new CommandResult(String.format(MESSAGE_DELETE_PERSON_SUCCESS, grpName,
+                            copiedPerson.toString()));
                 } catch (PersonNotFoundException e) {
                     assert false : "The target person cannot be missing";
                 }

@@ -61,7 +61,7 @@ public abstract class UndoableCommand extends Command {
             sb.append(i + 1);
             sb.append(". ");
             sb.append(persons.get(i));
-            if (i != persons.size()-1) {
+            if (i != persons.size() - 1) {
                 sb.append("\n");
             }
         }

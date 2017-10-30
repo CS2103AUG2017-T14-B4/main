@@ -116,7 +116,8 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     @Override
-    public synchronized void addPersonToGroup(Group targetGrp, ReadOnlyPerson targetPerson) throws DuplicatePersonException {
+    public synchronized void addPersonToGroup(Group targetGrp, ReadOnlyPerson targetPerson)
+            throws DuplicatePersonException {
         requireAllNonNull(targetGrp, targetPerson);
 
         targetGrp.add(targetPerson);
@@ -125,7 +126,8 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     @Override
-    public synchronized void removePersonFromGroup(Group targetGrp, ReadOnlyPerson targetPerson) throws PersonNotFoundException {
+    public synchronized void removePersonFromGroup(Group targetGrp, ReadOnlyPerson targetPerson)
+            throws PersonNotFoundException {
         requireAllNonNull(targetGrp, targetPerson);
 
         targetGrp.remove(targetPerson);

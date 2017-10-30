@@ -10,8 +10,10 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.logic.commands.ViewGroupCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
-import sun.net.www.ParseUtil;
 
+/**
+ * Parses input arguments and creates a new ViewGroupCommand object
+ */
 public class ViewGroupCommandParser implements Parser<ViewGroupCommand> {
 
     /**
@@ -25,8 +27,9 @@ public class ViewGroupCommandParser implements Parser<ViewGroupCommand> {
         userInput = userInput.trim();
         List<String> argsList = Arrays.asList(userInput.split(" "));
 
-        if (argsList.size() > 1 || argsList.get(0).equals("")) { throw new ParseException(
-                MESSAGE_INVALID_COMMAND_FORMAT, ViewGroupCommand.MESSAGE_USAGE);}
+        if (argsList.size() > 1 || argsList.get(0).equals("")) {
+            throw new ParseException(MESSAGE_INVALID_COMMAND_FORMAT, ViewGroupCommand.MESSAGE_USAGE);
+        }
 
         Index index;
         try {

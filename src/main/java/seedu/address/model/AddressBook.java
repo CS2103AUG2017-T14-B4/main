@@ -11,7 +11,6 @@ import java.util.Set;
 
 import javafx.collections.ObservableList;
 import seedu.address.logic.commands.DeleteCommand;
-import seedu.address.logic.commands.DeleteGroupCommand;
 import seedu.address.logic.commands.FavoriteCommand;
 import seedu.address.model.group.DuplicateGroupException;
 import seedu.address.model.group.Group;

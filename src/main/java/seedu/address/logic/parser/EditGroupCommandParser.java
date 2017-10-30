@@ -12,6 +12,9 @@ import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.logic.commands.EditGroupCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 
+/**
+ * Parses input arguments and creates a new EditGroupCommand object
+ */
 public class EditGroupCommandParser implements Parser<EditGroupCommand> {
 
     private final Set<String> validOp = new HashSet<>(Arrays.asList("grpName", "add", "delete"));
@@ -31,7 +34,9 @@ public class EditGroupCommandParser implements Parser<EditGroupCommand> {
         }
 
         List<String> argsList = Arrays.asList(userInput.split(" "));
-        String grpName, operation, detail;
+        String grpName;
+        String operation;
+        String detail;
 
         // parseing
         try {
