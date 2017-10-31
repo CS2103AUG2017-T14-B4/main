@@ -34,7 +34,7 @@ public class GroupingCommandParserTest {
 
     @Test
     public void parse_indexFieldsMissing_failure() {
-        String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, GroupingCommand.MESSAGE_USAGE);
+        String expectedMessage = MESSAGE_INVALID_COMMAND_FORMAT + GroupingCommand.MESSAGE_USAGE;
 
         assertParseFailure(parser, "test", expectedMessage);
 
@@ -44,7 +44,7 @@ public class GroupingCommandParserTest {
 
     @Test
     public void parse_emptyArgument_failure() {
-        String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, GroupingCommand.MESSAGE_USAGE);
+        String expectedMessage = MESSAGE_INVALID_COMMAND_FORMAT + GroupingCommand.MESSAGE_USAGE;
 
         assertParseFailure(parser, "",  expectedMessage);
     }

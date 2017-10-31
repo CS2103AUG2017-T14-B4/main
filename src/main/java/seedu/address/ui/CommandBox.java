@@ -181,6 +181,7 @@ public class CommandBox extends UiPart<Region> {
         }
     }
 
+
     /**
      * Opens an alert dialogue to inform user of the error
      * @param e exception due to parsing / execution

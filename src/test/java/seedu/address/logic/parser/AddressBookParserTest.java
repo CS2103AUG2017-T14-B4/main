@@ -173,14 +173,15 @@ public class AddressBookParserTest {
     @Test
     public void parseCommand_unrecognisedInput_throwsParseException() throws Exception {
         thrown.expect(ParseException.class);
-        thrown.expectMessage(String.format(MESSAGE_INVALID_COMMAND_FORMAT, HelpCommand.MESSAGE_USAGE));
+        thrown.expectMessage(HelpCommand.MESSAGE_USAGE);
         parser.parseCommand("");
     }
 
     @Test
     public void parseCommand_unknownCommand_throwsParseException() throws Exception {
+        String testInput = "unknownCommand";
         thrown.expect(ParseException.class);
-        thrown.expectMessage(MESSAGE_UNKNOWN_COMMAND);
-        parser.parseCommand("unknownCommand");
+        thrown.expectMessage(getUnknownRecommendedCommand(testInput));
+        parser.parseCommand(testInput);
     }
 }

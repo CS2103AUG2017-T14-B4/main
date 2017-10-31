@@ -55,11 +55,6 @@ public class GroupingCommandParser implements Parser<GroupingCommand> {
 
         indexIntsSet.forEach(idx -> indexList.add(Index.fromOneBased(idx)));
 
-        System.out.println("grpName: " + grpName);
-        for (Index idx : indexList) {
-            System.out.println("indexes are: " + idx.getZeroBased());
-        }
-
         return new GroupingCommand(grpName, indexList);
     }
 }

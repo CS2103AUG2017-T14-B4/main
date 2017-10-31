@@ -1,6 +1,7 @@
 package seedu.address.logic.parser;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.address.commons.core.Messages.MESSAGE_INVALID_VALUE_ARGUMENT;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
 
@@ -23,8 +24,8 @@ public class DeleteCommandParserTest {
     private ArrayList<Index> testIndexes = new ArrayList<Index>();
 
     private DeleteCommandParser parser = new DeleteCommandParser();
-    private final String deleteParseFail = String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-            DeleteCommand.MESSAGE_USAGE);
+    private final String deleteParseEmptyArg = MESSAGE_INVALID_COMMAND_FORMAT + DeleteCommand.MESSAGE_USAGE;
+    private final String deleteParseInvalidValue = MESSAGE_INVALID_VALUE_ARGUMENT + DeleteCommand.MESSAGE_USAGE;
 
     @Test
     public void parse_validArgs_returnsDeleteCommand() {
@@ -40,9 +41,10 @@ public class DeleteCommandParserTest {
 
     @Test
     public void parse_invalidArgs_throwsParseException() {
-        assertParseFailure(parser, " ", deleteParseFail);
-        assertParseFailure(parser, "a", deleteParseFail);
-        assertParseFailure(parser, "1 3 a", deleteParseFail);
+        assertParseFailure(parser, "", deleteParseEmptyArg);
+        assertParseFailure(parser, " ", deleteParseEmptyArg);
+        assertParseFailure(parser, "a", deleteParseInvalidValue);
+        assertParseFailure(parser, "1 3 a", deleteParseInvalidValue);
 
     }
 }
