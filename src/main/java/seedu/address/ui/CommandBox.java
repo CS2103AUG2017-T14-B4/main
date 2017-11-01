@@ -181,7 +181,7 @@ public class CommandBox extends UiPart<Region> {
         }
     }
 
-
+    //@@author hthjthtrh
     /**
      * Opens an alert dialogue to inform user of the error
      * @param e exception due to parsing / execution
@@ -202,6 +202,7 @@ public class CommandBox extends UiPart<Region> {
         alert.setResizable(true);
         alert.showAndWait();
     }
+    //@@author
 
     /**
      * Initializes the history snapshot.

@@ -1,3 +1,4 @@
+//@@author hthjthtrh
 package seedu.address.logic.commands;
 
 import java.util.List;
@@ -38,3 +39,4 @@ public class ListGroupsCommand extends Command {
         return new CommandResult(sb.toString());
     }
 }
+//@@author

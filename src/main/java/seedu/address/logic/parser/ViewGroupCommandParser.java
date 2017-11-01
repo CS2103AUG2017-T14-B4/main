@@ -1,3 +1,4 @@
+//@@author hthjthtrh
 package seedu.address.logic.parser;
 
 import static java.util.Objects.requireNonNull;
@@ -41,3 +42,4 @@ public class ViewGroupCommandParser implements Parser<ViewGroupCommand> {
         }
     }
 }
+//@@author

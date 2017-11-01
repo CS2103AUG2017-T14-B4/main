@@ -1,3 +1,4 @@
+//@@author hthjthtrh
 package seedu.address.model.group;
 
 import javafx.collections.ObservableList;
@@ -35,3 +36,4 @@ public class Group extends UniquePersonList {
     }
 
 }
+//@@author

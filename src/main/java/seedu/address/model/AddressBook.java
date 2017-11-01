@@ -62,9 +62,11 @@ public class AddressBook implements ReadOnlyAddressBook {
         this.persons.setPersons(persons);
     }
 
+    //@@author hthjthtrh
     public void setGroups(List<? extends Group> groups) throws DuplicateGroupException, DuplicatePersonException {
         this.groups.setGroups(groups);
     }
+    //@@author
 
     public void setTags(Set<Tag> tags) {
         this.tags.setTags(tags);
@@ -105,6 +107,7 @@ public class AddressBook implements ReadOnlyAddressBook {
         persons.add(newPerson);
     }
 
+    //@@author hthjthtrh
     /**
      * Creates and adds the group into groups
      * @param groupName name of the group
@@ -138,6 +141,7 @@ public class AddressBook implements ReadOnlyAddressBook {
         }
         groups.add(newGroup);
     }
+    //@@author
 
     /**
      * Replaces the given person {@code target} in the list with {@code editedReadOnlyPerson}.

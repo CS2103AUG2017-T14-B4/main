@@ -1,3 +1,4 @@
+//@@author hthjthtrh
 package seedu.address.logic.parser;
 
 import static java.util.Objects.requireNonNull;
@@ -73,3 +74,4 @@ public class GroupingCommandParser implements Parser<GroupingCommand> {
         return new GroupingCommand(grpName, indexList);
     }
 }
+//@@author

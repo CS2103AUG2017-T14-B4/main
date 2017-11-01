@@ -1,3 +1,4 @@
+//@@author hthjthtrh
 package seedu.address.logic.commands;
 
 import static org.junit.Assert.assertFalse;
@@ -146,3 +147,4 @@ public class DeleteCommandTest {
         assert model.getFilteredPersonList().isEmpty();
     }
 }
+//@@author

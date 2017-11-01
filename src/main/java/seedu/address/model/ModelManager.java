@@ -83,6 +83,7 @@ public class ModelManager extends ComponentManager implements Model {
         indicateAddressBookChanged();
     }
 
+    //@@author hthjthtrh
     @Override
     public void createGroup(String groupName, List<ReadOnlyPerson> personToGroup)
             throws DuplicateGroupException {
@@ -134,6 +135,7 @@ public class ModelManager extends ComponentManager implements Model {
 
         indicateAddressBookChanged();
     }
+    //@@author
 
     @Override
     public void updatePerson(ReadOnlyPerson target, ReadOnlyPerson editedPerson)
