@@ -1,8 +1,5 @@
 package systemtests;
 
-import static seedu.address.commons.core.Messages.MESSAGE_EXECUTION_FAILURE;
-import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.logic.commands.AddCommand.MESSAGE_DUPLICATE_PERSON;
 import static seedu.address.logic.commands.CommandTestUtil.ADDRESS_DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.ADDRESS_DESC_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.BIRTHDAY_DESC_ANY;
@@ -46,22 +43,16 @@ import seedu.address.logic.commands.FindCommand;
 import seedu.address.logic.commands.RedoCommand;
 import seedu.address.logic.commands.SelectCommand;
 import seedu.address.logic.commands.UndoCommand;
-import seedu.address.logic.parser.AddressBookParser;
 import seedu.address.model.Model;
-import seedu.address.model.person.Address;
-import seedu.address.model.person.Email;
-import seedu.address.model.person.Name;
-import seedu.address.model.person.Phone;
 import seedu.address.model.person.ReadOnlyPerson;
 import seedu.address.model.person.exceptions.DuplicatePersonException;
-import seedu.address.model.tag.Tag;
 import seedu.address.testutil.PersonBuilder;
 import seedu.address.testutil.PersonUtil;
 
 public class AddCommandSystemTest extends AddressBookSystemTest {
 
     // this message is used to match message in result display, which should be empty for any failed execution
-    private final String MESSAGE_EXECUTION_FAILURE_EMPTY = "";
+    private static final String MESSAGE_EXECUTION_FAILURE_EMPTY = "";
 
     @Test
     public void add() throws Exception {

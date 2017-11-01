@@ -124,6 +124,17 @@ public class AddressBook implements ReadOnlyAddressBook {
         groups.add(newGroup);
     }
 
+
+    public void addGroup(Group grp) throws DuplicateGroupException {
+        Group newGroup;
+        try {
+            newGroup = new Group(grp);
+        } catch (DuplicatePersonException e) {
+            throw new AssertionError("Shouldn't exist duplicate person");
+        }
+        groups.add(newGroup);
+    }
+
     /**
      * Replaces the given person {@code target} in the list with {@code editedReadOnlyPerson}.
      * {@code AddressBook}'s tag list will be updated with the tags of {@code editedReadOnlyPerson}.
