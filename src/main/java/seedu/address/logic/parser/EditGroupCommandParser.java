@@ -17,8 +17,7 @@ import seedu.address.logic.parser.exceptions.ParseException;
  */
 public class EditGroupCommandParser implements Parser<EditGroupCommand> {
 
-    private final Set<String> validOp = new HashSet<>(Arrays.asList("grpName", "add", "delete"));
-
+    private static final Set<String> validOp = new HashSet<>(Arrays.asList("grpName", "add", "delete"));
 
     /**
      * Parses the given {@code String} of arguments in the context of the EditGroupCommand
@@ -29,11 +28,13 @@ public class EditGroupCommandParser implements Parser<EditGroupCommand> {
     public EditGroupCommand parse(String userInput) throws ParseException {
         requireNonNull(userInput);
         userInput = userInput.trim();
-        if (userInput.equals("")) {
+
+        List<String> argsList = Arrays.asList(userInput.split(" "));
+
+        if (argsList.size() != 3 || userInput.equals("")) {
             throw new ParseException(MESSAGE_INVALID_COMMAND_FORMAT, EditGroupCommand.MESSAGE_USAGE);
         }
 
-        List<String> argsList = Arrays.asList(userInput.split(" "));
         String grpName;
         String operation;
         String detail;
@@ -42,15 +43,23 @@ public class EditGroupCommandParser implements Parser<EditGroupCommand> {
         try {
             grpName = argsList.get(0);
             operation = argsList.get(1);
+
+            if (isInteger(grpName) || isInteger(operation)) {
+                throw new Exception();
+            }
             if (!validOp.contains(operation)) {
                 throw new Exception();
             }
+
             detail = argsList.get(2);
             // if operation is add or delete, detail should be an index
             if (operation.equals("add") || operation.equals("delete")) {
-                try {
-                    ParserUtil.parseIndex(detail);
-                } catch (IllegalValueException e) {
+                if (!isInteger(detail)) {
+                    throw new Exception();
+                }
+            } else {
+                // operation is to change name, need to enforce the rule that group name is not an integer
+                if (isInteger(detail)) {
                     throw new Exception();
                 }
             }
@@ -62,4 +71,21 @@ public class EditGroupCommandParser implements Parser<EditGroupCommand> {
 
         return new EditGroupCommand(grpName, operation, detail);
     }
+
+    /**
+     * trues to parse input into an integer
+     * @param input
+     * @return true if input is integer
+     */
+    private boolean isInteger(String input) {
+        boolean isInt;
+        try {
+            ParserUtil.parseInt(input);
+            isInt = true;
+        } catch (IllegalValueException e) {
+            isInt = false;
+        }
+        return isInt;
+    }
 }
+//@@author

@@ -8,14 +8,13 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.RedoCommand;
 import seedu.address.logic.commands.UndoCommand;
-import seedu.address.logic.parser.AddressBookParser;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 
 public class ClearCommandSystemTest extends AddressBookSystemTest {
 
     // this message is used to match message in result display, which should be empty for any failed execution
-    private final String MESSAGE_EXECUTION_FAILURE_EMPTY = "";
+    private static final String MESSAGE_EXECUTION_FAILURE_EMPTY = "";
 
     @Test
     public void clear() {

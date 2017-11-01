@@ -1,7 +1,6 @@
 package systemtests;
 
 import static org.junit.Assert.assertTrue;
-import static seedu.address.commons.core.Messages.MESSAGE_INVALID_PERSON_INDEX_ALL;
 import static seedu.address.testutil.TestUtil.getLastIndex;
 import static seedu.address.testutil.TestUtil.getMidIndex;
 import static seedu.address.testutil.TestUtil.getPerson;
@@ -19,7 +18,6 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.DeleteCommand;
 import seedu.address.logic.commands.RedoCommand;
 import seedu.address.logic.commands.UndoCommand;
-import seedu.address.logic.parser.AddressBookParser;
 import seedu.address.model.Model;
 import seedu.address.model.person.ReadOnlyPerson;
 import seedu.address.model.person.exceptions.PersonNotFoundException;
@@ -27,7 +25,7 @@ import seedu.address.model.person.exceptions.PersonNotFoundException;
 public class DeleteCommandSystemTest extends AddressBookSystemTest {
 
     // this message is used to match message in result display, which should be empty for any failed execution
-    private final String MESSAGE_EXECUTION_FAILURE_EMPTY = "";
+    private static final String MESSAGE_EXECUTION_FAILURE_EMPTY = "";
 
     private static final String MESSAGE_INVALID_DELETE_COMMAND_FORMAT =
             String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE);

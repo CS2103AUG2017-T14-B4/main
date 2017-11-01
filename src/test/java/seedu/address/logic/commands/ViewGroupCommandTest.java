@@ -38,6 +38,9 @@ public class ViewGroupCommandTest {
         expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
     }
 
+    /**
+     * creates the viewgroupcommand depending on grpName and idx
+     */
     private ViewGroupCommand prepareCommand(String grpName, Index idx) {
         if (grpName != null) {
             viewGrpCmd = new ViewGroupCommand(grpName);
@@ -52,7 +55,7 @@ public class ViewGroupCommandTest {
     public void execute_grpNameGrpExist_success() {
         // preparing expectedModel
         TypicalGroups typicalGroups = new TypicalGroups();
-        Group testGroup = typicalGroups.testGroup3;
+        Group testGroup = typicalGroups.getTestGroup3();
         Predicate predicate = new GroupContainsPersonPredicate(testGroup);
         expectedModel.updateFilteredPersonList(predicate);
 
@@ -61,7 +64,7 @@ public class ViewGroupCommandTest {
                 testGroup.getPersonList().size(), testGroup.getGrpName());
         assertCommandSuccess(viewGroupCommand, model, expectedMessage, expectedModel);
 
-        testGroup = typicalGroups.testGroup4;
+        testGroup = typicalGroups.getTestGroup4();
         predicate = new GroupContainsPersonPredicate(testGroup);
         expectedModel.updateFilteredPersonList(predicate);
 
@@ -74,7 +77,7 @@ public class ViewGroupCommandTest {
     @Test
     public void execute_grpIndexGrpExist_success() {
         TypicalGroups typicalGroups = new TypicalGroups();
-        Group testGroup = typicalGroups.testGroup3;
+        Group testGroup = typicalGroups.getTestGroup3();
         Predicate predicate = new GroupContainsPersonPredicate(testGroup);
         expectedModel.updateFilteredPersonList(predicate);
 

@@ -1,5 +1,6 @@
 package seedu.address.logic.commands;
 
+import static seedu.address.commons.core.Messages.MESSAGE_EXECUTION_FAILURE;
 import static seedu.address.logic.UndoRedoStackUtil.prepareStack;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
@@ -69,7 +70,7 @@ public class UndoCommandTest {
         // no command in undoStack. Refresh the undo command again
         undoCommand = new UndoCommand();
         undoCommand.setData(model, EMPTY_COMMAND_HISTORY, undoRedoStack);
-        assertCommandFailure(undoCommand, model, UndoCommand.MESSAGE_FAILURE);
+        assertCommandFailure(undoCommand, model, MESSAGE_EXECUTION_FAILURE + UndoCommand.MESSAGE_FAILURE);
     }
 
 }

@@ -6,9 +6,12 @@ import java.util.function.Predicate;
 import seedu.address.model.group.Group;
 import seedu.address.model.person.ReadOnlyPerson;
 
+/**
+ * Tests that a readOnlyPerson is contained by the group
+ */
 public class GroupContainsPersonPredicate implements Predicate<ReadOnlyPerson> {
 
-    Group group;
+    private Group group;
 
     public GroupContainsPersonPredicate(Group grp) {
         this.group = grp;

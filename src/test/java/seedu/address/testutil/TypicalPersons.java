@@ -104,8 +104,8 @@ public class TypicalPersons {
 
         TypicalGroups typicalGroups = new TypicalGroups();
         try {
-            ab.addGroup(typicalGroups.testGroup3);
-            ab.addGroup(typicalGroups.testGroup4);
+            ab.addGroup(typicalGroups.getTestGroup3());
+            ab.addGroup(typicalGroups.getTestGroup4());
         } catch (DuplicateGroupException e) {
             assert false : "not possible";
         }

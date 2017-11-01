@@ -15,7 +15,6 @@ import static seedu.address.testutil.TypicalPersons.KEYWORD_MATCHING_MEIER;
 
 import org.junit.Test;
 
-import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.RedoCommand;
 import seedu.address.logic.commands.RemarkCommand;
@@ -31,7 +30,7 @@ import seedu.address.testutil.PersonBuilder;
 public class RemarkCommandSystemTest extends AddressBookSystemTest {
 
     // this message is used to match message in result display, which should be empty for any failed execution
-    private final String MESSAGE_EXECUTION_FAILURE_EMPTY = "";
+    private static final String MESSAGE_EXECUTION_FAILURE_EMPTY = "";
 
     @Test
     public void remark() throws Exception {

@@ -76,7 +76,7 @@ public interface Model {
      */
     void deleteGroup(Group grpToDelete);
 
-    void setGrpName(Group targetGrp, String detail);
+    void setGrpName(Group targetGrp, String detail) throws DuplicateGroupException;
 
     void addPersonToGroup(Group targetGrp, ReadOnlyPerson targetPerson) throws DuplicatePersonException;
 

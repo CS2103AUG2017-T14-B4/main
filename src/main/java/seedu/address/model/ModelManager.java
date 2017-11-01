@@ -108,10 +108,10 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     @Override
-    public synchronized void setGrpName(Group targetGrp, String newName) {
+    public synchronized void setGrpName(Group targetGrp, String newName) throws DuplicateGroupException {
         requireAllNonNull(targetGrp, newName);
 
-        targetGrp.setGrpName(newName);
+        addressBook.setGrpName(targetGrp, newName);
         indicateAddressBookChanged();
     }
 

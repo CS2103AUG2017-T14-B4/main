@@ -20,7 +20,8 @@ public class GroupingCommand extends UndoableCommand {
     public static final String COMMAND_WORD = "createGroup";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Creates a group for the list of person based on group name and index numbers provided\n"
+            + ": Creates a group for the list of person based on group name(non-integer) "
+            + "and index numbers provided\n"
             + "Parameters: GROUP_NAME INDEX [INDEX]...\n"
             + "Example: " + COMMAND_WORD + " SmartOnes 1 4 2";
 

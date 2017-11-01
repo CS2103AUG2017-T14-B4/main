@@ -1,3 +1,4 @@
+//@@author hthjthtrh
 package seedu.address.model.group;
 
 import static java.util.Objects.requireNonNull;
@@ -76,4 +77,21 @@ public class UniqueGroupList implements Iterable<Group> {
     public void removeGroup(Group grpToDelete) {
         internalList.remove(grpToDelete);
     }
+
+    /**
+     * sets the group to the new name
+     * @param targetGrp group to change name
+     * @param newName new name to change to
+     * @throws DuplicateGroupException if a group of newName already exists in the group list
+     */
+    public void setGrpName(Group targetGrp, String newName) throws DuplicateGroupException {
+        for (Group grp : internalList) {
+            if (grp.getGrpName().equals(newName)) {
+                throw new DuplicateGroupException();
+            }
+        }
+
+        targetGrp.setGrpName(newName);
+    }
 }
+//@@author

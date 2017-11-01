@@ -42,6 +42,14 @@ public class DeleteGroupCommand extends UndoableCommand {
 
     }
 
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof DeleteGroupCommand // instanceof handles nulls
+                && this.groupName.equals(((DeleteGroupCommand) other).groupName)); // state check
+    }
+
+
     /**
      * Checks if the group to be deleted exists
      */

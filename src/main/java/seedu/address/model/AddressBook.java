@@ -124,7 +124,11 @@ public class AddressBook implements ReadOnlyAddressBook {
         groups.add(newGroup);
     }
 
-
+    /**
+     * adds the grp to the grp list
+     * @param grp
+     * @throws DuplicateGroupException
+     */
     public void addGroup(Group grp) throws DuplicateGroupException {
         Group newGroup;
         try {
@@ -261,12 +265,17 @@ public class AddressBook implements ReadOnlyAddressBook {
         return Objects.hash(persons, tags);
     }
 
+    //@@author hthjthtrh
     /**
      * Deletes or updates the group, if the group contains personToEdit
      * @param personToEdit original person to be updated
      * @param editedPerson the person to update to. If null, it is a deletion
      */
     public void checkPersonInGroupList(ReadOnlyPerson personToEdit, Person editedPerson, Class commandClass) {
+        if (this.groups.asObservableList().size() == 0) {
+            return;
+        }
+
         if (commandClass.equals(FavoriteCommand.class)) {
             this.groups.forEach(group -> {
                 if (group.contains(personToEdit)) {
@@ -306,4 +315,9 @@ public class AddressBook implements ReadOnlyAddressBook {
     public void removeGroup(Group grpToDelete) {
         groups.removeGroup(grpToDelete);
     }
+
+    public void setGrpName(Group targetGrp, String newName) throws DuplicateGroupException {
+        this.groups.setGrpName(targetGrp, newName);
+    }
+    //@@author
 }

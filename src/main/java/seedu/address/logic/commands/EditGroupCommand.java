@@ -10,6 +10,7 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.ParserUtil;
+import seedu.address.model.group.DuplicateGroupException;
 import seedu.address.model.group.Group;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.ReadOnlyPerson;
@@ -42,6 +43,9 @@ public class EditGroupCommand extends UndoableCommand {
     public static final String MESSAGE_GROUP_NONEXISTENT = "This group does not exist!\n";
 
     public static final String MESSAGE_DUPLICATE_PERSON = "This person is already in the group";
+
+    public static final String MESSAGE_DUPLICATE_GROUP =
+            "A group by the name of '%s' already exists in the addressbook!";
 
     private String grpName;
     private String operation;
@@ -82,7 +86,12 @@ public class EditGroupCommand extends UndoableCommand {
 
         // operation is change grpName
         if (idx == null) {
-            model.setGrpName(targetGrp, detail);
+            try {
+                model.setGrpName(targetGrp, detail);
+            } catch (DuplicateGroupException e) {
+                throw new CommandException(MESSAGE_EXECUTION_FAILURE, String.format(MESSAGE_DUPLICATE_GROUP,
+                        detail));
+            }
             return new CommandResult(String.format(MESSAGE_CHANGE_NAME_SUCCESS, grpName, detail));
         } else {
             ReadOnlyPerson targetPerson;
@@ -90,8 +99,9 @@ public class EditGroupCommand extends UndoableCommand {
             if (operation.equals("add")) { //add operation
 
                 List<ReadOnlyPerson> lastShownList = model.getFilteredPersonList();
-                if (idx.getZeroBased() >= lastShownList.size()) {
-                    throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+                if (idx.getZeroBased() >= lastShownList.size() || idx.getZeroBased() <= 0) {
+                    throw new CommandException(MESSAGE_EXECUTION_FAILURE,
+                            Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
                 }
                 targetPerson = lastShownList.get(idx.getZeroBased());
                 copiedPerson = new Person(targetPerson);
@@ -101,7 +111,7 @@ public class EditGroupCommand extends UndoableCommand {
                     return new CommandResult(String.format(MESSAGE_ADD_PERSON_SUCCESS, grpName,
                             copiedPerson.toString()));
                 } catch (DuplicatePersonException e) {
-                    throw new CommandException(MESSAGE_DUPLICATE_PERSON);
+                    throw new CommandException(MESSAGE_EXECUTION_FAILURE, MESSAGE_DUPLICATE_PERSON);
                 }
             } else { //delete operation
 
@@ -123,6 +133,21 @@ public class EditGroupCommand extends UndoableCommand {
             }
         }
         return null;
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        if (other == this) {
+            return true;
+        }
+
+        if (other instanceof EditGroupCommand) {
+            EditGroupCommand temp = (EditGroupCommand) other;
+            return (this.grpName.equals(temp.grpName) && this.operation.equals(temp.operation)
+                && this.detail.equals(temp.detail));
+        }
+
+        return false;
     }
 }
 //@@author

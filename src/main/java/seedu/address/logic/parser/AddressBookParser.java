@@ -105,7 +105,7 @@ public class AddressBookParser {
             return new ListGroupsCommand();
 
         case DeleteGroupCommand.COMMAND_WORD:
-            return new DeleteGroupCommand(arguments);
+            return new DeleteGroupCommandParser().parse(arguments);
 
         case ViewGroupCommand.COMMAND_WORD:
             return new ViewGroupCommandParser().parse(arguments);

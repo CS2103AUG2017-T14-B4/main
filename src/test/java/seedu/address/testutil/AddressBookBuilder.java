@@ -49,6 +49,12 @@ public class AddressBookBuilder {
         return this;
     }
 
+    //@@author hthjthtrh
+    /**
+     * adds a new group into the addressbook being built
+     * @param grp
+     * @return
+     */
     public AddressBookBuilder withGroup(Group grp) {
         try {
             addressBook.addGroup(new Group(grp));
@@ -59,6 +65,7 @@ public class AddressBookBuilder {
         }
         return this;
     }
+    //@@author
 
     public AddressBook build() {
         return addressBook;
