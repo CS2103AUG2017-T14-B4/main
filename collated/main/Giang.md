@@ -1,5 +1,5 @@
 # Giang
-###### \java\seedu\address\logic\commands\RemarkCommand.java
+###### /java/seedu/address/logic/commands/RemarkCommand.java
 ``` java
 package seedu.address.logic.commands;
 
@@ -98,7 +98,7 @@ public class RemarkCommand extends UndoableCommand {
 
 }
 ```
-###### \java\seedu\address\logic\parser\ParserUtil.java
+###### /java/seedu/address/logic/parser/ParserUtil.java
 ``` java
     /**
      * Parses a {@code Optional<String> remark} into an {@code Optional<Remark>} if {@code remark} is present.
@@ -110,7 +110,7 @@ public class RemarkCommand extends UndoableCommand {
     }
 }
 ```
-###### \java\seedu\address\model\person\Remark.java
+###### /java/seedu/address/model/person/Remark.java
 ``` java
 package seedu.address.model.person;
 

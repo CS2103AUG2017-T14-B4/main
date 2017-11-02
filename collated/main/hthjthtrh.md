@@ -1,5 +1,5 @@
 # hthjthtrh
-###### \java\seedu\address\logic\commands\DeleteGroupCommand.java
+###### /java/seedu/address/logic/commands/DeleteGroupCommand.java
 ``` java
 package seedu.address.logic.commands;
 
@@ -68,13 +68,14 @@ public class DeleteGroupCommand extends UndoableCommand {
     }
 }
 ```
-###### \java\seedu\address\logic\commands\EditGroupCommand.java
+###### /java/seedu/address/logic/commands/EditGroupCommand.java
 ``` java
 package seedu.address.logic.commands;
 
 import static seedu.address.commons.core.Messages.MESSAGE_EXECUTION_FAILURE;
 
 import java.util.List;
+import java.util.function.Predicate;
 
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
@@ -87,6 +88,7 @@ import seedu.address.model.person.Person;
 import seedu.address.model.person.ReadOnlyPerson;
 import seedu.address.model.person.exceptions.DuplicatePersonException;
 import seedu.address.model.person.exceptions.PersonNotFoundException;
+import seedu.address.model.person.predicates.GroupContainsPersonPredicate;
 
 /**
  * Edits the group, either 1.change group name, 2.adds a person to the group or 3.deletes a person from the group
@@ -121,6 +123,7 @@ public class EditGroupCommand extends UndoableCommand {
     private String grpName;
     private String operation;
     private String detail;
+    private Predicate predicate;
 
     public EditGroupCommand(String grpName, String operation, String detail) {
         this.grpName = grpName;
@@ -170,7 +173,7 @@ public class EditGroupCommand extends UndoableCommand {
             if (operation.equals("add")) { //add operation
 
                 List<ReadOnlyPerson> lastShownList = model.getFilteredPersonList();
-                if (idx.getZeroBased() >= lastShownList.size() || idx.getZeroBased() <= 0) {
+                if (idx.getZeroBased() >= lastShownList.size() || idx.getOneBased() <= 0) {
                     throw new CommandException(MESSAGE_EXECUTION_FAILURE,
                             Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
                 }
@@ -179,6 +182,8 @@ public class EditGroupCommand extends UndoableCommand {
 
                 try {
                     model.addPersonToGroup(targetGrp, copiedPerson);
+                    predicate = new GroupContainsPersonPredicate(targetGrp);
+                    model.updateFilteredPersonList(predicate);
                     return new CommandResult(String.format(MESSAGE_ADD_PERSON_SUCCESS, grpName,
                             copiedPerson.toString()));
                 } catch (DuplicatePersonException e) {
@@ -196,6 +201,8 @@ public class EditGroupCommand extends UndoableCommand {
 
                 try {
                     model.removePersonFromGroup(targetGrp, copiedPerson);
+                    predicate = new GroupContainsPersonPredicate(targetGrp);
+                    model.updateFilteredPersonList(predicate);
                     return new CommandResult(String.format(MESSAGE_DELETE_PERSON_SUCCESS, grpName,
                             copiedPerson.toString()));
                 } catch (PersonNotFoundException e) {
@@ -222,7 +229,7 @@ public class EditGroupCommand extends UndoableCommand {
     }
 }
 ```
-###### \java\seedu\address\logic\commands\GroupingCommand.java
+###### /java/seedu/address/logic/commands/GroupingCommand.java
 ``` java
 package seedu.address.logic.commands;
 
@@ -318,7 +325,7 @@ public class GroupingCommand extends UndoableCommand {
     }
 }
 ```
-###### \java\seedu\address\logic\commands\ListGroupsCommand.java
+###### /java/seedu/address/logic/commands/ListGroupsCommand.java
 ``` java
 package seedu.address.logic.commands;
 
@@ -361,7 +368,7 @@ public class ListGroupsCommand extends Command {
     }
 }
 ```
-###### \java\seedu\address\logic\commands\UndoCommand.java
+###### /java/seedu/address/logic/commands/UndoCommand.java
 ``` java
 package seedu.address.logic.commands;
 
@@ -427,7 +434,7 @@ public class UndoCommand extends Command {
     }
 }
 ```
-###### \java\seedu\address\logic\commands\ViewGroupCommand.java
+###### /java/seedu/address/logic/commands/ViewGroupCommand.java
 ``` java
 package seedu.address.logic.commands;
 
@@ -532,7 +539,7 @@ public class ViewGroupCommand extends Command {
     }
 }
 ```
-###### \java\seedu\address\logic\parser\DeleteCommandParser.java
+###### /java/seedu/address/logic/parser/DeleteCommandParser.java
 ``` java
 package seedu.address.logic.parser;
 
@@ -587,7 +594,7 @@ public class DeleteCommandParser implements Parser<DeleteCommand> {
 
 }
 ```
-###### \java\seedu\address\logic\parser\DeleteGroupCommandParser.java
+###### /java/seedu/address/logic/parser/DeleteGroupCommandParser.java
 ``` java
 package seedu.address.logic.parser;
 
@@ -624,7 +631,7 @@ public class DeleteGroupCommandParser implements Parser<DeleteGroupCommand> {
     }
 }
 ```
-###### \java\seedu\address\logic\parser\EditGroupCommandParser.java
+###### /java/seedu/address/logic/parser/EditGroupCommandParser.java
 ``` java
 package seedu.address.logic.parser;
 
@@ -717,7 +724,7 @@ public class EditGroupCommandParser implements Parser<EditGroupCommand> {
     }
 }
 ```
-###### \java\seedu\address\logic\parser\GroupingCommandParser.java
+###### /java/seedu/address/logic/parser/GroupingCommandParser.java
 ``` java
 package seedu.address.logic.parser;
 
@@ -795,7 +802,7 @@ public class GroupingCommandParser implements Parser<GroupingCommand> {
     }
 }
 ```
-###### \java\seedu\address\logic\parser\UndoCommandParser.java
+###### /java/seedu/address/logic/parser/UndoCommandParser.java
 ``` java
 package seedu.address.logic.parser;
 
@@ -831,7 +838,7 @@ public class UndoCommandParser implements Parser<UndoCommand> {
     }
 }
 ```
-###### \java\seedu\address\logic\parser\ViewGroupCommandParser.java
+###### /java/seedu/address/logic/parser/ViewGroupCommandParser.java
 ``` java
 package seedu.address.logic.parser;
 
@@ -877,7 +884,7 @@ public class ViewGroupCommandParser implements Parser<ViewGroupCommand> {
     }
 }
 ```
-###### \java\seedu\address\MainApp.java
+###### /java/seedu/address/MainApp.java
 ``` java
     /**
      * Returns a {@code ModelManager} with the data from {@code storage}'s backup address book and
@@ -905,13 +912,13 @@ public class ViewGroupCommandParser implements Parser<ViewGroupCommand> {
         return new ModelManager(initialData, userPrefs);
     }
 ```
-###### \java\seedu\address\model\AddressBook.java
+###### /java/seedu/address/model/AddressBook.java
 ``` java
     public void setGroups(List<? extends Group> groups) throws DuplicateGroupException, DuplicatePersonException {
         this.groups.setGroups(groups);
     }
 ```
-###### \java\seedu\address\model\AddressBook.java
+###### /java/seedu/address/model/AddressBook.java
 ``` java
     /**
      * Creates and adds the group into groups
@@ -947,7 +954,7 @@ public class ViewGroupCommandParser implements Parser<ViewGroupCommand> {
         groups.add(newGroup);
     }
 ```
-###### \java\seedu\address\model\AddressBook.java
+###### /java/seedu/address/model/AddressBook.java
 ``` java
     /**
      * Deletes or updates the group, if the group contains personToEdit
@@ -1003,7 +1010,7 @@ public class ViewGroupCommandParser implements Parser<ViewGroupCommand> {
         this.groups.setGrpName(targetGrp, newName);
     }
 ```
-###### \java\seedu\address\model\group\DuplicateGroupException.java
+###### /java/seedu/address/model/group/DuplicateGroupException.java
 ``` java
 package seedu.address.model.group;
 
@@ -1019,7 +1026,7 @@ public class DuplicateGroupException extends DuplicateDataException {
     }
 }
 ```
-###### \java\seedu\address\model\group\Group.java
+###### /java/seedu/address/model/group/Group.java
 ``` java
 package seedu.address.model.group;
 
@@ -1059,7 +1066,7 @@ public class Group extends UniquePersonList {
 
 }
 ```
-###### \java\seedu\address\model\group\UniqueGroupList.java
+###### /java/seedu/address/model/group/UniqueGroupList.java
 ``` java
 package seedu.address.model.group;
 
@@ -1157,7 +1164,7 @@ public class UniqueGroupList implements Iterable<Group> {
     }
 }
 ```
-###### \java\seedu\address\model\ModelManager.java
+###### /java/seedu/address/model/ModelManager.java
 ``` java
     @Override
     public void createGroup(String groupName, List<ReadOnlyPerson> personToGroup)
@@ -1211,7 +1218,7 @@ public class UniqueGroupList implements Iterable<Group> {
         indicateAddressBookChanged();
     }
 ```
-###### \java\seedu\address\model\person\predicates\GroupContainsPersonPredicate.java
+###### /java/seedu/address/model/person/predicates/GroupContainsPersonPredicate.java
 ``` java
 package seedu.address.model.person.predicates;
 
@@ -1237,13 +1244,13 @@ public class GroupContainsPersonPredicate implements Predicate<ReadOnlyPerson> {
     }
 }
 ```
-###### \java\seedu\address\storage\StorageManager.java
+###### /java/seedu/address/storage/StorageManager.java
 ``` java
     public Optional<ReadOnlyAddressBook> readBackupAddressBook() throws DataConversionException, IOException {
         return readAddressBook(backupAddressbook.getAddressBookFilePath());
     }
 ```
-###### \java\seedu\address\storage\StorageManager.java
+###### /java/seedu/address/storage/StorageManager.java
 ``` java
 
 
@@ -1259,7 +1266,7 @@ public class GroupContainsPersonPredicate implements Predicate<ReadOnlyPerson> {
     }
 
 ```
-###### \java\seedu\address\storage\StorageManager.java
+###### /java/seedu/address/storage/StorageManager.java
 ``` java
     private void backupAddressBook(ReadOnlyAddressBook addressBook) throws IOException {
         String backupPath = backupAddressbook.getAddressBookFilePath();
@@ -1267,7 +1274,7 @@ public class GroupContainsPersonPredicate implements Predicate<ReadOnlyPerson> {
         saveAddressBook(addressBook, backupPath);
     }
 ```
-###### \java\seedu\address\storage\XmlAdaptedGroup.java
+###### /java/seedu/address/storage/XmlAdaptedGroup.java
 ``` java
 package seedu.address.storage;
 
@@ -1327,7 +1334,7 @@ public class XmlAdaptedGroup {
     }
 }
 ```
-###### \java\seedu\address\storage\XmlSerializableAddressBook.java
+###### /java/seedu/address/storage/XmlSerializableAddressBook.java
 ``` java
     @Override
     public ObservableList<Group> getGroupList() {
@@ -1343,7 +1350,7 @@ public class XmlAdaptedGroup {
         return FXCollections.unmodifiableObservableList(groups);
     }
 ```
-###### \java\seedu\address\ui\CommandBox.java
+###### /java/seedu/address/ui/CommandBox.java
 ``` java
     /**
      * Opens an alert dialogue to inform user of the error

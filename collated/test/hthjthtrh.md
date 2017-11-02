@@ -1,5 +1,5 @@
 # hthjthtrh
-###### \java\seedu\address\logic\commands\DeleteCommandTest.java
+###### /java/seedu/address/logic/commands/DeleteCommandTest.java
 ``` java
 package seedu.address.logic.commands;
 
@@ -150,7 +150,7 @@ public class DeleteCommandTest {
     }
 }
 ```
-###### \java\seedu\address\logic\commands\DeleteGroupCommandTest.java
+###### /java/seedu/address/logic/commands/DeleteGroupCommandTest.java
 ``` java
 package seedu.address.logic.commands;
 
@@ -238,7 +238,7 @@ public class DeleteGroupCommandTest {
     }
 }
 ```
-###### \java\seedu\address\logic\commands\EditGroupCommandTest.java
+###### /java/seedu/address/logic/commands/EditGroupCommandTest.java
 ``` java
 package seedu.address.logic.commands;
 
@@ -254,6 +254,7 @@ import static seedu.address.logic.commands.EditGroupCommand.MESSAGE_GROUP_NONEXI
 import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
 
 import java.util.List;
+import java.util.function.Predicate;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -269,6 +270,7 @@ import seedu.address.model.group.Group;
 import seedu.address.model.person.ReadOnlyPerson;
 import seedu.address.model.person.exceptions.DuplicatePersonException;
 import seedu.address.model.person.exceptions.PersonNotFoundException;
+import seedu.address.model.person.predicates.GroupContainsPersonPredicate;
 import seedu.address.testutil.TypicalGroups;
 import seedu.address.testutil.TypicalPersons;
 
@@ -278,6 +280,7 @@ public class EditGroupCommandTest {
     private Model expectedModel;
     private EditGroupCommand editGrpCmd;
     private List<ReadOnlyPerson> typicalPersons = TypicalPersons.getTypicalPersons();
+    private Predicate predicate;
 
     @Before
     public void setUp() {
@@ -313,6 +316,8 @@ public class EditGroupCommandTest {
         Group testGroup = testGrps.get(0);
         ReadOnlyPerson person = typicalPersons.get(4);
         expectedModel.addPersonToGroup(testGroup, person);
+        predicate = new GroupContainsPersonPredicate(testGroup);
+        expectedModel.updateFilteredPersonList(predicate);
 
         prepareCommand("TestGrp3", "add", "5");
         assertCommandSuccess(editGrpCmd, model, String.format(MESSAGE_ADD_PERSON_SUCCESS, "TestGrp3",
@@ -321,6 +326,8 @@ public class EditGroupCommandTest {
 
         // deleting the person that was added
         expectedModel.removePersonFromGroup(testGroup, person);
+        predicate = new GroupContainsPersonPredicate(testGroup);
+        expectedModel.updateFilteredPersonList(predicate);
         prepareCommand("TestGrp3", "delete", "4");
         assertCommandSuccess(editGrpCmd, model, String.format(MESSAGE_DELETE_PERSON_SUCCESS, "TestGrp3",
                 person.toString()),
@@ -374,7 +381,7 @@ public class EditGroupCommandTest {
     }
 }
 ```
-###### \java\seedu\address\logic\commands\GroupingCommandTest.java
+###### /java/seedu/address/logic/commands/GroupingCommandTest.java
 ``` java
 package seedu.address.logic.commands;
 
@@ -522,7 +529,7 @@ public class GroupingCommandTest {
     }
 }
 ```
-###### \java\seedu\address\logic\commands\UndoCommandTest.java
+###### /java/seedu/address/logic/commands/UndoCommandTest.java
 ``` java
     @Test
     public void execute() throws Exception {
@@ -551,7 +558,7 @@ public class GroupingCommandTest {
         assertCommandFailure(undoCommand, model, MESSAGE_EXECUTION_FAILURE + UndoCommand.MESSAGE_FAILURE);
     }
 ```
-###### \java\seedu\address\logic\commands\ViewGroupCommandTest.java
+###### /java/seedu/address/logic/commands/ViewGroupCommandTest.java
 ``` java
 package seedu.address.logic.commands;
 
@@ -688,7 +695,7 @@ public class ViewGroupCommandTest {
     }
 }
 ```
-###### \java\seedu\address\logic\parser\DeleteCommandParserTest.java
+###### /java/seedu/address/logic/parser/DeleteCommandParserTest.java
 ``` java
 package seedu.address.logic.parser;
 
@@ -741,7 +748,7 @@ public class DeleteCommandParserTest {
     }
 }
 ```
-###### \java\seedu\address\logic\parser\DeleteGroupCommandParserTest.java
+###### /java/seedu/address/logic/parser/DeleteGroupCommandParserTest.java
 ``` java
 package seedu.address.logic.parser;
 
@@ -780,7 +787,7 @@ public class DeleteGroupCommandParserTest {
     }
 }
 ```
-###### \java\seedu\address\logic\parser\EditGroupCommandParserTest.java
+###### /java/seedu/address/logic/parser/EditGroupCommandParserTest.java
 ``` java
 package seedu.address.logic.parser;
 
@@ -832,7 +839,7 @@ public class EditGroupCommandParserTest {
     }
 }
 ```
-###### \java\seedu\address\logic\parser\GroupingCommandParserTest.java
+###### /java/seedu/address/logic/parser/GroupingCommandParserTest.java
 ``` java
 package seedu.address.logic.parser;
 
@@ -894,7 +901,7 @@ public class GroupingCommandParserTest {
     }
 }
 ```
-###### \java\seedu\address\logic\parser\ViewGroupCommandParserTest.java
+###### /java/seedu/address/logic/parser/ViewGroupCommandParserTest.java
 ``` java
 package seedu.address.logic.parser;
 
@@ -942,7 +949,7 @@ public class ViewGroupCommandParserTest {
     }
 }
 ```
-###### \java\seedu\address\model\UniqueGroupListTest.java
+###### /java/seedu/address/model/UniqueGroupListTest.java
 ``` java
 package seedu.address.model;
 
@@ -965,7 +972,7 @@ public class UniqueGroupListTest {
     }
 }
 ```
-###### \java\seedu\address\testutil\AddressBookBuilder.java
+###### /java/seedu/address/testutil/AddressBookBuilder.java
 ``` java
     /**
      * adds a new group into the addressbook being built
@@ -983,7 +990,7 @@ public class UniqueGroupListTest {
         return this;
     }
 ```
-###### \java\seedu\address\testutil\TypicalGroups.java
+###### /java/seedu/address/testutil/TypicalGroups.java
 ``` java
 package seedu.address.testutil;
 
@@ -1007,7 +1014,7 @@ public class TypicalGroups {
         testGroup3 = new Group("TestGrp3");
         try {
             testGroup3.add(TypicalPersons.ALICE);
-            testGroup3.add(TypicalPersons.BOB);
+            testGroup3.add(TypicalPersons.DANIEL);
             testGroup3.add(TypicalPersons.CARL);
         } catch (DuplicatePersonException e) {
             assert false : "not possible";

@@ -1,5 +1,5 @@
 # giang
-###### \java\seedu\address\logic\commands\FavoriteCommandTest.java
+###### /java/seedu/address/logic/commands/FavoriteCommandTest.java
 ``` java
 package seedu.address.logic.commands;
 
@@ -132,7 +132,7 @@ public class FavoriteCommandTest {
     }
 }
 ```
-###### \java\seedu\address\logic\commands\RemarkCommandTest.java
+###### /java/seedu/address/logic/commands/RemarkCommandTest.java
 ``` java
 package seedu.address.logic.commands;
 
@@ -227,7 +227,7 @@ public class RemarkCommandTest {
     }
 }
 ```
-###### \java\seedu\address\logic\parser\FavoriteCommandParserTest.java
+###### /java/seedu/address/logic/parser/FavoriteCommandParserTest.java
 ``` java
 package seedu.address.logic.parser;
 
