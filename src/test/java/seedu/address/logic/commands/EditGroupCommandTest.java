@@ -13,6 +13,7 @@ import static seedu.address.logic.commands.EditGroupCommand.MESSAGE_GROUP_NONEXI
 import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
 
 import java.util.List;
+import java.util.function.Predicate;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -28,6 +29,7 @@ import seedu.address.model.group.Group;
 import seedu.address.model.person.ReadOnlyPerson;
 import seedu.address.model.person.exceptions.DuplicatePersonException;
 import seedu.address.model.person.exceptions.PersonNotFoundException;
+import seedu.address.model.person.predicates.GroupContainsPersonPredicate;
 import seedu.address.testutil.TypicalGroups;
 import seedu.address.testutil.TypicalPersons;
 
@@ -37,6 +39,7 @@ public class EditGroupCommandTest {
     private Model expectedModel;
     private EditGroupCommand editGrpCmd;
     private List<ReadOnlyPerson> typicalPersons = TypicalPersons.getTypicalPersons();
+    private Predicate predicate;
 
     @Before
     public void setUp() {
@@ -72,6 +75,8 @@ public class EditGroupCommandTest {
         Group testGroup = testGrps.get(0);
         ReadOnlyPerson person = typicalPersons.get(4);
         expectedModel.addPersonToGroup(testGroup, person);
+        predicate = new GroupContainsPersonPredicate(testGroup);
+        expectedModel.updateFilteredPersonList(predicate);
 
         prepareCommand("TestGrp3", "add", "5");
         assertCommandSuccess(editGrpCmd, model, String.format(MESSAGE_ADD_PERSON_SUCCESS, "TestGrp3",
@@ -80,6 +85,8 @@ public class EditGroupCommandTest {
 
         // deleting the person that was added
         expectedModel.removePersonFromGroup(testGroup, person);
+        predicate = new GroupContainsPersonPredicate(testGroup);
+        expectedModel.updateFilteredPersonList(predicate);
         prepareCommand("TestGrp3", "delete", "4");
         assertCommandSuccess(editGrpCmd, model, String.format(MESSAGE_DELETE_PERSON_SUCCESS, "TestGrp3",
                 person.toString()),
