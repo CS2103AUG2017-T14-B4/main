@@ -4,6 +4,7 @@ package seedu.address.logic.commands;
 import static seedu.address.commons.core.Messages.MESSAGE_EXECUTION_FAILURE;
 
 import java.util.List;
+import java.util.function.Predicate;
 
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
@@ -16,6 +17,7 @@ import seedu.address.model.person.Person;
 import seedu.address.model.person.ReadOnlyPerson;
 import seedu.address.model.person.exceptions.DuplicatePersonException;
 import seedu.address.model.person.exceptions.PersonNotFoundException;
+import seedu.address.model.person.predicates.GroupContainsPersonPredicate;
 
 /**
  * Edits the group, either 1.change group name, 2.adds a person to the group or 3.deletes a person from the group
@@ -50,6 +52,7 @@ public class EditGroupCommand extends UndoableCommand {
     private String grpName;
     private String operation;
     private String detail;
+    private Predicate predicate;
 
     public EditGroupCommand(String grpName, String operation, String detail) {
         this.grpName = grpName;
@@ -99,7 +102,7 @@ public class EditGroupCommand extends UndoableCommand {
             if (operation.equals("add")) { //add operation
 
                 List<ReadOnlyPerson> lastShownList = model.getFilteredPersonList();
-                if (idx.getZeroBased() >= lastShownList.size() || idx.getZeroBased() <= 0) {
+                if (idx.getZeroBased() >= lastShownList.size() || idx.getOneBased() <= 0) {
                     throw new CommandException(MESSAGE_EXECUTION_FAILURE,
                             Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
                 }
@@ -108,6 +111,8 @@ public class EditGroupCommand extends UndoableCommand {
 
                 try {
                     model.addPersonToGroup(targetGrp, copiedPerson);
+                    predicate = new GroupContainsPersonPredicate(targetGrp);
+                    model.updateFilteredPersonList(predicate);
                     return new CommandResult(String.format(MESSAGE_ADD_PERSON_SUCCESS, grpName,
                             copiedPerson.toString()));
                 } catch (DuplicatePersonException e) {
@@ -125,6 +130,8 @@ public class EditGroupCommand extends UndoableCommand {
 
                 try {
                     model.removePersonFromGroup(targetGrp, copiedPerson);
+                    predicate = new GroupContainsPersonPredicate(targetGrp);
+                    model.updateFilteredPersonList(predicate);
                     return new CommandResult(String.format(MESSAGE_DELETE_PERSON_SUCCESS, grpName,
                             copiedPerson.toString()));
                 } catch (PersonNotFoundException e) {
