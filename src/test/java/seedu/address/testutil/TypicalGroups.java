@@ -21,7 +21,7 @@ public class TypicalGroups {
         testGroup3 = new Group("TestGrp3");
         try {
             testGroup3.add(TypicalPersons.ALICE);
-            testGroup3.add(TypicalPersons.BOB);
+            testGroup3.add(TypicalPersons.DANIEL);
             testGroup3.add(TypicalPersons.CARL);
         } catch (DuplicatePersonException e) {
             assert false : "not possible";
