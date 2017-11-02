@@ -19,5 +19,3 @@ classes/
 src/main/resources/docs/
 out/
 src/main/java/seedu/address/model/Model.java.rej
-collated/
-Collate-TUI.jar
