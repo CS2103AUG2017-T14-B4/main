@@ -1,4 +1,4 @@
-//@@author A0143832J
+//@@author heiseish
 package seedu.address.model.person;
 
 import static org.junit.Assert.assertEquals;
@@ -110,6 +110,36 @@ public class PersonTest {
     @Test
     public void getFavorite() throws Exception {
         assertEquals(person.getFavorite(), new Favorite());
+    }
+
+    @Test(expected = NullPointerException.class)
+    public void setMajor() throws Exception {
+        person.setMajor(null);
+    }
+
+    @Test
+    public void majorProperty() throws Exception {
+        assertEquals(person.majorProperty().get(), new Major(""));
+    }
+
+    @Test
+    public void getMajor() throws Exception {
+        assertEquals(person.getMajor(), new Major(""));
+    }
+
+    @Test(expected = NullPointerException.class)
+    public void setFacebook() throws Exception {
+        person.setFacebook(null);
+    }
+
+    @Test
+    public void facebookProperty() throws Exception {
+        assertEquals(person.facebookProperty().get(), new Facebook(""));
+    }
+
+    @Test
+    public void getFacebook() throws Exception {
+        assertEquals(person.getFacebook(), new Facebook(""));
     }
 
     @Test
