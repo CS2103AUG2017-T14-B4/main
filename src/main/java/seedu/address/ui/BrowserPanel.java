@@ -23,7 +23,7 @@ public class BrowserPanel extends UiPart<Region> {
 
     public static final String GOOGLE_SEARCH_URL_SUFFIX = "&cad=h&dg=dbrw&newdg=1";
     public static final String GOOGLE_MAP_URL_PREFIX = "https://www.google.com/maps/search/?api=1&query=";
-    public static final String FACEBOOK_PREFIX = "https://www.facebook.com/";
+    public static final String FACEBOOK_PREFIX = "https://m.facebook.com/";
     public static final String DEFAULT_PAGE = "http://www.nus.edu.sg/";
     private static final String FXML = "BrowserPanel.fxml";
 

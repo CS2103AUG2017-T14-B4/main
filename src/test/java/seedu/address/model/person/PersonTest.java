@@ -168,5 +168,12 @@ public class PersonTest {
         assertTrue(person.equals(person));
     }
 
+    @Test
+    public void replacement() {
+        ReadOnlyPerson copyPerson = new Person(person);
+        person.resetData(copyPerson);
+        assertTrue(copyPerson.equals(person));
+    }
+
 }
 //@@author
