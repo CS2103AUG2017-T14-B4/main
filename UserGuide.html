@@ -42,7 +42,7 @@
 <li><a href="#listing-persons-within-a-group-code-viewgroup-code">2.10. Listing persons within a group: <code>viewGroup</code></a></li>
 <li><a href="#editing-a-group-code-editgroup-code">2.11. Editing a group : <code>editGroup</code></a></li>
 <li><a href="#deleting-a-person-code-delete-code">2.12. Deleting a person : <code>delete</code></a></li>
-<li><a href="#favoriting-a-person-code-favorite-code">2.13. Favoriting a person : <code>favorite</code></a></li>
+<li><a href="#un-favoriting-a-person-code-favorite-code">2.13. (Un)Favoriting a person : <code>favorite</code></a></li>
 <li><a href="#selecting-a-person-code-select-code">2.14. Selecting a person : <code>select</code></a></li>
 <li><a href="#remarking-a-person-code-remark-code">2.15. Remarking a person : <code>remark</code></a></li>
 <li><a href="#deleting-tags-from-all-persons-code-deletetag-code">2.16. Deleting tags from all persons : <code>deleteTag</code></a></li>
@@ -52,7 +52,8 @@
 <li><a href="#redoing-the-previously-undone-command-code-redo-code">2.20. Redoing the previously undone command : <code>redo</code></a></li>
 <li><a href="#clearing-all-entries-code-clear-code">2.21. Clearing all entries : <code>clear</code></a></li>
 <li><a href="#exiting-the-program-code-exit-code">2.22. Exiting the program : <code>exit</code></a></li>
-<li><a href="#saving-the-data">2.23. Saving the data</a></li>
+<li><a href="#access-the-facebook-profile-of-a-contact">2.23. Access the facebook profile of a contact</a></li>
+<li><a href="#saving-the-data">2.24. Saving the data</a></li>
 </ul>
 </li>
 <li><a href="#faq">3. FAQ</a></li>
@@ -145,6 +146,9 @@ e.g. typing <strong><code>help</code></strong> and pressing <kbd>Enter</kbd> wil
 <p>Items with <code>…</code>​ after them can be used multiple times including zero times e.g. <code>[t/TAG]&#8230;&#8203;</code> can be used as <code>&#160;</code> (i.e. 0 times), <code>t/friend</code>, <code>t/friend t/family</code> etc.</p>
 </li>
 <li>
+<p>Items with <code>?</code>​ after them can be used optionally including zero times e.g. <code>[m/MAJOR]?</code> can be used as <code>&#160;</code> (i.e. optional), <code>m/Computer Science</code>, <code>m/CS fb/zuck</code> etc.</p>
+</li>
+<li>
 <p>Parameters can be in any order e.g. if the command specifies <code>n/NAME p/PHONE_NUMBER</code>, <code>p/PHONE_NUMBER n/NAME</code> is also acceptable.</p>
 </li>
 </ul>
@@ -161,7 +165,7 @@ e.g. typing <strong><code>help</code></strong> and pressing <kbd>Enter</kbd> wil
 <h3 id="adding-a-person-code-add-code"><a class="link" href="#adding-a-person-code-add-code">2.2. Adding a person: <code>add</code></a></h3>
 <div class="paragraph">
 <p>Adds a person to the address book<br>
-Format: <code>add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS b/BIRTHDAY [t/TAG]&#8230;&#8203;</code></p>
+Format: <code>add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS b/BIRTHDAY [m/MAJOR]? [fb/FACEBOOK]? [r/REMARK]? [t/TAG]&#8230;&#8203;</code></p>
 </div>
 <div class="admonitionblock tip">
 <table>
@@ -181,7 +185,7 @@ A person can have any number of tags (including 0)
 <div class="ulist">
 <ul>
 <li>
-<p><code>add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01 b/01/01/1990</code></p>
+<p><code>add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01 b/01/01/1990 m/Chemical Engineering fb/zuck</code></p>
 </li>
 <li>
 <p><code>add n/Betsy Crowe t/friend e/betsycrowe@example.com a/Newgate Prison p/1234567 b/02/03/1990 t/criminal</code></p>
@@ -200,7 +204,7 @@ Format: <code>list</code></p>
 <h3 id="editing-a-person-code-edit-code"><a class="link" href="#editing-a-person-code-edit-code">2.4. Editing a person : <code>edit</code></a></h3>
 <div class="paragraph">
 <p>Edits an existing person in the address book.<br>
-Format: <code>edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]&#8230;&#8203;</code></p>
+Format: <code>edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [b/BIRTHDAY] [m/MAJOR]? [fb/FACEBOOK]? [t/TAG]&#8230;&#8203;</code></p>
 </div>
 <div class="sidebarblock">
 <div class="content">
@@ -324,6 +328,10 @@ Returns <code>john</code> and <code>John Doe</code></p>
 <li>
 <p><code>find t/cs2103</code><br>
 Returns any person having tags <code>cs2103</code></p>
+</li>
+<li>
+<p><code>find e/example.com</code><br>
+Returns any person having email containing <code>example.com</code></p>
 </li>
 </ul>
 </div>
@@ -590,9 +598,9 @@ Deletes the 1st, 3rd, 7th person in the results of the <code>find</code> command
 </div>
 </div>
 <div class="sect2">
-<h3 id="favoriting-a-person-code-favorite-code"><a class="link" href="#favoriting-a-person-code-favorite-code">2.13. Favoriting a person : <code>favorite</code></a></h3>
+<h3 id="un-favoriting-a-person-code-favorite-code"><a class="link" href="#un-favoriting-a-person-code-favorite-code">2.13. (Un)Favoriting a person : <code>favorite</code></a></h3>
 <div class="paragraph">
-<p>Favorites the specified person from the address book so they will appear on top of the contact list.<br>
+<p>Favorites the specified person from the address book so they will appear on top of the contact list or unfavorite a favorited person.<br>
 Format: <code>favorite INDEX</code></p>
 </div>
 <div class="sidebarblock">
@@ -851,7 +859,13 @@ Format: <code>exit</code></p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="saving-the-data"><a class="link" href="#saving-the-data">2.23. Saving the data</a></h3>
+<h3 id="access-the-facebook-profile-of-a-contact"><a class="link" href="#access-the-facebook-profile-of-a-contact">2.23. Access the facebook profile of a contact</a></h3>
+<div class="paragraph">
+<p>If a person is registered with a facebook user-name, a facebook icon will appear beside his name. To view his facebook profile and feeds, simply click on the facebook icon. Note: you might have to log in due to facebook data security.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="saving-the-data"><a class="link" href="#saving-the-data">2.24. Saving the data</a></h3>
 <div class="paragraph">
 <p>Address book data are saved in the hard disk automatically after any command that changes the data.<br>
 There is no need to save manually.</p>
@@ -874,8 +888,8 @@ There is no need to save manually.</p>
 <div class="ulist">
 <ul>
 <li>
-<p><strong>Add</strong> <code>add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]&#8230;&#8203;</code><br>
-e.g. <code>add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague</code></p>
+<p><strong>Add</strong> <code>add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS b/BIRTHDAY [r/REMARK]? [m/MAJOR]? [fb/FACEBOOK]? [t/TAG]&#8230;&#8203;</code><br>
+e.g. <code>add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 b/01/01/1994 m/Computer Science fb/zuck t/friend t/colleague</code></p>
 </li>
 <li>
 <p><strong>Clear</strong> : <code>clear</code></p>
@@ -885,12 +899,12 @@ e.g. <code>add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1
 e.g. <code>delete 3</code></p>
 </li>
 <li>
-<p><strong>Edit</strong> : <code>edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]&#8230;&#8203;</code><br>
+<p><strong>Edit</strong> : <code>edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [b/BIRTHDAY] [r/REMARK] [m/MAJOR] [fb/FACEBOOK] [t/TAG]&#8230;&#8203;</code><br>
 e.g. <code>edit 2 n/James Lee e/jameslee@example.com</code></p>
 </li>
 <li>
 <p><strong>Find</strong> : <code>find KEYWORD [MORE_KEYWORDS]</code><br>
-e.g. <code>find James Jake</code></p>
+e.g. <code>find James Jake</code>, <code>find e/example.com</code></p>
 </li>
 <li>
 <p><strong>List</strong> : <code>list</code></p>
@@ -909,7 +923,7 @@ e.g.<code>select 2</code></p>
 <p><strong>Remark</strong>: <code>remark INDEX [r/REMARK]</code></p>
 </li>
 <li>
-<p><strong>Undo</strong> : <code>undo</code></p>
+<p><strong>Undo</strong> : <code>undo</code> or <code>undo NUMBER_OF_TIME</code></p>
 </li>
 <li>
 <p><strong>Redo</strong> : <code>redo</code></p>
@@ -924,7 +938,7 @@ e.g.<code>select 2</code></p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2017-11-02 06:48:17 +00:00
+Last updated 2017-11-05 09:42:43 +00:00
 </div>
 </div>
 </body>
