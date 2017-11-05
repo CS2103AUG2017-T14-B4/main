@@ -1,4 +1,33 @@
 # heiseish
+###### /java/seedu/address/commons/events/ui/PersonFacebookOpenEvent.java
+``` java
+package seedu.address.commons.events.ui;
+
+import seedu.address.commons.events.BaseEvent;
+import seedu.address.model.person.ReadOnlyPerson;
+
+/**
+ * Represents a facebook open request
+ */
+public class PersonFacebookOpenEvent extends BaseEvent {
+
+
+    private final ReadOnlyPerson newSelection;
+
+    public PersonFacebookOpenEvent(ReadOnlyPerson newSelection) {
+        this.newSelection = newSelection;
+    }
+
+    @Override
+    public String toString() {
+        return this.getClass().getSimpleName();
+    }
+
+    public ReadOnlyPerson getNewSelection() {
+        return newSelection;
+    }
+}
+```
 ###### /java/seedu/address/commons/util/CollectionUtil.java
 ``` java
     /**
@@ -230,6 +259,8 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Birthday;
 import seedu.address.model.person.Email;
+import seedu.address.model.person.Facebook;
+import seedu.address.model.person.Major;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
@@ -304,10 +335,13 @@ public class RemarkCommand extends UndoableCommand {
         Email updatedEmail = person.getEmail();
         Address updatedAddress = person.getAddress();
         Birthday updatedBirthday = person.getBirthday();
+        Major updatedMajor = person.getMajor();
+        Facebook updatedFacebook = person.getFacebook();
         Set<Tag> updatedTags = person.getTags();
 
         return new Person(updatedName, updatedPhone,
-                updatedEmail, updatedAddress, updatedBirthday, remark, updatedTags);
+                updatedEmail, updatedAddress, updatedBirthday, remark,
+                updatedMajor, updatedFacebook, updatedTags);
     }
 
 }
@@ -347,24 +381,36 @@ public class FavoriteCommandParser implements Parser<FavoriteCommand> {
 ###### /java/seedu/address/logic/parser/FindCommandParser.java
 ``` java
         try {
-            Optional<Name> name = ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME));
-            Optional<Phone> phone = ParserUtil.parsePhone(argMultimap.getValue(PREFIX_PHONE));
-            Optional<Address> address = ParserUtil.parseAddress(argMultimap.getValue(PREFIX_ADDRESS));
-            Optional<Email> email = ParserUtil.parseEmail(argMultimap.getValue(PREFIX_EMAIL));
+            Optional<String> name = argMultimap.getValue(PREFIX_NAME);
+            Optional<String> phone = argMultimap.getValue(PREFIX_PHONE);
+            Optional<String> address = argMultimap.getValue(PREFIX_ADDRESS);
+            Optional<String> email = argMultimap.getValue(PREFIX_EMAIL);
+            Optional<String> remark = argMultimap.getValue(PREFIX_REMARK);
+            Optional<String> major = argMultimap.getValue(PREFIX_MAJOR);
+            Optional<String> facebook = argMultimap.getValue(PREFIX_FACEBOOK);
             Optional<Set<Tag>> tags = parseTagsForFind(argMultimap.getAllValues(PREFIX_TAG));
 
             if (name.isPresent()) {
-                keywords = name.get().toString().trim().split("\\s+");
+                keywords = name.get().trim().split("\\s+");
                 return new FindCommand(new NameContainsKeywordsPredicate(Arrays.asList(keywords)));
             } else if (phone.isPresent()) {
-                keywords = phone.get().toString().trim().split("\\s+");
+                keywords = phone.get().trim().split("\\s+");
                 return new FindCommand(new PhoneContainsKeywordsPredicate(Arrays.asList(keywords)));
             } else if (address.isPresent()) {
-                keywords = address.get().toString().trim().split("\\s+");
+                keywords = address.get().trim().split("\\s+");
                 return new FindCommand(new AddressContainsKeywordsPredicate(Arrays.asList(keywords)));
             } else if (email.isPresent()) {
-                keywords = email.get().toString().trim().split("\\s+");
+                keywords = email.get().trim().split("\\s+");
                 return new FindCommand(new EmailContainsKeywordsPredicate(Arrays.asList(keywords)));
+            } else if (remark.isPresent()) {
+                keywords = remark.get().trim().split("\\s+");
+                return new FindCommand(new RemarkContainsKeywordsPredicate(Arrays.asList(keywords)));
+            } else if (major.isPresent()) {
+                keywords = major.get().trim().split("\\s+");
+                return new FindCommand(new MajorContainsKeywordsPredicate(Arrays.asList(keywords)));
+            } else if (facebook.isPresent()) {
+                keywords = facebook.get().trim().split("\\s+");
+                return new FindCommand(new FacebookContainsKeywordsPredicate(Arrays.asList(keywords)));
             } else if (tags.isPresent()) {
                 return new FindCommand(new TagContainsKeywordsPredicate(tags.get()));
             } else if ("favorite".equals(trimmedArgs) || "unfavorite".equals(trimmedArgs)) {
@@ -380,9 +426,28 @@ public class FavoriteCommandParser implements Parser<FavoriteCommand> {
      * Parses a {@code Optional<String> remark} into an {@code Optional<Remark>} if {@code remark} is present.
      * See header comment of this class regarding the use of {@code Optional} parameters.
      */
-    public static Optional<Remark> parseRemark(Optional<String> remark) throws IllegalValueException {
+    public static Optional<Remark> parseRemark(Optional<String> remark) {
         requireNonNull(remark);
         return remark.isPresent() ? Optional.of(new Remark(remark.get())) : Optional.empty();
+    }
+
+    /**
+     * Parses a {@code Optional<String> rmajor} into an {@code Optional<Major>} if {@code major} is present.
+     * See header comment of this class regarding the use of {@code Optional} parameters.
+     */
+    public static Optional<Major> parseMajor(Optional<String> major) {
+        requireNonNull(major);
+        return major.isPresent() ? Optional.of(new Major(major.get())) : Optional.empty();
+    }
+
+
+    /**
+     * Parses a {@code Optional<String> facebook} into an {@code Optional<Facebook>} if {@code facebook} is present.
+     * See header comment of this class regarding the use of {@code Optional} parameters.
+     */
+    public static Optional<Facebook> parseFacebook(Optional<String> facebook) {
+        requireNonNull(facebook);
+        return facebook.isPresent() ? Optional.of(new Facebook(facebook.get())) : Optional.empty();
     }
 }
 ```
@@ -494,6 +559,101 @@ public class Favorite {
     }
 }
 ```
+###### /java/seedu/address/model/person/Major.java
+``` java
+package seedu.address.model.person;
+
+import static java.util.Objects.requireNonNull;
+
+/**
+ * Represent a student's major in the address book.
+ * User might also add year of study as an additional information (optional)
+ */
+public class Major {
+    public final String value;
+
+
+    public Major(String major) {
+        requireNonNull(major);
+        this.value = major.trim();
+    }
+
+    @Override
+    public String toString() {
+        return value;
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof Major // instanceof handles nulls
+                && this.value.equals(((Major) other).value)); // state check
+    }
+
+    @Override
+    public int hashCode() {
+        return value.hashCode();
+    }
+}
+```
+###### /java/seedu/address/model/person/Person.java
+``` java
+    public void setRemark(Remark remark) {
+        this.remark.set(requireNonNull(remark));
+    }
+
+    @Override
+    public ObjectProperty<Remark> remarkProperty() {
+        return remark;
+    }
+
+    @Override
+    public Remark getRemark() {
+        return remark.get();
+    }
+
+    public void setFavorite(Favorite favorite) {
+        this.favorite.set(requireNonNull(favorite));
+    }
+
+    @Override
+    public ObjectProperty<Favorite> favoriteProperty() {
+        return favorite;
+    }
+
+    @Override
+    public Favorite getFavorite() {
+        return favorite.get();
+    }
+
+    public void setMajor(Major major) {
+        this.major.set(requireNonNull(major));
+    }
+
+    @Override
+    public ObjectProperty<Major> majorProperty() {
+        return major;
+    }
+
+    @Override
+    public Major getMajor() {
+        return major.get();
+    }
+
+    public void setFacebook(Facebook facebook) {
+        this.facebook.set(requireNonNull(facebook));
+    }
+
+    @Override
+    public ObjectProperty<Facebook> facebookProperty() {
+        return facebook;
+    }
+
+    @Override
+    public Facebook getFacebook() {
+        return facebook.get();
+    }
+```
 ###### /java/seedu/address/model/person/predicates/AddressContainsKeywordsPredicate.java
 ``` java
 package seedu.address.model.person.predicates;
@@ -558,8 +718,11 @@ public class AnyContainsKeywordsPredicate implements Predicate<ReadOnlyPerson> {
                 .anyMatch(keyword ->
                         StringUtil.containsWordIgnoreCase(person.getName().fullName, keyword)
                 || StringUtil.containsWordIgnoreCase(person.getEmail().value, keyword)
+                || StringUtil.containsWordIgnoreCase(person.getRemark().remark, keyword)
                 || StringUtil.containsWordIgnoreCase(person.getAddress().value, keyword)
                 || StringUtil.containsWordIgnoreCase(person.getPhone().value, keyword)
+                || StringUtil.containsWordIgnoreCase(person.getMajor().value, keyword)
+                || StringUtil.containsWordIgnoreCase(person.getFacebook().value, keyword)
                 || !Collections.disjoint(person.getTagsString(), keywords));
     }
 
@@ -608,6 +771,76 @@ public class EmailContainsKeywordsPredicate implements Predicate<ReadOnlyPerson>
 
 }
 ```
+###### /java/seedu/address/model/person/predicates/FacebookContainsKeywordsPredicate.java
+``` java
+package seedu.address.model.person.predicates;
+
+import java.util.List;
+import java.util.function.Predicate;
+
+import seedu.address.commons.util.StringUtil;
+import seedu.address.model.person.ReadOnlyPerson;
+
+/**
+ * Tests that a {@code ReadOnlyPerson}'s {@code Facebook} matches any of the keywords given.
+ */
+public class FacebookContainsKeywordsPredicate implements Predicate<ReadOnlyPerson> {
+    private final List<String> keywords;
+
+    public FacebookContainsKeywordsPredicate(List<String> keywords) {
+        this.keywords = keywords;
+    }
+
+    @Override
+    public boolean test(ReadOnlyPerson person) {
+        return keywords.stream()
+                .anyMatch(keyword -> StringUtil.containsWordIgnoreCase(person.getFacebook().value, keyword));
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof FacebookContainsKeywordsPredicate // instanceof handles nulls
+                && this.keywords.equals(((FacebookContainsKeywordsPredicate) other).keywords)); // state check
+    }
+
+}
+```
+###### /java/seedu/address/model/person/predicates/MajorContainsKeywordsPredicate.java
+``` java
+package seedu.address.model.person.predicates;
+
+import java.util.List;
+import java.util.function.Predicate;
+
+import seedu.address.commons.util.StringUtil;
+import seedu.address.model.person.ReadOnlyPerson;
+
+/**
+ * Tests that a {@code ReadOnlyPerson}'s {@code Major} matches any of the keywords given.
+ */
+public class MajorContainsKeywordsPredicate implements Predicate<ReadOnlyPerson> {
+    private final List<String> keywords;
+
+    public MajorContainsKeywordsPredicate(List<String> keywords) {
+        this.keywords = keywords;
+    }
+
+    @Override
+    public boolean test(ReadOnlyPerson person) {
+        return keywords.stream()
+                .anyMatch(keyword -> StringUtil.containsWordIgnoreCase(person.getMajor().value, keyword));
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof MajorContainsKeywordsPredicate // instanceof handles nulls
+                && this.keywords.equals(((MajorContainsKeywordsPredicate) other).keywords)); // state check
+    }
+
+}
+```
 ###### /java/seedu/address/model/person/predicates/PhoneContainsKeywordsPredicate.java
 ``` java
 package seedu.address.model.person.predicates;
@@ -639,6 +872,41 @@ public class PhoneContainsKeywordsPredicate implements Predicate<ReadOnlyPerson>
         return other == this // short circuit if same object
                 || (other instanceof PhoneContainsKeywordsPredicate // instanceof handles nulls
                 && this.keywords.equals(((PhoneContainsKeywordsPredicate) other).keywords)); // state check
+    }
+
+}
+```
+###### /java/seedu/address/model/person/predicates/RemarkContainsKeywordsPredicate.java
+``` java
+package seedu.address.model.person.predicates;
+
+import java.util.List;
+import java.util.function.Predicate;
+
+import seedu.address.commons.util.StringUtil;
+import seedu.address.model.person.ReadOnlyPerson;
+
+/**
+ * Tests that a {@code ReadOnlyPerson}'s {@code Remark} matches any of the keywords given.
+ */
+public class RemarkContainsKeywordsPredicate implements Predicate<ReadOnlyPerson> {
+    private final List<String> keywords;
+
+    public RemarkContainsKeywordsPredicate(List<String> keywords) {
+        this.keywords = keywords;
+    }
+
+    @Override
+    public boolean test(ReadOnlyPerson person) {
+        return keywords.stream()
+                .anyMatch(keyword -> StringUtil.containsWordIgnoreCase(person.getRemark().remark, keyword));
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof RemarkContainsKeywordsPredicate // instanceof handles nulls
+                && this.keywords.equals(((RemarkContainsKeywordsPredicate) other).keywords)); // state check
     }
 
 }
@@ -868,6 +1136,16 @@ public class Remark {
 ```
 ###### /java/seedu/address/ui/PersonCard.java
 ``` java
+        remark.textProperty().bind(Bindings.convert(person.remarkProperty()));
+        major.textProperty().bind(Bindings.convert(person.majorProperty()));
+        person.favoriteProperty().addListener((observable, oldValue, newValue) -> initFavorite(person));
+        person.facebookProperty().addListener((observable, oldValue, newValue) -> initFbIcon(person));
+        person.tagProperty().addListener((observable, oldValue, newValue) -> {
+            tags.getChildren().clear();
+            initTags(person);
+        });
+    }
+
     /**
      * Prepare a HashMap of some default colors to link {@code tagName} with a color
      */
@@ -905,6 +1183,27 @@ public class Remark {
         favorite.setVisible(person.getFavorite().favorite);
     }
 
+    /**
+     * Instantiate the facebook icon if a facebook account is linked with the person
+     */
+    private void initFbIcon(ReadOnlyPerson person) {
+        ImageView image = new ImageView(new Image(getClass().getResourceAsStream(FACEBOOK)));
+        image.setFitHeight(25);
+        image.setFitWidth(25);
+        facebookPage.setGraphic(image);
+        facebookPage.setVisible(!person.getFacebook().value.equals(""));
+    }
+
+    /**
+     * Instantiate image of a person.
+     */
+    private void initImage() {
+        Image image = new Image(getClass().getResourceAsStream(DEFAULT));
+        Circle circle = new Circle(25);
+        circle.setFill(new ImagePattern(image));
+        picture.setGraphic(circle);
+    }
+
 
     /**
      * Get color from the hashmap. If not found, generate a new index and a random color
@@ -924,6 +1223,16 @@ public class Remark {
             return labelColor.get(tagName);
         }
     }
+
+    /**
+     * Handles press on the facebook icon
+     */
+    @FXML
+    private void openFacebookPage() {
+        raise(new PersonFacebookOpenEvent(person));
+    }
+
+
 ```
 ###### /java/seedu/address/ui/StatusBarFooter.java
 ``` java

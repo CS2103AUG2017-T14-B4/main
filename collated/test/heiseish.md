@@ -430,6 +430,29 @@ public class FavoriteTest {
     }
 }
 ```
+###### /java/seedu/address/model/person/MajorTest.java
+``` java
+package seedu.address.model.person;
+
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+
+import org.junit.Test;
+
+public class MajorTest {
+    @Test
+    public void isEqualMajor() {
+
+        // equal Major objects
+        assertTrue(new Major("Chemical Engineering").equals(new Major("Chemical Engineering")));
+        assertTrue(new Major("Computer Science").equals(new Major("Computer Science")));
+
+        //unequal Major objects
+        assertFalse(new Major("Chemical Engineering").equals(new Major("Computer Science")));
+        assertFalse(new Major("Computer Science").equals(new Major("")));
+    }
+}
+```
 ###### /java/seedu/address/model/person/PersonTest.java
 ``` java
 package seedu.address.model.person;
@@ -543,6 +566,36 @@ public class PersonTest {
     @Test
     public void getFavorite() throws Exception {
         assertEquals(person.getFavorite(), new Favorite());
+    }
+
+    @Test(expected = NullPointerException.class)
+    public void setMajor() throws Exception {
+        person.setMajor(null);
+    }
+
+    @Test
+    public void majorProperty() throws Exception {
+        assertEquals(person.majorProperty().get(), new Major(""));
+    }
+
+    @Test
+    public void getMajor() throws Exception {
+        assertEquals(person.getMajor(), new Major(""));
+    }
+
+    @Test(expected = NullPointerException.class)
+    public void setFacebook() throws Exception {
+        person.setFacebook(null);
+    }
+
+    @Test
+    public void facebookProperty() throws Exception {
+        assertEquals(person.facebookProperty().get(), new Facebook(""));
+    }
+
+    @Test
+    public void getFacebook() throws Exception {
+        assertEquals(person.getFacebook(), new Facebook(""));
     }
 
     @Test
@@ -821,6 +874,174 @@ public class EmailContainsKeywordsPredicateTest {
 
 }
 ```
+###### /java/seedu/address/model/person/predicates/FacebookContainsKeywordsPredicateTest.java
+``` java
+package seedu.address.model.person.predicates;
+
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
+
+import org.junit.Test;
+
+import seedu.address.testutil.PersonBuilder;
+
+public class FacebookContainsKeywordsPredicateTest {
+    @Test
+    public void test_facebookContainsKeywords_returnsTrue() {
+        // One keyword
+        FacebookContainsKeywordsPredicate predicate = new FacebookContainsKeywordsPredicate(
+                Collections.singletonList("zuck"));
+        assertTrue(predicate.test(new PersonBuilder().withFacebook("zuck").build()));
+
+        // Multiple keywords
+        predicate = new FacebookContainsKeywordsPredicate(Arrays.asList("zuck", "galois"));
+        assertTrue(predicate.test(new PersonBuilder().withFacebook("zuck").build()));
+
+        // Only one matching keyword
+        predicate = new FacebookContainsKeywordsPredicate(Arrays.asList("zuck", "galois"));
+        assertTrue(predicate.test(new PersonBuilder().withFacebook("zuckerberg").build()));
+
+        // Mixed-case keywords
+        predicate = new FacebookContainsKeywordsPredicate(Collections.singletonList("zuck"));
+        assertTrue(predicate.test(new PersonBuilder().withFacebook("ZUCK").build()));
+    }
+
+    @Test
+    public void test_facebookDoesNotContainKeywords_returnsFalse() {
+        // Zero keywords
+        FacebookContainsKeywordsPredicate predicate = new FacebookContainsKeywordsPredicate(Collections.emptyList());
+        assertFalse(predicate.test(new PersonBuilder().withFacebook("zuck").build()));
+
+        // Non-matching keyword
+        predicate = new FacebookContainsKeywordsPredicate(Arrays.asList("zuck", "galois"));
+        assertFalse(predicate.test(new PersonBuilder().withFacebook("michaelJackson").build()));
+
+        // Keywords match name, email and birthday, address, but does not match facebook
+        predicate = new FacebookContainsKeywordsPredicate(
+                Arrays.asList("Alice", "alice@email.com", "Main", "01/01/1990"));
+        assertFalse(predicate.test(new PersonBuilder().withName("Alice").withPhone("12345")
+                .withEmail("alice@email.com").withAddress("Street")
+                .withFacebook("galois").withBirthday("01/01/1990").build()));
+    }
+
+    @Test
+    public void equals() throws Exception {
+        List<String> firstPredicateKeywordList = Collections.singletonList("first");
+        List<String> secondPredicateKeywordList = Arrays.asList("first", "second");
+
+        FacebookContainsKeywordsPredicate firstPredicate =
+                new FacebookContainsKeywordsPredicate(firstPredicateKeywordList);
+        FacebookContainsKeywordsPredicate secondPredicate =
+                new FacebookContainsKeywordsPredicate(secondPredicateKeywordList);
+
+        // same object -> returns true
+        assertTrue(firstPredicate.equals(firstPredicate));
+
+        // same values -> returns true
+        FacebookContainsKeywordsPredicate firstPredicateCopy =
+                new FacebookContainsKeywordsPredicate(firstPredicateKeywordList);
+        assertTrue(firstPredicate.equals(firstPredicateCopy));
+
+        // different types -> returns false
+        assertFalse(firstPredicate.equals(1));
+
+        // null -> returns false
+        assertFalse(firstPredicate.equals(null));
+
+        // different person -> returns false
+        assertFalse(firstPredicate.equals(secondPredicate));
+    }
+
+}
+```
+###### /java/seedu/address/model/person/predicates/MajorContainsKeywordsPredicateTest.java
+``` java
+package seedu.address.model.person.predicates;
+
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
+
+import org.junit.Test;
+
+import seedu.address.testutil.PersonBuilder;
+
+public class MajorContainsKeywordsPredicateTest {
+    @Test
+    public void test_majorContainsKeywords_returnsTrue() {
+        // One keyword
+        MajorContainsKeywordsPredicate predicate = new MajorContainsKeywordsPredicate(
+                Collections.singletonList("Chemical"));
+        assertTrue(predicate.test(new PersonBuilder().withMajor("Chemical Engineering").build()));
+
+        // Multiple keywords
+        predicate = new MajorContainsKeywordsPredicate(Arrays.asList("Chemical", "Engineering"));
+        assertTrue(predicate.test(new PersonBuilder().withMajor("Chemical Engineering").build()));
+
+        // Only one matching keyword
+        predicate = new MajorContainsKeywordsPredicate(Arrays.asList("Chemical", "Engineering"));
+        assertTrue(predicate.test(new PersonBuilder().withMajor("Computer Engineering").build()));
+
+        // Mixed-case keywords
+        predicate = new MajorContainsKeywordsPredicate(Collections.singletonList("chemical"));
+        assertTrue(predicate.test(new PersonBuilder().withMajor("Chemical Engineering").build()));
+    }
+
+    @Test
+    public void test_majorDoesNotContainKeywords_returnsFalse() {
+        // Zero keywords
+        MajorContainsKeywordsPredicate predicate = new MajorContainsKeywordsPredicate(Collections.emptyList());
+        assertFalse(predicate.test(new PersonBuilder().withMajor("chemical").build()));
+
+        // Non-matching keyword
+        predicate = new MajorContainsKeywordsPredicate(Arrays.asList("chemical", "engineering"));
+        assertFalse(predicate.test(new PersonBuilder().withMajor("computer science").build()));
+
+        // Keywords match name, email and birthday, address, but does not match major
+        predicate = new MajorContainsKeywordsPredicate(
+                Arrays.asList("Alice", "alice@email.com", "Main", "01/01/1990"));
+        assertFalse(predicate.test(new PersonBuilder().withName("Alice").withPhone("12345")
+                .withEmail("alice@email.com").withAddress("Street")
+                .withMajor("chemical").withBirthday("01/01/1990").build()));
+    }
+
+    @Test
+    public void equals() throws Exception {
+        List<String> firstPredicateKeywordList = Collections.singletonList("first");
+        List<String> secondPredicateKeywordList = Arrays.asList("first", "second");
+
+        MajorContainsKeywordsPredicate firstPredicate =
+                new MajorContainsKeywordsPredicate(firstPredicateKeywordList);
+        MajorContainsKeywordsPredicate secondPredicate =
+                new MajorContainsKeywordsPredicate(secondPredicateKeywordList);
+
+        // same object -> returns true
+        assertTrue(firstPredicate.equals(firstPredicate));
+
+        // same values -> returns true
+        MajorContainsKeywordsPredicate firstPredicateCopy =
+                new MajorContainsKeywordsPredicate(firstPredicateKeywordList);
+        assertTrue(firstPredicate.equals(firstPredicateCopy));
+
+        // different types -> returns false
+        assertFalse(firstPredicate.equals(1));
+
+        // null -> returns false
+        assertFalse(firstPredicate.equals(null));
+
+        // different person -> returns false
+        assertFalse(firstPredicate.equals(secondPredicate));
+    }
+
+}
+```
 ###### /java/seedu/address/model/person/predicates/PhoneContainsKeywordsPredicateTest.java
 ``` java
 package seedu.address.model.person.predicates;
@@ -884,6 +1105,90 @@ public class PhoneContainsKeywordsPredicateTest {
         // same values -> returns true
         PhoneContainsKeywordsPredicate firstPredicateCopy =
                 new PhoneContainsKeywordsPredicate(firstPredicateKeywordList);
+        assertTrue(firstPredicate.equals(firstPredicateCopy));
+
+        // different types -> returns false
+        assertFalse(firstPredicate.equals(1));
+
+        // null -> returns false
+        assertFalse(firstPredicate.equals(null));
+
+        // different person -> returns false
+        assertFalse(firstPredicate.equals(secondPredicate));
+    }
+
+}
+```
+###### /java/seedu/address/model/person/predicates/RemarkContainsKeywordsPredicateTest.java
+``` java
+package seedu.address.model.person.predicates;
+
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
+
+import org.junit.Test;
+
+import seedu.address.testutil.PersonBuilder;
+
+public class RemarkContainsKeywordsPredicateTest {
+    @Test
+    public void test_remarkContainsKeywords_returnsTrue() {
+        // One keyword
+        RemarkContainsKeywordsPredicate predicate = new RemarkContainsKeywordsPredicate(
+                Collections.singletonList("dev"));
+        assertTrue(predicate.test(new PersonBuilder().withRemark("dev").build()));
+
+        // Multiple keywords
+        predicate = new RemarkContainsKeywordsPredicate(Arrays.asList("dev", "UI"));
+        assertTrue(predicate.test(new PersonBuilder().withRemark("UI").build()));
+
+        // Only one matching keyword
+        predicate = new RemarkContainsKeywordsPredicate(Arrays.asList("dev", "UI"));
+        assertTrue(predicate.test(new PersonBuilder().withRemark("dev of UI").build()));
+
+        // Mixed-case keywords
+        predicate = new RemarkContainsKeywordsPredicate(Collections.singletonList("dev"));
+        assertTrue(predicate.test(new PersonBuilder().withRemark("DEV").build()));
+    }
+
+    @Test
+    public void test_remarkDoesNotContainKeywords_returnsFalse() {
+        // Zero keywords
+        RemarkContainsKeywordsPredicate predicate = new RemarkContainsKeywordsPredicate(Collections.emptyList());
+        assertFalse(predicate.test(new PersonBuilder().withRemark("dev").build()));
+
+        // Non-matching keyword
+        predicate = new RemarkContainsKeywordsPredicate(Arrays.asList("dev", "UI"));
+        assertFalse(predicate.test(new PersonBuilder().withRemark("Model").build()));
+
+        // Keywords match name, email and birthday, address, but does not match Remark
+        predicate = new RemarkContainsKeywordsPredicate(
+                Arrays.asList("Alice", "alice@email.com", "Main", "01/01/1990"));
+        assertFalse(predicate.test(new PersonBuilder().withName("Alice").withPhone("12345")
+                .withEmail("alice@email.com").withAddress("Street")
+                .withRemark("dev").withBirthday("01/01/1990").build()));
+    }
+
+    @Test
+    public void equals() throws Exception {
+        List<String> firstPredicateKeywordList = Collections.singletonList("first");
+        List<String> secondPredicateKeywordList = Arrays.asList("first", "second");
+
+        RemarkContainsKeywordsPredicate firstPredicate =
+                new RemarkContainsKeywordsPredicate(firstPredicateKeywordList);
+        RemarkContainsKeywordsPredicate secondPredicate =
+                new RemarkContainsKeywordsPredicate(secondPredicateKeywordList);
+
+        // same object -> returns true
+        assertTrue(firstPredicate.equals(firstPredicate));
+
+        // same values -> returns true
+        RemarkContainsKeywordsPredicate firstPredicateCopy =
+                new RemarkContainsKeywordsPredicate(firstPredicateKeywordList);
         assertTrue(firstPredicate.equals(firstPredicateCopy));
 
         // different types -> returns false
@@ -1003,6 +1308,52 @@ public class RemarkTest {
     }
 }
 ```
+###### /java/seedu/address/testutil/EditPersonDescriptorBuilder.java
+``` java
+    /**
+     * Sets the {@code Remark} of the {@code EditPersonDescriptor} that we are building.
+     */
+    public EditPersonDescriptorBuilder withRemark(String remark) {
+        ParserUtil.parseRemark(Optional.of(remark)).ifPresent(descriptor::setRemark);
+        return this;
+    }
+
+    /**
+     * Sets the {@code Major} of the {@code EditPersonDescriptor} that we are building.
+     */
+    public EditPersonDescriptorBuilder withMajor(String major) {
+        ParserUtil.parseMajor(Optional.of(major)).ifPresent(descriptor::setMajor);
+        return this;
+    }
+
+
+    /**
+     * Sets the {@code Facebook} of the {@code EditPersonDescriptor} that we are building.
+     */
+    public EditPersonDescriptorBuilder withFacebook(String facebook) {
+        ParserUtil.parseFacebook(Optional.of(facebook)).ifPresent(descriptor::setFacebook);
+        return this;
+    }
+
+    //author
+    /**
+     * Parses the {@code tags} into a {@code Set<Tag>} and set it to the {@code EditPersonDescriptor}
+     * that we are building.
+     */
+    public EditPersonDescriptorBuilder withTags(String... tags) {
+        try {
+            descriptor.setTags(ParserUtil.parseTags(Arrays.asList(tags)));
+        } catch (IllegalValueException ive) {
+            throw new IllegalArgumentException("tags are expected to be unique.");
+        }
+        return this;
+    }
+
+    public EditPersonDescriptor build() {
+        return descriptor;
+    }
+}
+```
 ###### /java/seedu/address/testutil/PersonBuilder.java
 ``` java
     /**
@@ -1010,6 +1361,23 @@ public class RemarkTest {
      */
     public PersonBuilder withRemark(String remark) {
         this.person.setRemark(new Remark(remark));
+        return this;
+    }
+
+    /**
+     * Sets the {@code Remark} of the {@code Person} that we are building.
+     */
+    public PersonBuilder withMajor(String major) {
+        this.person.setMajor(new Major(major));
+        return this;
+    }
+
+
+    /**
+     * Sets the {@code Remark} of the {@code Person} that we are building.
+     */
+    public PersonBuilder withFacebook(String facebook) {
+        this.person.setFacebook(new Facebook(facebook));
         return this;
     }
 ```
