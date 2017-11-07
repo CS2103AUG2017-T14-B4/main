@@ -1,3 +1,4 @@
+//@@author hthjthtrh
 package seedu.address.ui;
 
 import javafx.beans.binding.Bindings;
@@ -78,3 +79,4 @@ public class GroupCard extends UiPart<Region> {
                 && group.equals(card.group);
     }
 }
+//@@author

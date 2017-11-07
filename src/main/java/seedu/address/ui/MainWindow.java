@@ -227,9 +227,10 @@ public class MainWindow extends UiPart<Region> {
         handleHelp();
     }
 
-
+    //@@author hthjthtrh
     @Subscribe
     private void handleGroupPanelSelectionChangedEvent(GroupPanelSelectionChangedEvent event) {
         logic.updateFilteredPersonList(event.getNewSelection().group);
     }
+    //@@author
 }

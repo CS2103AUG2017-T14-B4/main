@@ -38,6 +38,7 @@
         </padding>
     </StackPane>
 
+    <!-- @@author hthjthtrh -->
     <SplitPane id="splitPane" fx:id="splitPane" dividerPositions="0.5, 0.5" VBox.vgrow="ALWAYS">
       <SplitPane dividerPositions="0.5" maxWidth="300.0" minWidth="200.0" orientation="VERTICAL" prefHeight="200.0" prefWidth="240.0">
          <items>
@@ -60,6 +61,7 @@
                 </VBox>
          </items>
       </SplitPane>
+        <!-- @@author -->
       <SplitPane dividerPositions="0.5" maxWidth="420.0" minWidth="300.0" orientation="VERTICAL" prefHeight="200.0" prefWidth="360.0">
          <items>
             <Pane maxHeight="30.0" minHeight="30.0" prefHeight="30.0">

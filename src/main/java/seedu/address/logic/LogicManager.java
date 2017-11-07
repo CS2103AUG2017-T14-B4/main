@@ -52,6 +52,7 @@ public class LogicManager extends ComponentManager implements Logic {
         return model.getFilteredPersonList();
     }
 
+    //@@author hthjthtrh
     @Override
     public ObservableList<Group> getFilteredGroupList() {
         return model.getFilteredGroupList();
@@ -64,11 +65,11 @@ public class LogicManager extends ComponentManager implements Logic {
 
     /**
      * updates the filtered person list according to group
-     *
      * @param group
      */
     @Override
     public void updateFilteredPersonList(Group group) {
         model.updateFilteredPersonList(new GroupContainsPersonPredicate(group));
     }
+    //@@author
 }
