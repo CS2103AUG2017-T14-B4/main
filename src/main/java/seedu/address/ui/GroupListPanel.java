@@ -17,6 +17,9 @@ import seedu.address.commons.events.ui.GroupPanelSelectionChangedEvent;
 import seedu.address.commons.events.ui.JumpToListRequestEvent;
 import seedu.address.model.group.Group;
 
+/**
+ * Panel containing the list of groups
+ */
 public class GroupListPanel extends UiPart<Region> {
 
     private static final String FXML = "GroupListPanel.fxml";
@@ -62,7 +65,7 @@ public class GroupListPanel extends UiPart<Region> {
     @Subscribe
     private void handleJumpToListRequestEvent(JumpToListRequestEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
-        if (event.isGroupType) {
+        if (event.isGroupType()) {
             scrollTo(event.targetIndex);
         }
     }

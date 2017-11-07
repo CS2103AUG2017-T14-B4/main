@@ -31,12 +31,6 @@ public class Group extends UniquePersonList {
         initPreviews();
     }
 
-    private void initPreviews() {
-        this.firstPreview = new SimpleObjectProperty<>(" ");
-        this.secondPreview = new SimpleObjectProperty<>(" ");
-        this.thirdPreview = new SimpleObjectProperty<>(" ");
-    }
-
     public Group(Group grp) throws DuplicatePersonException {
         this.grpName = new SimpleObjectProperty<>(grp.getGrpName());
         setPersons(grp.getPersonList());
@@ -44,6 +38,13 @@ public class Group extends UniquePersonList {
         initPreviews();
         updatePreviews();
     }
+
+    private void initPreviews() {
+        this.firstPreview = new SimpleObjectProperty<>(" ");
+        this.secondPreview = new SimpleObjectProperty<>(" ");
+        this.thirdPreview = new SimpleObjectProperty<>(" ");
+    }
+
 
     public ObjectProperty<String> firstPreviewProperty() {
         return firstPreview;
@@ -55,10 +56,6 @@ public class Group extends UniquePersonList {
 
     public ObjectProperty<String> thirdPreviewProperty() {
         return thirdPreview;
-    }
-
-    public String getThirdPreview() {
-        return this.thirdPreview.get();
     }
 
     public ObjectProperty<String> grpNameProperty() {
@@ -73,6 +70,10 @@ public class Group extends UniquePersonList {
         this.grpName.set(grpName);
     }
 
+    /**
+     * Helper function for updatePreviews to facilitate the use of for loop
+     * @return preview properties of this group as a list
+     */
     private List<ObjectProperty<String>> getPersonPreviews() {
         return Arrays.asList(firstPreview, secondPreview, thirdPreview);
     }
@@ -83,11 +84,14 @@ public class Group extends UniquePersonList {
 
     @Override
     public boolean equals(Object other) {
-        return this == other ||
-                ((other instanceof Group) &&
-                this.getGrpName().equals(((Group) other).getGrpName()));
+        return this == other
+                || ((other instanceof Group)
+                && this.getGrpName().equals(((Group) other).getGrpName()));
     }
 
+    /**
+     * Update preview properties for GroupCard
+     */
     public void updatePreviews() {
         int i;
         for (i = 0; i < 3 && i < this.getPersonList().size(); i++) {

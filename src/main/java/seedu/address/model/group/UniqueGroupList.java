@@ -74,6 +74,10 @@ public class UniqueGroupList implements Iterable<Group> {
         sort();
     }
 
+    /**
+     * Removes the specified group from the group list
+     * @param grpToDelete
+     */
     public void removeGroup(Group grpToDelete) {
         internalList.remove(grpToDelete);
         sort();
