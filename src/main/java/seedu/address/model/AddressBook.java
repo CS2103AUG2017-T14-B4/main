@@ -124,6 +124,7 @@ public class AddressBook implements ReadOnlyAddressBook {
                 throw new AssertionError("Shouldn't exist duplicate person");
             }
         });
+        newGroup.updatePreviews();
         groups.add(newGroup);
     }
 
@@ -288,6 +289,8 @@ public class AddressBook implements ReadOnlyAddressBook {
                     } catch (PersonNotFoundException pnfe) {
                         throw new AssertionError("The target person cannot be missing");
                     }
+
+                    group.updatePreviews();
                 }
             });
         } else if (commandClass.equals(DeleteCommand.class)) {
@@ -298,6 +301,8 @@ public class AddressBook implements ReadOnlyAddressBook {
                     } catch (PersonNotFoundException pnfe) {
                         throw new AssertionError("The target person cannot be missing");
                     }
+
+                    group.updatePreviews();
                 }
             });
         } else {
@@ -311,6 +316,8 @@ public class AddressBook implements ReadOnlyAddressBook {
                     } catch (PersonNotFoundException pnfe) {
                         throw new AssertionError("The target person cannot be missing");
                     }
+
+                    group.updatePreviews();
                 }
             });
         }

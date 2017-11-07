@@ -7,8 +7,10 @@ import static seedu.address.logic.commands.UndoableCommand.appendPersonList;
 import java.util.List;
 import java.util.function.Predicate;
 
+import seedu.address.commons.core.EventsCenter;
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
+import seedu.address.commons.events.ui.JumpToListRequestEvent;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.group.Group;
 import seedu.address.model.person.ReadOnlyPerson;
@@ -54,6 +56,8 @@ public class ViewGroupCommand extends Command {
 
                 predicate = new GroupContainsPersonPredicate(grpToView);
                 model.updateFilteredPersonList(predicate);
+
+                EventsCenter.getInstance().post(new JumpToListRequestEvent(this.index, true));
                 return new CommandResult(String.format(MESSAGE_GROUPING_PERSON_SUCCESS,
                         grpToView.getPersonList().size(), grpToView.getGrpName()));
             } catch (IndexOutOfBoundsException e) {
@@ -65,11 +69,14 @@ public class ViewGroupCommand extends Command {
                     grpToView = grpList.get(i);
                     predicate = new GroupContainsPersonPredicate(grpToView);
                     model.updateFilteredPersonList(predicate);
+
+                    EventsCenter.getInstance().post(new JumpToListRequestEvent(Index.fromZeroBased(i), true));
                     return new CommandResult(String.format(MESSAGE_GROUPING_PERSON_SUCCESS,
                             grpToView.getPersonList().size(), grpToView.getGrpName()));
                 }
             }
         }
+
         throw new CommandException(MESSAGE_EXECUTION_FAILURE, MESSAGE_GROUP_NONEXISTENT);
     }
 

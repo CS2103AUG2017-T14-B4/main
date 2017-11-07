@@ -18,6 +18,7 @@ import seedu.address.commons.core.Config;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.ui.ExitAppRequestEvent;
+import seedu.address.commons.events.ui.GroupPanelSelectionChangedEvent;
 import seedu.address.commons.events.ui.ShowHelpRequestEvent;
 import seedu.address.commons.util.FxViewUtil;
 import seedu.address.logic.Logic;
@@ -42,6 +43,7 @@ public class MainWindow extends UiPart<Region> {
     // Independent Ui parts residing in this Ui container
     private BrowserPanel browserPanel;
     private PersonListPanel personListPanel;
+    private GroupListPanel groupListPanel;
     private Config config;
     private UserPrefs prefs;
 
@@ -56,6 +58,9 @@ public class MainWindow extends UiPart<Region> {
 
     @FXML
     private StackPane personListPanelPlaceholder;
+
+    @FXML
+    private StackPane groupListPanelPlaceholder;
 
     @FXML
     private StackPane resultDisplayPlaceholder;
@@ -131,6 +136,9 @@ public class MainWindow extends UiPart<Region> {
 
         personListPanel = new PersonListPanel(logic.getFilteredPersonList());
         personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
+
+        groupListPanel = new GroupListPanel(logic.getFilteredGroupList());
+        groupListPanelPlaceholder.getChildren().add(groupListPanel.getRoot());
 
         ResultDisplay resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
@@ -217,5 +225,11 @@ public class MainWindow extends UiPart<Region> {
     private void handleShowHelpEvent(ShowHelpRequestEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
         handleHelp();
+    }
+
+
+    @Subscribe
+    private void handleGroupPanelSelectionChangedEvent(GroupPanelSelectionChangedEvent event) {
+        logic.updateFilteredPersonList(event.getNewSelection().group);
     }
 }

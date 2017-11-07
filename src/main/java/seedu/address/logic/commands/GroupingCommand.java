@@ -2,6 +2,7 @@
 package seedu.address.logic.commands;
 
 import static seedu.address.commons.core.Messages.MESSAGE_EXECUTION_FAILURE;
+import static seedu.address.model.Model.PREDICATE_SHOW_ALL_GROUPS;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 
 import java.util.ArrayList;
@@ -67,6 +68,7 @@ public class GroupingCommand extends UndoableCommand {
         }
 
         model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
+        model.updateFilteredGroupList(PREDICATE_SHOW_ALL_GROUPS);
 
         return new CommandResult(getSb(groupName, personToGroup));
     }

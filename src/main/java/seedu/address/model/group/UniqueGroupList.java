@@ -76,6 +76,7 @@ public class UniqueGroupList implements Iterable<Group> {
 
     public void removeGroup(Group grpToDelete) {
         internalList.remove(grpToDelete);
+        sort();
     }
 
     /**
@@ -92,6 +93,7 @@ public class UniqueGroupList implements Iterable<Group> {
         }
 
         targetGrp.setGrpName(newName);
+        sort();
     }
 }
 //@@author

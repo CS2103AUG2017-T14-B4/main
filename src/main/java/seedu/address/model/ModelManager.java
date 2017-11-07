@@ -31,6 +31,7 @@ public class ModelManager extends ComponentManager implements Model {
 
     private final AddressBook addressBook;
     private final FilteredList<ReadOnlyPerson> filteredPersons;
+    private final FilteredList<Group> filteredGroups;
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
@@ -41,6 +42,7 @@ public class ModelManager extends ComponentManager implements Model {
         logger.fine("Initializing with address book: " + addressBook + " and user prefs " + userPrefs);
         this.addressBook = new AddressBook(addressBook);
         filteredPersons = new FilteredList<>(this.addressBook.getPersonList());
+        filteredGroups = new FilteredList<>(this.addressBook.getGroupList());
     }
 
     public ModelManager() {
@@ -122,6 +124,7 @@ public class ModelManager extends ComponentManager implements Model {
         requireAllNonNull(targetGrp, targetPerson);
 
         targetGrp.add(targetPerson);
+        targetGrp.updatePreviews();
 
         indicateAddressBookChanged();
     }
@@ -132,8 +135,21 @@ public class ModelManager extends ComponentManager implements Model {
         requireAllNonNull(targetGrp, targetPerson);
 
         targetGrp.remove(targetPerson);
+        targetGrp.updatePreviews();
 
         indicateAddressBookChanged();
+    }
+
+    @Override
+    public ObservableList<Group> getFilteredGroupList() {
+        return FXCollections.unmodifiableObservableList(filteredGroups);
+    }
+
+    @Override
+    public void updateFilteredGroupList(Predicate<Group> predicateShowAllGroups) {
+        requireNonNull(predicateShowAllGroups);
+
+        filteredGroups.setPredicate(predicateShowAllGroups);
     }
     //@@author
 

@@ -11,7 +11,9 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.AddressBookParser;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
+import seedu.address.model.group.Group;
 import seedu.address.model.person.ReadOnlyPerson;
+import seedu.address.model.person.predicates.GroupContainsPersonPredicate;
 
 /**
  * The main LogicManager of the app.
@@ -51,7 +53,22 @@ public class LogicManager extends ComponentManager implements Logic {
     }
 
     @Override
+    public ObservableList<Group> getFilteredGroupList() {
+        return model.getFilteredGroupList();
+    }
+
+    @Override
     public ListElementPointer getHistorySnapshot() {
         return new ListElementPointer(history.getHistory());
+    }
+
+    /**
+     * updates the filtered person list according to group
+     *
+     * @param group
+     */
+    @Override
+    public void updateFilteredPersonList(Group group) {
+        model.updateFilteredPersonList(new GroupContainsPersonPredicate(group));
     }
 }

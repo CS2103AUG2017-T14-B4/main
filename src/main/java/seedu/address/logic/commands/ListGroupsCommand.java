@@ -31,7 +31,7 @@ public class ListGroupsCommand extends Command {
 
         for (int i = 1; i <= grpListSize; i++) {
             sb.append(i + ". ");
-            sb.append(model.getAddressBook().getGroupList().get(i - 1).getGrpName());
+            sb.append((model.getFilteredGroupList().get(i - 1).getGrpName()));
             if (i != grpListSize) {
                 sb.append("\n");
             }
