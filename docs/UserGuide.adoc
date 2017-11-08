@@ -1,0 +1,451 @@
+= Contact+ Pro - User Guide
+:toc:
+:toc-title:
+:toc-placement: preamble
+:sectnums:
+:imagesDir: images
+:stylesDir: stylesheets
+:experimental:
+ifdef::env-github[]
+:tip-caption: :bulb:
+:note-caption: :information_source:
+endif::[]
+:repoURL: https://github.com/CS2103AUG2017-T14-B4/main
+
+By: `Team T14-B4`
+
+The App is developer based on address-book level 4 by team `See-du`
+
+== Quick Start
+
+.  Ensure you have Java version `1.8.0_60` or later installed in your Computer.
++
+[NOTE]
+Having any Java 8 version is not enough. +
+This app will not work with earlier versions of Java 8.
++
+.  Download the latest `addressbook.jar` link:{repoURL}/releases[here].
+.  Copy the file to the folder you want to use as the home folder for your Address Book.
+.  Double-click the file to start the app. The GUI should appear in a few seconds.
++
+image::Ui.png[width="790"]
++
+.  Type the command in the command box and press kbd:[Enter] to execute it. +
+e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
+.  Some example commands you can try:
+
+* *`list`* : lists all contacts
+* **`add`**`n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01` : adds a contact named `John Doe` to the Address Book.
+* **`delete`**`3` : deletes the 3rd contact shown in the current list
+* *`exit`* : exits the app
+
+.  Refer to the link:#features[Features] section below for details of each command.
+
+== Features
+
+====
+*Command Format*
+
+* Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `add n/NAME`, `NAME` is a parameter which can be used as `add n/John Doe`.
+* Items in square brackets are optional e.g `n/NAME [t/TAG]` can be used as `n/John Doe t/friend` or as `n/John Doe`.
+* Items with `…`​ after them can be used multiple times including zero times e.g. `[t/TAG]...` can be used as `{nbsp}` (i.e. 0 times), `t/friend`, `t/friend t/family` etc.
+* Parameters can be in any order e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
+====
+
+=== Viewing help : `help`
+
+Format: `help`
+
+=== Adding a person: `add`
+
+Adds a person to the address book +
+Format: `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS b/BIRTHDAY [t/TAG]...`
+
+[TIP]
+A person can have any number of tags (including 0)
+
+Examples:
+
+* `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01 b/01/01/1990`
+* `add n/Betsy Crowe t/friend e/betsycrowe@example.com a/Newgate Prison p/1234567 b/02/03/1990 t/criminal`
+
+=== Listing all persons : `list`
+
+Shows a list of all persons in the address book. +
+Format: `list`
+
+=== Editing a person : `edit`
+
+Edits an existing person in the address book. +
+Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]...`
+
+****
+* Edits the person at the specified `INDEX`. The index refers to the index number shown in the last person listing. The index *must be a positive integer* 1, 2, 3, ...
+* At least one of the optional fields must be provided.
+* Existing values will be updated to the input values.
+* When editing tags, the existing tags of the person will be removed i.e adding of tags is not cumulative.
+* You can remove all the person's tags by typing `t/` without specifying any tags after it.
+****
+
+Examples:
+
+* `edit 1 p/91234567 e/johndoe@example.com` +
+Edits the phone number and email address of the 1st person to be `91234567` and `johndoe@example.com` respectively.
+* `edit 2 n/Betsy Crower t/` +
+Edits the name of the 2nd person to be `Betsy Crower` and clears all existing tags.
+
+=== Locating persons by name: `find`
+
+*Unrestricted search
+Finds persons whose names, addresses, phones, emails or tags contain any of the given keywords or find favorite / unfavorite contacts. +
+Format: `find KEYWORD [MORE_KEYWORDS]`
+
+****
+* The search is case insensitive. e.g `hans` will match `Hans`
+* The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
+* Only full words will be matched e.g. `Han` will not match `Hans`
+* Persons matching at least one keyword will be returned (i.e. `OR` search). e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
+****
+
+Examples:
+
+* `find John` +
+Returns `john` and `John Doe`
+* `find Betsy Tim John` +
+Returns any person having names `Betsy`, `Tim`, or `John`
+* `find favorite` +
+Returns all favorite persons
+* `find unfavorite` +
+Returns all unfavorite persons
+
+*Restricted search
+Finds persons with one of the attributes: names, addresses, phones, emails or tags +
+contains any of the given keywords. +
+Format: `find [PREFIX/KEYWORD]`
+
+****
+* The search is case insensitive. e.g `hans` will match `Hans`
+* If multiple prefixes are provided, the search will only search based on the search term +
+with highest priority in the order: name > phone > address > email > tag
+****
+
+Examples:
+
+* `find n/John` +
+Returns `john` and `John Doe`
+* `find t/cs2103` +
+Returns any person having tags `cs2103`
+
+=== Searching all persons whose name starts with a certain alphabet: `listalp`
+
+Finds persons whose names start with the given alphabet. +
+Format: 'listalp ALPHABET'
+
+****
+* The search is case sensitive.
+****
+
+=== Creating a group: `createGroup`
+
+Creates a group including a list of person from the address book. +
+Format: `createGroup GROUP_NAME INDEX [INDEX]...`
+
+****
+* Creates the group with group name `GROUP_NAME` including the list of people specified by `INDEX` s.
+* Group name cannot be empty.
+* Group name cannot be an integer, eg. 1341
+* Creating group with group name already existent in the addressbook will fail.
+* The index refers to the index number shown in the most recent listing.
+* The index *must be a positive integer* 1, 2, 3, ...
+* There must be *at least one* index to successfully create the group.
+****
+
+Examples:
+
+* `createGroup SoSmart 1 3 5` +
+Creates the group of group name SoSmart with the 1st, 3rd and 5th person in the current view.
+* `createGroup SoSmart 1 3 5` +
+`createGroup SoSmart 2 4` +
+Operation fails because group `SoSmart` already exists in the address book.
+* `createGroup YouSmart?` +
+Operation fails because no `index` is provided.
+* `createGroup 1234 1 2 3 4` +
+Operation fails because group name is an integer
+
+=== Deleting a group: `deleteGroup`
+
+Deletes a group from the addressbook. +
+Format: `deleteGroup GROUP_NAME`
+
+****
+* Deletes the group with group name `GROUP_NAME`.
+* Group name cannot be empty.
+* Group name must be a valid group name (exists in the addressbook and valid format)
+****
+
+Examples:
+
+* `createGroup SoSmart 1 2 3` +
+`deleteGroup SoSmart` +
+Deletes the group `SoSmart` successfully
+
+* `deleteGroup 1234` +
+Operation fails because group name is an integer
+
+* `deleteGroup SoSmart` +
+Operation fails because the group `SoSmart` does not exist
+
+=== Listing all groups: `listGroups`
+
+Lists all groups by group name in the addressbook. +
+Format: `listGroups`
+
+=== Listing persons within a group: `viewGroup`
+
+Lists all persons in the specified group +
+Format: `viewGroup GROUP_NAME` or `viewGroup INDEX`
+
+****
+* First argument is treated as an index if it is an integer, else it is treated like a group name
+* User index in conjuncture with `listGroups`, to see the groups with corresponding index
+****
+
+Examples:
+
+* `viewGroup Hello!` +
+Lists all person in the group `Hello!`.
+
+* `viewGroup 1` +
+Lists all person in the first group.
+
+* `viewGroup 1234` +
+Operation fails if there is not 1234 groups in the addressbook.
+
+=== Editing a group : `editGroup`
+
+Edits the group. +
+Format: `editGroup GROUP_NAME grpName NEW_GROUP_NAME`
+or `editGroup GROUP_NAME add INDEX`
+or `editGROUP GROUP_NAME delete INDEX`
+
+****
+* This command supports three kinds of operations: 1. change group name 2. add a person to the group 3. delete a person from the group
+* `NEW_GROUP_NAME` must fit a valid group name format
+****
+
+Examples:
+
+* `editGroup test grpName testing` +
+`editGroup anotherTest grpName testing` +
+First operation succeeds if no existing group is called `testing` +
+Second operation fails if first operation goes through.
+
+* `editGroup test add 1` +
+Adds the first person from the current view of persons to the group.
+
+* `editGroup test delete 3` +
+Deletes the third person in the group.
+
+
+=== Deleting a person : `delete`
+
+Deletes the specified person from the address book. +
+Format: `delete INDEX [INDEX]...`
+
+****
+* Deletes the list of people at the specified `INDEX` s.
+* More than one index can be used to mass delete person.
+* The index refers to the index number shown in the most recent listing.
+* The index *must be a positive integer* 1, 2, 3, ...
+* If any invalid index is provided, for example a character or number smaller than 1, will
+fail and no changes will be made.
+****
+
+Examples:
+
+* `list` +
+`delete 2` +
+Deletes the 2nd person in the address book.
+* `find Betsy` +
+`delete 1 3 7` +
+Deletes the 1st, 3rd, 7th person in the results of the `find` command.
+
+=== Favoriting a person : `favorite`
+
+Favorites the specified person from the address book so they will appear on top of the contact list. +
+Format: `favorite INDEX`
+
+****
+* Favorites the person at the specified `INDEX`.
+* The index refers to the index number shown in the most recent listing.
+* The index *must be a positive integer* 1, 2, 3, ...
+****
+
+Examples:
+
+* `list` +
+`favorite 3` +
+Favorite the 3rd person in the address book.
+* `find Betsy` +
+`favorite 1` +
+Favorite the 1st person in the results of the `find` command.
+
+
+=== Selecting a person : `select`
+
+Selects the person identified by the index number used in the last person listing. +
+Format: `select INDEX`
+
+****
+* Selects the person and loads the Google search page the person at the specified `INDEX`.
+* The index refers to the index number shown in the most recent listing.
+* The index *must be a positive integer* `1, 2, 3, ...`
+****
+
+Examples:
+
+* `list` +
+`select 2` +
+Selects the 2nd person in the address book.
+* `find Betsy` +
+`select 1` +
+Selects the 1st person in the results of the `find` command.
+
+=== Remarking a person : `remark`
+
+Add a remark to a person in the contact list. +
+Format: `edit INDEX [r/REMARK]`
+
+=== Deleting tags from all persons : `deleteTag`
+
+Delete one specific tag from all persons in the contact list. +
+Format: `deleteTag [KEYWORD]`
+
+=== Sort person list : `sort`
+
+Sort current person list by an attribute specified by the user. +
+Format: `sort [KEYWORD]`
+
+****
+* Sort the list by one of the four attributes:
+* name
+* phone
+* email
+* address
+****
+
+Examples:
+
+* `sort name` +
+Sort the person list by name.
+* `sort phone` +
+Sort the person list by phone.
+
+=== Listing entered commands : `history`
+
+Lists all the commands that you have entered in reverse chronological order. +
+Format: `history`
+
+[NOTE]
+====
+Pressing the kbd:[&uarr;] and kbd:[&darr;] arrows will display the previous and next input respectively in the command box.
+====
+
+// tag::undoredo[]
+=== Undoing previous command : `undo`
+
+Restores the address book to the state before the _undoable_ commands were executed, specified by the the number of commands to undo +
+Format: `undo [STEPS]` +
+Alternative format: `undo all`, which undoes all changes made in current session.
+
+
+[NOTE]
+====
+Undoable commands: those commands that modify the address book's content (`add`, `delete`, `edit`, `remark` and `clear`).
+====
+
+Examples:
+
+* `delete 1` +
+`list` +
+`undo` (reverses the `delete 1` command) +
+
+* `select 1` +
+`list` +
+`undo` +
+The `undo` command fails as there are no undoable commands executed previously.
+
+* `delete 1` +
+`delete 2` +
+`delete 2` +
+`clear` +
+`undo 2` (reverses the 2 delete commands)
+
+* `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665` +
+`delete 1` +
+`delete 2` +
+`undo all` (reverses both delete commands and add command)
+
+=== Redoing the previously undone command : `redo`
+
+Reverses the most recent `undo` command. +
+Format: `redo`
+
+Examples:
+
+* `delete 1` +
+`undo` (reverses the `delete 1` command) +
+`redo` (reapplies the `delete 1` command) +
+
+* `delete 1` +
+`redo` +
+The `redo` command fails as there are no `undo` commands executed previously.
+
+* `delete 1` +
+`clear` +
+`undo` (reverses the `clear` command) +
+`undo` (reverses the `delete 1` command) +
+`redo` (reapplies the `delete 1` command) +
+`redo` (reapplies the `clear` command) +
+// end::undoredo[]
+
+=== Clearing all entries : `clear`
+
+Clears all entries from the address book. +
+Format: `clear`
+
+=== Exiting the program : `exit`
+
+Exits the program. +
+Format: `exit`
+
+=== Saving the data
+
+Address book data are saved in the hard disk automatically after any command that changes the data. +
+There is no need to save manually.
+
+== FAQ
+
+*Q*: How do I transfer my data to another Computer? +
+*A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous Address Book folder.
+
+== Command Summary
+
+* *Add* `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...` +
+e.g. `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague`
+* *Clear* : `clear`
+* *Delete* : `delete INDEX` +
+e.g. `delete 3`
+* *Edit* : `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]...` +
+e.g. `edit 2 n/James Lee e/jameslee@example.com`
+* *Find* : `find KEYWORD [MORE_KEYWORDS]` +
+e.g. `find James Jake`
+* *List* : `list`
+* *Help* : `help`
+* *Select* : `select INDEX` +
+e.g.`select 2`
+* *History* : `history`
+* *Remark*: `remark INDEX [r/REMARK]`
+* *Undo* : `undo`
+* *Redo* : `redo`
+* *Favorite*: `favorite INDEX`
