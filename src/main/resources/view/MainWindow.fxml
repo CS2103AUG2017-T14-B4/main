@@ -40,7 +40,7 @@
 
     <!-- @@author hthjthtrh -->
     <SplitPane id="splitPane" fx:id="splitPane" dividerPositions="0.5, 0.5" VBox.vgrow="ALWAYS">
-      <SplitPane dividerPositions="0.5" maxWidth="300.0" minWidth="200.0" orientation="VERTICAL" prefHeight="200.0" prefWidth="240.0">
+      <SplitPane dividerPositions="0.5" maxWidth="280.0" minWidth="200.0" orientation="VERTICAL" prefHeight="200.0" prefWidth="200.0">
          <items>
             <Pane maxHeight="30.0" minHeight="30.0" prefHeight="30.0">
                <children>
@@ -62,11 +62,11 @@
          </items>
       </SplitPane>
         <!-- @@author -->
-      <SplitPane dividerPositions="0.5" maxWidth="420.0" minWidth="300.0" orientation="VERTICAL" prefHeight="200.0" prefWidth="360.0">
+      <SplitPane dividerPositions="0.5" maxWidth="400.0" minWidth="320.0" orientation="VERTICAL" prefHeight="200.0" prefWidth="320.0">
          <items>
             <Pane maxHeight="30.0" minHeight="30.0" prefHeight="30.0">
                <children>
-                  <Label alignment="CENTER" contentDisplay="CENTER" layoutX="121.0" layoutY="3.0" styleClass="label-bright" text="Contacts" textAlignment="CENTER" textFill="cyan" underline="true">
+                  <Label alignment="CENTER" contentDisplay="CENTER" layoutX="131.0" layoutY="2.0" styleClass="label-bright" text="Contacts" textAlignment="CENTER" textFill="cyan" underline="true">
                      <padding>
                         <Insets bottom="2.0" top="2.0" />
                      </padding>
@@ -78,13 +78,13 @@
                         <Insets bottom="10.0" left="5.0" right="5.0" top="10.0" />
                     </padding>
                     <children>
-                        <StackPane fx:id="personListPanelPlaceholder" prefHeight="80.0" prefWidth="250.0" VBox.vgrow="ALWAYS" />
+                        <StackPane fx:id="personListPanelPlaceholder" prefHeight="80.0" VBox.vgrow="ALWAYS" />
                     </children>
                 </VBox>
          </items>
       </SplitPane>
 
-        <StackPane fx:id="browserPlaceholder" prefWidth="400.0">
+        <StackPane fx:id="browserPlaceholder" prefWidth="500.0">
             <padding>
                 <Insets bottom="10.0" left="5.0" right="5.0" top="10.0" />
             </padding>

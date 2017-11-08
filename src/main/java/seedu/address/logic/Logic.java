@@ -1,5 +1,7 @@
 package seedu.address.logic;
 
+import java.util.function.Predicate;
+
 import javafx.collections.ObservableList;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -29,5 +31,5 @@ public interface Logic {
     ListElementPointer getHistorySnapshot();
 
     /** updates the filtered person list according to group */
-    void updateFilteredPersonList(Group group);
+    void updateFilteredPersonList(Predicate<ReadOnlyPerson> predicate);
 }

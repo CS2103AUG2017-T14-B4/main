@@ -13,6 +13,7 @@ import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.ComponentManager;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.commons.core.index.Index;
 import seedu.address.commons.events.model.AddressBookChangedEvent;
 import seedu.address.model.group.DuplicateGroupException;
 import seedu.address.model.group.Group;
@@ -150,6 +151,18 @@ public class ModelManager extends ComponentManager implements Model {
         requireNonNull(predicateShowAllGroups);
 
         filteredGroups.setPredicate(predicateShowAllGroups);
+    }
+
+    /**
+     * Finds the index of a group in the group list
+     * @param groupName
+     * @return
+     */
+    @Override
+    public Index getGroupIndex(String groupName) {
+        requireNonNull(groupName);
+
+        return addressBook.getGroupIndex(groupName);
     }
     //@@author
 

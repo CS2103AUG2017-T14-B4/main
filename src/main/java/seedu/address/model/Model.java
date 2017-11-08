@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
+import seedu.address.commons.core.index.Index;
 import seedu.address.model.group.DuplicateGroupException;
 import seedu.address.model.group.Group;
 import seedu.address.model.person.Person;
@@ -88,4 +89,10 @@ public interface Model {
 
     void updateFilteredGroupList(Predicate<Group> predicateShowAllGroups);
 
+    /**
+     * Finds the index of a group in the group list
+     * @param groupName
+     * @return
+     */
+    Index getGroupIndex(String groupName);
 }

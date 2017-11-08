@@ -25,8 +25,10 @@ public class ViewGroupCommand extends Command {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": list all persons in the specified group(by group name or index)\n"
-            + "Parameters: GROUP_NAME          OR          INDEX\n"
-            + "Example: " + COMMAND_WORD + " SmartOnes";
+            + "Parameters: GROUP_NAME\n"
+            + "or: INDEX (must be a positive integer)\n"
+            + "Example: " + COMMAND_WORD + " SmartOnes\n"
+            + "or: " + COMMAND_WORD + " 3";
 
     public static final String MESSAGE_GROUPING_PERSON_SUCCESS = "Listing %d person(s) in the group '%s'";
 
@@ -54,10 +56,8 @@ public class ViewGroupCommand extends Command {
             try {
                 grpToView = grpList.get(index.getZeroBased());
 
-                predicate = new GroupContainsPersonPredicate(grpToView);
-                model.updateFilteredPersonList(predicate);
-
                 EventsCenter.getInstance().post(new JumpToListRequestEvent(this.index, true));
+
                 return new CommandResult(String.format(MESSAGE_GROUPING_PERSON_SUCCESS,
                         grpToView.getPersonList().size(), grpToView.getGrpName()));
             } catch (IndexOutOfBoundsException e) {
@@ -67,10 +67,9 @@ public class ViewGroupCommand extends Command {
             for (int i = 0; i < grpList.size(); i++) {
                 if (grpList.get(i).getGrpName().equals(this.grpName)) {
                     grpToView = grpList.get(i);
-                    predicate = new GroupContainsPersonPredicate(grpToView);
-                    model.updateFilteredPersonList(predicate);
 
                     EventsCenter.getInstance().post(new JumpToListRequestEvent(Index.fromZeroBased(i), true));
+
                     return new CommandResult(String.format(MESSAGE_GROUPING_PERSON_SUCCESS,
                             grpToView.getPersonList().size(), grpToView.getGrpName()));
                 }

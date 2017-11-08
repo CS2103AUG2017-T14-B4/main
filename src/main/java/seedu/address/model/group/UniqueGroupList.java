@@ -99,5 +99,15 @@ public class UniqueGroupList implements Iterable<Group> {
         targetGrp.setGrpName(newName);
         sort();
     }
+
+
+    public int getGroupIndex(String groupName) {
+        for (Group grp : internalList) {
+            if (grp.getGrpName().equals(groupName)) {
+                return internalList.indexOf(grp);
+            }
+        }
+        return -1;
+    }
 }
 //@@author

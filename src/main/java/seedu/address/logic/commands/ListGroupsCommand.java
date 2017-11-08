@@ -3,6 +3,8 @@ package seedu.address.logic.commands;
 
 import java.util.List;
 
+import seedu.address.commons.core.EventsCenter;
+import seedu.address.commons.events.ui.DeselectAllEvent;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.group.Group;
 
@@ -36,6 +38,9 @@ public class ListGroupsCommand extends Command {
                 sb.append("\n");
             }
         }
+
+        EventsCenter.getInstance().post(new DeselectAllEvent());
+
         return new CommandResult(sb.toString());
     }
 }

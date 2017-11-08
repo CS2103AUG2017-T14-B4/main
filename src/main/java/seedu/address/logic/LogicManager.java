@@ -1,5 +1,6 @@
 package seedu.address.logic;
 
+import java.util.function.Predicate;
 import java.util.logging.Logger;
 
 import javafx.collections.ObservableList;
@@ -65,11 +66,11 @@ public class LogicManager extends ComponentManager implements Logic {
 
     /**
      * updates the filtered person list according to group
-     * @param group
+     * @param predicate
      */
     @Override
-    public void updateFilteredPersonList(Group group) {
-        model.updateFilteredPersonList(new GroupContainsPersonPredicate(group));
+    public void updateFilteredPersonList(Predicate<ReadOnlyPerson> predicate) {
+        model.updateFilteredPersonList(predicate);
     }
     //@@author
 }

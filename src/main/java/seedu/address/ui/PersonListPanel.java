@@ -13,6 +13,7 @@ import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.Region;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.commons.events.ui.DeselectAllEvent;
 import seedu.address.commons.events.ui.JumpToListRequestEvent;
 import seedu.address.commons.events.ui.PersonPanelSelectionChangedEvent;
 import seedu.address.model.person.ReadOnlyPerson;
@@ -67,6 +68,11 @@ public class PersonListPanel extends UiPart<Region> {
         if (!event.isGroupType()) {
             scrollTo(event.targetIndex);
         }
+    }
+
+    @Subscribe
+    private void handleDeselectEvent(DeselectAllEvent event) {
+        personListView.getSelectionModel().clearSelection();
     }
 
     /**

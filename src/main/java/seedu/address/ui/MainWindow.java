@@ -1,5 +1,6 @@
 package seedu.address.ui;
 
+import java.util.function.Predicate;
 import java.util.logging.Logger;
 
 import com.google.common.eventbus.Subscribe;
@@ -17,12 +18,15 @@ import javafx.stage.Stage;
 import seedu.address.commons.core.Config;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.commons.events.ui.DeselectAllEvent;
 import seedu.address.commons.events.ui.ExitAppRequestEvent;
 import seedu.address.commons.events.ui.GroupPanelSelectionChangedEvent;
 import seedu.address.commons.events.ui.ShowHelpRequestEvent;
 import seedu.address.commons.util.FxViewUtil;
 import seedu.address.logic.Logic;
 import seedu.address.model.UserPrefs;
+import seedu.address.model.person.ReadOnlyPerson;
+import seedu.address.model.person.predicates.GroupContainsPersonPredicate;
 
 /**
  * The Main Window. Provides the basic application layout containing
@@ -230,7 +234,17 @@ public class MainWindow extends UiPart<Region> {
     //@@author hthjthtrh
     @Subscribe
     private void handleGroupPanelSelectionChangedEvent(GroupPanelSelectionChangedEvent event) {
-        logic.updateFilteredPersonList(event.getNewSelection().group);
+        logic.updateFilteredPersonList(new GroupContainsPersonPredicate(event.getNewSelection().group));
+    }
+
+    @Subscribe
+    private void handleDeselectEvent(DeselectAllEvent event) {
+        logic.updateFilteredPersonList(new Predicate<ReadOnlyPerson>() {
+            @Override
+            public boolean test(ReadOnlyPerson readOnlyPerson) {
+                return true;
+            }
+        });
     }
     //@@author
 }
