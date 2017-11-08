@@ -26,17 +26,19 @@ public class ViewGroupCommandParser implements Parser<ViewGroupCommand> {
     public ViewGroupCommand parse(String userInput) throws ParseException {
         requireNonNull(userInput);
         userInput = userInput.trim();
-        List<String> argsList = Arrays.asList(userInput.split(" "));
+        List<String> argsList = Arrays.asList(userInput.split("\\s+"));
 
         if (argsList.size() > 1 || argsList.get(0).equals("")) {
             throw new ParseException(MESSAGE_INVALID_COMMAND_FORMAT, ViewGroupCommand.MESSAGE_USAGE);
         }
 
-        Index index;
         try {
-            index = ParserUtil.parseIndex(userInput);
-            return new ViewGroupCommand(index);
-        } catch (IllegalValueException e) {
+            int index = Integer.parseInt(argsList.get(0));
+            if (index <= 0) {
+                throw new ParseException(MESSAGE_INVALID_COMMAND_FORMAT, ViewGroupCommand.MESSAGE_USAGE);
+            }
+            return new ViewGroupCommand(Index.fromOneBased(index));
+        } catch (NumberFormatException e) {
             // argument is not an index
             return new ViewGroupCommand(userInput);
         }

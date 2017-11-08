@@ -7,8 +7,10 @@ import static seedu.address.logic.commands.UndoableCommand.appendPersonList;
 import java.util.List;
 import java.util.function.Predicate;
 
+import seedu.address.commons.core.EventsCenter;
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
+import seedu.address.commons.events.ui.JumpToListRequestEvent;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.group.Group;
 import seedu.address.model.person.ReadOnlyPerson;
@@ -23,8 +25,10 @@ public class ViewGroupCommand extends Command {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": list all persons in the specified group(by group name or index)\n"
-            + "Parameters: GROUP_NAME          OR          INDEX\n"
-            + "Example: " + COMMAND_WORD + " SmartOnes";
+            + "Parameters: GROUP_NAME\n"
+            + "or: INDEX (must be a positive integer)\n"
+            + "Example: " + COMMAND_WORD + " SmartOnes\n"
+            + "or: " + COMMAND_WORD + " 3";
 
     public static final String MESSAGE_GROUPING_PERSON_SUCCESS = "Listing %d person(s) in the group '%s'";
 
@@ -52,8 +56,8 @@ public class ViewGroupCommand extends Command {
             try {
                 grpToView = grpList.get(index.getZeroBased());
 
-                predicate = new GroupContainsPersonPredicate(grpToView);
-                model.updateFilteredPersonList(predicate);
+                EventsCenter.getInstance().post(new JumpToListRequestEvent(this.index, true));
+
                 return new CommandResult(String.format(MESSAGE_GROUPING_PERSON_SUCCESS,
                         grpToView.getPersonList().size(), grpToView.getGrpName()));
             } catch (IndexOutOfBoundsException e) {
@@ -63,13 +67,15 @@ public class ViewGroupCommand extends Command {
             for (int i = 0; i < grpList.size(); i++) {
                 if (grpList.get(i).getGrpName().equals(this.grpName)) {
                     grpToView = grpList.get(i);
-                    predicate = new GroupContainsPersonPredicate(grpToView);
-                    model.updateFilteredPersonList(predicate);
+
+                    EventsCenter.getInstance().post(new JumpToListRequestEvent(Index.fromZeroBased(i), true));
+
                     return new CommandResult(String.format(MESSAGE_GROUPING_PERSON_SUCCESS,
                             grpToView.getPersonList().size(), grpToView.getGrpName()));
                 }
             }
         }
+
         throw new CommandException(MESSAGE_EXECUTION_FAILURE, MESSAGE_GROUP_NONEXISTENT);
     }
 
