@@ -270,6 +270,7 @@ Deletes the 2nd person in the address book.
 `delete 1 3 7` +
 Deletes the 1st, 3rd, 7th person in the results of the `find` command.
 
+// tag::favorite[]
 === Favoriting a person : `favorite`
 
 Favorites the specified person from the address book so they will appear on top of the contact list. +
@@ -281,6 +282,11 @@ Format: `favorite INDEX`
 * The index *must be a positive integer* 1, 2, 3, ...
 ****
 
+[NOTE]
+====
+To un-favorite a person, simply input the `favorite` command again with the person's index
+====
+
 Examples:
 
 * `list` +
@@ -289,7 +295,7 @@ Favorite the 3rd person in the address book.
 * `find Betsy` +
 `favorite 1` +
 Favorite the 1st person in the results of the `find` command.
-
+// end::favorite[]
 
 === Selecting a person : `select`
 
