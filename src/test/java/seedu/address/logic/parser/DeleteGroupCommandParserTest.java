@@ -27,7 +27,7 @@ public class DeleteGroupCommandParserTest {
     @Test
     public void parse_correctIndexFormat_success() {
         assertParseSuccess(parser, "   1  ", new DeleteGroupCommand(Index.fromOneBased(1), true));
-      }
+    }
 
     @Test
     public void parse_multipleArgument_failure() {

@@ -14,7 +14,6 @@ import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
 import seedu.address.model.group.Group;
 import seedu.address.model.person.ReadOnlyPerson;
-import seedu.address.model.person.predicates.GroupContainsPersonPredicate;
 
 /**
  * The main LogicManager of the app.

@@ -7,9 +7,7 @@ import static seedu.address.commons.core.Messages.MESSAGE_EXECUTION_FAILURE;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_GROUP_DISPLAYED_INDEX;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
-import static seedu.address.logic.commands.EditGroupCommand.MESSAGE_ADD_PERSON_SUCCESS;
 import static seedu.address.logic.commands.EditGroupCommand.MESSAGE_CHANGE_NAME_SUCCESS;
-import static seedu.address.logic.commands.EditGroupCommand.MESSAGE_DELETE_PERSON_SUCCESS;
 import static seedu.address.logic.commands.EditGroupCommand.MESSAGE_DUPLICATE_PERSON;
 import static seedu.address.logic.commands.EditGroupCommand.MESSAGE_GROUP_NONEXISTENT;
 import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
@@ -30,9 +28,6 @@ import seedu.address.model.UserPrefs;
 import seedu.address.model.group.DuplicateGroupException;
 import seedu.address.model.group.Group;
 import seedu.address.model.person.ReadOnlyPerson;
-import seedu.address.model.person.exceptions.DuplicatePersonException;
-import seedu.address.model.person.exceptions.PersonNotFoundException;
-import seedu.address.model.person.predicates.GroupContainsPersonPredicate;
 import seedu.address.testutil.TypicalGroups;
 import seedu.address.testutil.TypicalPersons;
 
@@ -65,7 +60,7 @@ public class EditGroupCommandTest {
     }
 
     @Test
-    public void execute_changeName_byName_success() throws DuplicateGroupException {
+    public void execute_changeNameByName_success() throws DuplicateGroupException {
         TypicalGroups typicalGroups = new TypicalGroups();
         List<Group> testGrps = typicalGroups.getTypicalGroups();
         Group testGroup = testGrps.get(0);
@@ -78,7 +73,7 @@ public class EditGroupCommandTest {
     }
 
     @Test
-    public void execute_changeName_byIndex_success() throws DuplicateGroupException {
+    public void execute_changeNameByIndex_success() throws DuplicateGroupException {
         TypicalGroups typicalGroups = new TypicalGroups();
         List<Group> testGrps = typicalGroups.getTypicalGroups();
         Group testGroup = testGrps.get(0);

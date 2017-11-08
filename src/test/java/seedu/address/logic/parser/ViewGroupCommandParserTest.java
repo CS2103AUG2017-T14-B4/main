@@ -12,7 +12,7 @@ import seedu.address.logic.commands.ViewGroupCommand;
 
 public class ViewGroupCommandParserTest {
 
-    private static String MESSAGE_PARSE_FAILURE = MESSAGE_INVALID_COMMAND_FORMAT + ViewGroupCommand.MESSAGE_USAGE;
+    private static final String MESSAGE_PARSE_FAILURE = MESSAGE_INVALID_COMMAND_FORMAT + ViewGroupCommand.MESSAGE_USAGE;
 
     private ViewGroupCommandParser parser = new ViewGroupCommandParser();
 

@@ -333,7 +333,7 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     public Index getGroupIndex(String groupName) {
-            return Index.fromZeroBased(groups.getGroupIndex(groupName));
+        return Index.fromZeroBased(groups.getGroupIndex(groupName));
     }
     //@@author
 }

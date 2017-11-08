@@ -2,6 +2,9 @@ package seedu.address.commons.events.ui;
 
 import seedu.address.commons.events.BaseEvent;
 
+/**
+ * to reset all selection properties in main window
+ */
 public class DeselectAllEvent extends BaseEvent {
     /**
      * All Events should have a clear unambiguous custom toString message so that feedback message creation

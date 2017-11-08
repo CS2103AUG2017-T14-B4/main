@@ -103,6 +103,11 @@ public class GroupingCommandTest {
         return grpCommand;
     }
 
+    /**
+     * helper function to test correctness
+     * @param grpName
+     * @param testIndexes
+     */
     private void testSuccess(String grpName, List<Index> testIndexes) {
         GroupingCommand testCommand = prepareCommand(grpName, testIndexes);
 
@@ -121,8 +126,6 @@ public class GroupingCommandTest {
         String expectedMessage = GroupingCommand.getSb(grpName, personList);
 
         assertCommandSuccess(testCommand, model, expectedMessage, expectedModel);
-
-
     }
 }
 //@@author

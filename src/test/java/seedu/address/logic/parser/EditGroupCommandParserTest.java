@@ -12,7 +12,7 @@ import seedu.address.logic.commands.EditGroupCommand;
 
 public class EditGroupCommandParserTest {
 
-    private static String MESSAGE_PARSE_FAILURE = MESSAGE_INVALID_COMMAND_FORMAT + EditGroupCommand.MESSAGE_USAGE;
+    private static final String MESSAGE_PARSE_FAILURE = MESSAGE_INVALID_COMMAND_FORMAT + EditGroupCommand.MESSAGE_USAGE;
 
     private EditGroupCommandParser parser = new EditGroupCommandParser();
 
@@ -20,7 +20,7 @@ public class EditGroupCommandParserTest {
     public void parse_validArgument_success() {
         // indicate by group name
         assertParseSuccess(parser, "  testGrp1 gn TestGrp1!",
-                new EditGroupCommand("testGrp1",null, "gn", "TestGrp1!", false));
+                new EditGroupCommand("testGrp1", null, "gn", "TestGrp1!", false));
 
         // indicate by index
         assertParseSuccess(parser, "  2    gn       TestGrp1!   ",
