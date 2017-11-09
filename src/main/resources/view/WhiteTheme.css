@@ -1,3 +1,4 @@
+/*@@author NgSuli*/
 .background {
     -fx-background-color: derive(white, 20%);
     background-color: white; /* Used in the default.html file */
@@ -348,3 +349,5 @@
     -fx-background-radius: 2;
     -fx-font-size: 11;
 }
+
+/**@@ author
