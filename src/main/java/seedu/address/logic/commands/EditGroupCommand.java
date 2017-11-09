@@ -106,7 +106,7 @@ public class EditGroupCommand extends UndoableCommand {
             throw new CommandException(MESSAGE_EXECUTION_FAILURE, MESSAGE_GROUP_NONEXISTENT);
         }
 
-        if (operation.equals("gn")) {
+        if ("gn".equals(operation)) {
             try {
                 model.setGrpName(targetGrp, newName);
                 return new CommandResult(String.format(MESSAGE_CHANGE_NAME_SUCCESS, grpName, newName));
@@ -116,7 +116,7 @@ public class EditGroupCommand extends UndoableCommand {
         } else {
             ReadOnlyPerson targetPerson = null;
             Person copiedPerson = null;
-            if (operation.equals("add")) {
+            if ("add".equals(operation)) {
                 List<ReadOnlyPerson> lastShownList = model.getFilteredPersonList();
 
                 try {
@@ -166,7 +166,7 @@ public class EditGroupCommand extends UndoableCommand {
         if (other instanceof EditGroupCommand) {
             EditGroupCommand temp = (EditGroupCommand) other;
             if (this.indicateByIndex == temp.indicateByIndex) {
-                if (this.indicateByIndex == true) {
+                if (this.indicateByIndex) {
                     if (this.operation.equals(temp.operation)) {
                         if (this.operation.equals("gn")) {
                             return this.grpIndex.equals(temp.grpIndex)

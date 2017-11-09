@@ -65,6 +65,9 @@ public class GroupListPanel extends UiPart<Region> {
     }
 
     @Subscribe
+    /**
+     * handles the selection of a group
+     */
     private void handleJumpToListRequestEvent(JumpToListRequestEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
         if (event.isGroupType()) {

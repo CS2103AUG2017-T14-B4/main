@@ -45,7 +45,7 @@ public class EditGroupCommandParser implements Parser<EditGroupCommand> {
 
         parseGroupIndicator(argsList.get(0));
         parseOpIndicator(argsList.get(1));
-        if (operation.equals("gn")) {
+        if ("gn".equals(operation)) {
             parseNewName(argsList.get(2));
             return new EditGroupCommand(grpName, grpIndex, operation, newName, indicateByIndex);
         } else {

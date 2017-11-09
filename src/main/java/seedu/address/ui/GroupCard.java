@@ -17,8 +17,6 @@ public class GroupCard extends UiPart<Region> {
     public final Group group;
 
     @FXML
-    private HBox cardPane;
-    @FXML
     private Label id;
     @FXML
     private Label grpName;
@@ -49,7 +47,7 @@ public class GroupCard extends UiPart<Region> {
         secondPerson.textProperty().bind(Bindings.convert(group.secondPreviewProperty()));
         thirdPerson.textProperty().bind(Bindings.convert(group.thirdPreviewProperty()));
         group.thirdPreviewProperty().addListener(((observable, oldValue, newValue) -> {
-            ellipsis.setVisible(!newValue.equals(""));
+            ellipsis.setVisible(!"".equals(newValue));
         }));
     }
 

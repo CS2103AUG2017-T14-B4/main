@@ -30,7 +30,7 @@ public class GroupingCommandTest {
     private ArrayList<Index> testIndexes = new ArrayList<>();
 
     @Test
-    public void execute_newGroup_success() {
+    public void execute_newGroup_createSuccessful() {
         List<Index> testIdx = Arrays.asList(Index.fromOneBased(1), Index.fromOneBased(3));
         testSuccess("newGroup", testIdx);
         testSuccess("##wEird##", testIdx);
