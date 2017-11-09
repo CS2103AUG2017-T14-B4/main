@@ -1057,7 +1057,8 @@ Edit a person, Add a person or Favorite a person.</p>
 <h2 id="birthday-detail"><a class="link" href="#birthday-detail">4. Birthday Detail</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>A birthday detail is implemented under the Person class as Birthday. Users will add the birthday in along with the add command.</p>
+<p>A birthday detail is implemented under the Person class as Birthday. Users will add the birthday in along with the add command.
+It is a compulsory attribute like the Name, Phone, Email, Address of the Person class. It&#8217;s implementation is similar as well.</p>
 </div>
 <div class="sect2">
 <h3 id="description"><a class="link" href="#description">4.1. Description</a></h3>
@@ -1069,6 +1070,18 @@ Edit a person, Add a person or Favorite a person.</p>
 <h3 id="full-solution"><a class="link" href="#full-solution">4.2. Full solution</a></h3>
 <div class="paragraph">
 <p>See this <a href="http://github.com/NgSuli/main">PR</a> for the full solution.</p>
+</div>
+<div class="sect3">
+<h4 id="design-considerations-3"><a class="link" href="#design-considerations-3">4.2.1. Design Considerations</a></h4>
+<div class="paragraph">
+<p><strong>Aspect:</strong> Should this be an optional attribute instead?
+<strong>Alternative 1(current choice):</strong> It is easier to implement it as an compulsory field.
+<strong>Pros:</strong> Adding the birthday details makes the AddressBook more personal.
+<strong>Cons:</strong> Users have no choice but to key in the birthday detail.
+<strong>Alternative 2:</strong> Make the birthday attribute optional.
+<strong>Pros:</strong> Allows the user freedom to decide what they want in the addressbook.
+<strong>Cons:</strong> Slightly more tedious to implement.</p>
+</div>
 </div>
 </div>
 </div>
@@ -2292,6 +2305,9 @@ for <code>RemarkCommandParser</code>.</p>
 <li>
 <p>The addressbook will only work with english text.</p>
 </li>
+<li>
+<p>The addressbook should be easy enough for new users to understand and use (i.e. no complicated commands)</p>
+</li>
 </ol>
 </div>
 <div class="paragraph">
@@ -2360,7 +2376,7 @@ for <code>RemarkCommandParser</code>.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2017-11-09 02:52:29 +00:00
+Last updated 2017-11-09 04:08:41 +00:00
 </div>
 </div>
 </body>

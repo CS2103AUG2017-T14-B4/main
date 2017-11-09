@@ -159,7 +159,7 @@ e.g. typing <strong><code>help</code></strong> and pressing <kbd>Enter</kbd> wil
 <div class="sect2">
 <h3 id="viewing-help-code-help-code"><a class="link" href="#viewing-help-code-help-code">2.1. Viewing help : <code>help</code></a></h3>
 <div class="paragraph">
-<p>Format: <code>help</code></p>
+<p>Format: <code>help</code> or <code>h</code></p>
 </div>
 </div>
 <div class="sect2">
@@ -207,6 +207,9 @@ Format: <code>list</code></p>
 <p>Edits an existing person in the address book.<br>
 Format: <code>edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [b/BIRTHDAY] [m/MAJOR]? [fb/FACEBOOK]? [t/TAG]&#8230;&#8203;</code></p>
 </div>
+<div class="paragraph">
+<p>or <code>e INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [b/BIRTHDAY] [m/MAJOR]? [fb/FACEBOOK]? [t/TAG]..</code></p>
+</div>
 <div class="sidebarblock">
 <div class="content">
 <div class="ulist">
@@ -241,6 +244,15 @@ Edits the phone number and email address of the 1st person to be <code>91234567<
 </li>
 <li>
 <p><code>edit 2 n/Betsy Crower t/</code><br>
+Edits the name of the 2nd person to be <code>Betsy Crower</code> and clears all existing tags.
+or</p>
+</li>
+<li>
+<p><code>e 1 p/91234567 e/johndoe@example.com</code><br>
+Edits the phone number and email address of the 1st person to be <code>91234567</code> and <code>johndoe@example.com</code> respectively.</p>
+</li>
+<li>
+<p><code>e 2 n/Betsy Crower t/</code><br>
 Edits the name of the 2nd person to be <code>Betsy Crower</code> and clears all existing tags.</p>
 </li>
 </ul>
@@ -572,7 +584,7 @@ Deletes the third person in the group.</p>
 <h3 id="deleting-a-person-code-delete-code"><a class="link" href="#deleting-a-person-code-delete-code">2.13. Deleting a person : <code>delete</code></a></h3>
 <div class="paragraph">
 <p>Deletes the specified person from the address book.<br>
-Format: <code>delete INDEX [INDEX]&#8230;&#8203;</code></p>
+Format: <code>delete INDEX [INDEX]&#8230;&#8203;</code> or  <code>d INDEX[INDEX]&#8230;&#8203;</code></p>
 </div>
 <div class="sidebarblock">
 <div class="content">
@@ -620,7 +632,7 @@ Deletes the 1st, 3rd, 7th person in the results of the <code>find</code> command
 <h3 id="favoriting-a-person-code-favorite-code"><a class="link" href="#favoriting-a-person-code-favorite-code">2.14. Favoriting a person : <code>favorite</code></a></h3>
 <div class="paragraph">
 <p>Favorites the specified person from the address book so they will appear on top of the contact list or unfavorite a favorited person.<br>
-Format: <code>favorite INDEX</code></p>
+Format: <code>favorite INDEX</code> or <code>fav INDEX</code></p>
 </div>
 <div class="sidebarblock">
 <div class="content">
@@ -971,7 +983,7 @@ e.g.<code>select 2</code></p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2017-11-09 02:52:29 +00:00
+Last updated 2017-11-09 04:08:41 +00:00
 </div>
 </div>
 </body>
