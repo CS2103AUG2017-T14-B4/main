@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<!--[if IE]><meta http-equiv="X-UA-Compatible" content="IE=edge"><![endif]-->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="generator" content="Asciidoctor 1.5.3">
+<title>Ma Junting - Project Portfolio</title>
+<link rel="stylesheet" href="../stylesheets/gh-pages.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="../stylesheets/coderay-asciidoctor.css">
+</head>
+<body class="article">
+<div id="header">
+<h1>Ma Junting - Project Portfolio</h1>
+</div>
+<div id="content">
+<div class="sect1">
+<h2 id="project-contact-pro"><a class="link" href="#project-contact-pro">Project: Contact+ Pro</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Contact+ Pro is a portable contact book designed specifically for NUS students with the aim to connect
+the students and help them keep in touch with friends and peers!
+<strong>Code contributed</strong>: [<a href="https://github.com/CS2103AUG2017-T14-B4/main/blob/master/collated/main/majunting.md">Functional code</a>] [<a href="https://github.com/CS2103AUG2017-T14-B4/main/blob/master/collated/test/majunting.md">Test code</a>]</p>
+</div>
+<div class="sect2">
+<h3 id="enhancement-added-list-alphabet"><a class="link" href="#enhancement-added-list-alphabet">Enhancement Added: List Alphabet</a></h3>
+<div class="sect3">
+<h4 id="external-behavior"><a class="link" href="#external-behavior">External behavior</a></h4>
+<hr>
+<div class="paragraph">
+<p><mark>Start of Extract [from: User Guide]</mark></p>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="searching-all-persons-whose-name-starts-with-a-certain-alphabet-code-listalp-code"><a class="link" href="#searching-all-persons-whose-name-starts-with-a-certain-alphabet-code-listalp-code">Searching all persons whose name starts with a certain alphabet: <code>listalp</code></a></h3>
+<div class="paragraph">
+<p>Finds persons whose names start with the given alphabet.<br>
+Format: <code>listalp ALPHABET</code></p>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="ulist">
+<ul>
+<li>
+<p>The search is case sensitive.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p><mark>End of Extract</mark></p>
+</div>
+<hr>
+<div class="sect3">
+<h4 id="justification"><a class="link" href="#justification">Justification</a></h4>
+<div class="paragraph">
+<p>For a forgetful user, when number of contacts stored in Contact+ Pro is very large, it would be extremely
+difficult to find a certain contact if he could not recall the full name of the contact. The list alphabet
+command aims to alleviate the difficulty: instead of searching by the full name or other attributes which
+are hard to remember, the user can search by the first alphabet of the name of the contact, and thus search
+for the desired contact more easily within a much narrower range.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="implementation"><a class="link" href="#implementation">Implementation</a></h4>
+<hr>
+<div class="paragraph">
+<p><mark>Start of Extract [from: Developer Guide]</mark></p>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="list-persons-whose-names-start-with-certain-alphabet"><a class="link" href="#list-persons-whose-names-start-with-certain-alphabet">List Persons whose names start with certain alphabet</a></h3>
+<div class="paragraph">
+<p>List alphabet function is designated for frequent users who have a large number of contacts saved in the addressbook and could not recall the full name of the person he wants to find.</p>
+</div>
+<div class="paragraph">
+<p>List alphabet function is implemented in ListAlphabetCommand under logic component. When parsing the ListAlphaCommand in ListAlphaCommandParser, instead of passing the input argument to the ListAlphabetCommand, the parser invokes a method called NameStartsWithAlphabetPredicate.</p>
+</div>
+<div class="paragraph">
+<p>NameStartsWithAlphabetPredicate is a class created under model component, which checks for any persons whose name starts with the character same as the input argument, and returns a predicate to be passed into ListAlphabetCommand.</p>
+</div>
+<div class="paragraph">
+<p>ListAlphabetCommand reads the predicate and update filtered person list according to the predicate. After updating person list, Command result is returned with size of the updated filtered person list.</p>
+</div>
+<div class="sect3">
+<h4 id="design-consideration"><a class="link" href="#design-consideration">Design Consideration</a></h4>
+<div class="paragraph">
+<p><strong>Aspect:</strong> Way of comparing input argument and name<br>
+<strong>Alternative 1 (current choice):</strong> Comparing the first character of input argument and first character of a person&#8217;s full name.<br>
+<strong>Pros:</strong> Easy to implement.<br>
+<strong>Cons:</strong> Only the first input alphabet is effective, and unable to search for multiple alphabets.<br>
+<strong>Alternative 2:</strong> Use regex to restrict input argument format, compare each single input character to get a full list of persons.<br>
+<strong>Pros:</strong> Allows user to search for multiple alphabets at once.<br>
+<strong>Cons:</strong> User might need to repeatedly type the same command if the input format is different from preset regex.</p>
+</div>
+<div class="paragraph">
+<p><mark>End of Extract</mark></p>
+</div>
+<hr>
+</div>
+</div>
+<div class="sect2">
+<h3 id="enhancement-proposed-link-to-useful-websites-such-as-ivle-or-nusmods"><a class="link" href="#enhancement-proposed-link-to-useful-websites-such-as-ivle-or-nusmods">Enhancement Proposed: Link to useful websites such as IVLE or nusmods</a></h3>
+<div class="paragraph">
+<p>By linking to these websites, the user can view his schedule more easily and to
+plan their activities conveniently with reference to information shown on the websites.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="other-contributions"><a class="link" href="#other-contributions">Other contributions</a></h3>
+<div class="ulist">
+<ul>
+<li>
+<p>Implement delete tag command.</p>
+</li>
+<li>
+<p>Improve find command to list favorite / unfavorite contacts.</p>
+</li>
+<li>
+<p>Implement sort command.</p>
+</li>
+<li>
+<p>Implement locate command.</p>
+</li>
+<li>
+<p>Include google map direction url prefix and suffix for direction search</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div id="footer">
+<div id="footer-text">
+Last updated 2017-11-09 02:52:29 +00:00
+</div>
+</div>
+</body>
+</html>
