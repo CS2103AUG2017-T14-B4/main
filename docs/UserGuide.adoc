@@ -148,6 +148,7 @@ Format: 'listalp ALPHABET'
 * The search is case sensitive.
 ****
 
+// tag::group[]
 === Creating a group: `createGroup`
 
 Creates a group including a list of person from the address book. +
@@ -259,6 +260,8 @@ Deletes the tenth person from the first group.
 * `editGroup test gn 12` +
 Operation fails as 12 is not a valid group name.
 
+// end::group[]
+
 === Deleting a person : `delete`
 
 Deletes the specified person from the address book. +
@@ -364,6 +367,7 @@ Pressing the kbd:[&uarr;] and kbd:[&darr;] arrows will display the previous and 
 ====
 
 // tag::undoredo[]
+// tag::undo[]
 === Undoing previous command : `undo`
 
 Restores the address book to the state before the _undoable_ commands were executed, specified by the the number of commands to undo +
@@ -397,6 +401,7 @@ The `undo` command fails as there are no undoable commands executed previously.
 `delete 1` +
 `delete 2` +
 `undo all` (reverses both delete commands and add command)
+// end::undo[]
 
 === Redoing the previously undone command : `redo`
 
