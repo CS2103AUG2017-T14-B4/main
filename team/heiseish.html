@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<!--[if IE]><meta http-equiv="X-UA-Compatible" content="IE=edge"><![endif]-->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="generator" content="Asciidoctor 1.5.3">
+<title>Dao Truong Giang - Project Portfolio</title>
+<link rel="stylesheet" href="../stylesheets/gh-pages.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="../stylesheets/coderay-asciidoctor.css">
+</head>
+<body class="article">
+<div id="header">
+<h1>Dao Truong Giang - Project Portfolio</h1>
+</div>
+<div id="content">
+<div class="sect1">
+<h2 id="project-contact-pro"><a class="link" href="#project-contact-pro">Project: Contact+ Pro</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Contact+ Pro is a portable contact book designed specifically for NUS students with the aim to connect
+the students and help them keep in touch with friends and peers!</p>
+</div>
+<div class="paragraph">
+<p><strong>Code contributed</strong>: [<a href="https://github.com/CS2103AUG2017-T14-B4/main/blob/master/collated/main/heiseish.md">Functional code</a>] [<a href="https://github.com/CS2103AUG2017-T14-B4/main/blob/master/collated/test/heiseish.md">Test code</a>]</p>
+</div>
+<div class="sect2">
+<h3 id="enhancement-added-favorite"><a class="link" href="#enhancement-added-favorite">Enhancement Added: Favorite</a></h3>
+<div class="sect3">
+<h4 id="external-behavior"><a class="link" href="#external-behavior">External behavior</a></h4>
+<hr>
+<div class="paragraph">
+<p><mark>Start of Extract [from: User Guide]</mark></p>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="favoriting-a-person-code-favorite-code"><a class="link" href="#favoriting-a-person-code-favorite-code">Favoriting a person : <code>favorite</code></a></h3>
+<div class="paragraph">
+<p>Favorites the specified person from the address book so they will appear on top of the contact list or unfavorite a favorited person.<br>
+Format: <code>favorite INDEX</code></p>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="ulist">
+<ul>
+<li>
+<p>Favorites the person at the specified <code>INDEX</code>.</p>
+</li>
+<li>
+<p>The index refers to the index number shown in the most recent listing.</p>
+</li>
+<li>
+<p>The index <strong>must be a positive integer</strong> 1, 2, 3, &#8230;&#8203;</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>To un-favorite a person, simply input the <code>favorite</code> command again with the person&#8217;s index</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Examples:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>list</code><br>
+<code>favorite 3</code><br>
+Favorite the 3rd person in the address book.</p>
+</li>
+<li>
+<p><code>find Betsy</code><br>
+<code>favorite 1</code><br>
+Favorite the 1st person in the results of the <code>find</code> command.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p><mark>End of Extract</mark></p>
+</div>
+<hr>
+<div class="sect3">
+<h4 id="justification"><a class="link" href="#justification">Justification</a></h4>
+<div class="paragraph">
+<p>The contact list for frequent users might populate very fast and when people with same name
+or other details get added to the Contact+, it might become increasingly difficult to
+quickly search for a contact of a close friend. The favorite aims to solve just that: it could
+highlight certain individuals and put them on top of the contact list, giving the user the ease to browse
+through and with a quick glance they can see the details of such close friends.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="implementation"><a class="link" href="#implementation">Implementation</a></h4>
+<hr>
+<div class="paragraph">
+<p><mark>Start of Extract [from: Developer Guide]</mark></p>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="favorite"><a class="link" href="#favorite">Favorite</a></h3>
+<div class="paragraph">
+<p>The Favorite function is created for frequent users who have have certain "close contacts" and
+want the contacts on top of their list for the ease of access.
+In order to implement such feature, two things need to be implemented:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Favorite class<br></p>
+</li>
+<li>
+<p>Sorting</p>
+</li>
+</ul>
+</div>
+<div class="sect3">
+<h4 id="favorite-class"><a class="link" href="#favorite-class">Favorite class</a></h4>
+<div class="paragraph">
+<p>A favorite class is implemented and used by Person class. A person object does not construct with a favorite object but it is
+able to setFavorite a new favorite object.
+A favorite object is different from other attribute object is that it just contains a simple boolean property.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../images/FavoriteClassDiagram.png" alt="FavoriteClassDiagram" width="200">
+</div>
+</div>
+<div class="paragraph">
+<p>To favorite a person in the list, a favorite command is implemented. The favorite command follows the same parser logic
+as <code>delete</code> command, which is to parse the index of the person to favorite. Hence, the favoriteCommand also extends
+UndoableCommand and overrides the methods in UndoableCommand.</p>
+</div>
+<div class="paragraph">
+<p>Model and UI components also have to be updated. For model, a method toggle favorite is implemented to favorite or "defavorite"
+a person at specified index:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="java"><span class="directive">public</span> <span class="type">void</span> favorite(ReadOnlyPerson toFavorite)
+    <span class="directive">throws</span> PersonNotFoundException {
+        requireNonNull(toFavorite);
+        <span class="type">int</span> index = internalList.indexOf(toFavorite);
+
+        <span class="keyword">if</span> (index == -<span class="integer">1</span>) {
+            <span class="keyword">throw</span> <span class="keyword">new</span> PersonNotFoundException();
+        }
+
+        Person newPerson = <span class="keyword">new</span> Person(toFavorite);
+        newPerson.setFavorite(<span class="keyword">new</span> Favorite(!toFavorite.getFavorite().favorite));
+
+        internalList.set(index, newPerson);
+        sort();
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>And for UI, a simple label is created and <code>setVisible</code> to <code>true</code> for any index that is
+favorited. The labels are <code>setGraphic</code> to followed image:</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../images/heart.png" alt="heart" width="40">
+</div>
+</div>
+<div class="paragraph">
+<p>In the contact+ pro, it looks like:</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../images/nameWithHeart.png" alt="nameWithHeart" width="120">
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="sorting"><a class="link" href="#sorting">Sorting</a></h4>
+<div class="paragraph">
+<p>A sorting algorithm needs to be implemented for the <code>UniquePersonList</code> of the <code>Model</code> Component.
+Fortunately, it can be easily done with <code>List.sort()</code> and  <code>Java predicate</code>. The priority of sorting is such that
+the persons favorited always appear on the top of the list, then all persons w/out favorited are
+sorted by alphabetical order:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="java"><span class="directive">private</span> <span class="type">void</span> sort() {
+        internalList.sort((ReadOnlyPerson p1, ReadOnlyPerson p2) -&gt; {
+            <span class="keyword">if</span> (!p1.getFavorite().equals(p2.getFavorite())) {
+                <span class="keyword">return</span> p2.getFavorite().getValue() - p1.getFavorite().getValue();
+            } <span class="keyword">else</span> {
+                <span class="keyword">return</span> p1.getName().fullName.compareTo(p2.getName().fullName);
+            }
+        });
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Finally, this method needs to be called whenever an event that causes changes to the model is called, eg
+Edit a person, Add a person or Favorite a person.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="design-considerations"><a class="link" href="#design-considerations">Design Considerations</a></h4>
+<div class="paragraph">
+<p><strong>Aspect:</strong> Where sorting should occurs<br>
+<strong>Alternative 1 (current choice):</strong> On the lowest layer of <code>Model</code>, which is <code>UniquePersonList</code><br>
+<strong>Pros:</strong> No need to have sorting in upper layer.<br>
+<strong>Cons:</strong> Permanently mutate the data list.<br>
+<strong>Alternative 2:</strong> Only sorting on the surface of <code>UI</code> component<br>
+<strong>Pros:</strong> No mutation of data list.<br>
+<strong>Cons:</strong> Difficult to implement system tests.<br></p>
+</div>
+<div class="paragraph">
+<p><mark>End of Extract</mark></p>
+</div>
+<hr>
+</div>
+</div>
+<div class="sect2">
+<h3 id="enhancement-proposed-link-for-social-media-messaging-platform"><a class="link" href="#enhancement-proposed-link-for-social-media-messaging-platform">Enhancement Proposed: Link for social media/messaging platform</a></h3>
+<div class="paragraph">
+<p>To further connect the students, a social media profile can be linked to each person
+in the contact book to let the user view with ease and message should the need arise.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="other-contributions"><a class="link" href="#other-contributions">Other contributions</a></h3>
+<div class="ulist">
+<ul>
+<li>
+<p>Update UI for PersonCard.</p>
+</li>
+<li>
+<p>Add favorite, remark, major and facebook attribute to the Person class.</p>
+</li>
+<li>
+<p>Add auto complete for command box.</p>
+</li>
+<li>
+<p>Replace google search with google map for direction searching.</p>
+</li>
+<li>
+<p>Adjust text color in the result display to better indicate the type of results.</p>
+</li>
+<li>
+<p>Add random color generator for (except for pre-defined) labels.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="project-tba"><a class="link" href="#project-tba">Project: TBA</a></h2>
+<div class="sectionbody">
+
+</div>
+</div>
+</div>
+<div id="footer">
+<div id="footer-text">
+Last updated 2017-11-09 02:04:05 +00:00
+</div>
+</div>
+</body>
+</html>
