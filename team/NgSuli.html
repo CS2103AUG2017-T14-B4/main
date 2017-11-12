@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<!--[if IE]><meta http-equiv="X-UA-Compatible" content="IE=edge"><![endif]-->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="generator" content="Asciidoctor 1.5.3">
+<title>Melanie Ng - Project Portfolio</title>
+<link rel="stylesheet" href="../stylesheets/gh-pages.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="../stylesheets/coderay-asciidoctor.css">
+</head>
+<body class="article">
+<div id="header">
+<h1>Melanie Ng - Project Portfolio</h1>
+</div>
+<div id="content">
+<div class="sect1">
+<h2 id="project-contact-pro"><a class="link" href="#project-contact-pro">Project: Contact+ Pro</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Contact+ Pro is a desktop address book application designed for students of NUS. The user interacts with it using a CLI, and it has a GUI created with JavaFX. It is written in Java, and has about 6 kLoC.
+This address book help ease communications among students, be it with new classmates or long-time friends in NUS.</p>
+</div>
+<div class="paragraph">
+<p><strong>Code contributed</strong>: [<a href="https://github.com/CS2103AUG2017-T14-B4/main/blob/master/collated/main/NgSuli.md">Functional code</a>] [<a href="https://github.com/CS2103AUG2017-T14-B4/main/blob/master/collated/test/NgSuli.md">Test code</a>]</p>
+</div>
+<div class="sect2">
+<h3 id="enhancement-added-birthday-feature"><a class="link" href="#enhancement-added-birthday-feature">Enhancement Added: Birthday Feature</a></h3>
+<div class="sect3">
+<h4 id="external-behavior"><a class="link" href="#external-behavior">External behavior</a></h4>
+<hr>
+<div class="paragraph">
+<p><mark>Start of Extract [from: User Guide]</mark></p>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="adding-a-person-code-add-code"><a class="link" href="#adding-a-person-code-add-code">Adding a person: <code>add</code></a></h3>
+<div class="paragraph">
+<p>Adds a person to the address book<br>
+Format: <code>add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS b/BIRTHDAY [m/MAJOR]? [fb/FACEBOOK]? [r/REMARK]? [t/TAG]&#8230;&#8203;</code></p>
+</div>
+<div class="paragraph">
+<p><mark>End of Extract</mark></p>
+</div>
+<hr>
+<div class="sect3">
+<h4 id="justification"><a class="link" href="#justification">Justification</a></h4>
+<div class="paragraph">
+<p>Adding the birthday feature helps to personalise the address book allowing students to get to know each other better.</p>
+</div>
+<div class="paragraph">
+<p>Adding the shorthand alias helps new users to use CLI with ease. It also reduces the amount of effort spend keying in
+the information.</p>
+</div>
+<div class="paragraph">
+<p>Implementing the white theme offers a cleaner option for users to use.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="implementation"><a class="link" href="#implementation">Implementation</a></h4>
+<hr>
+<div class="paragraph">
+<p><mark>Start of Extract [from: Developer Guide]</mark></p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="birthday-detail"><a class="link" href="#birthday-detail">Birthday Detail</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>A birthday detail is implemented under the Person class as Birthday. Users will add the birthday in along with the add command.
+It is a compulsory attribute like the Name, Phone, Email, Address of the Person class. It&#8217;s implementation is similar as well.</p>
+</div>
+<div class="sect2">
+<h3 id="description"><a class="link" href="#description">Description</a></h3>
+<div class="paragraph">
+<p>Format: b/[dd/mm/yyyy]</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="full-solution"><a class="link" href="#full-solution">Full solution</a></h3>
+<div class="paragraph">
+<p>See this <a href="http://github.com/NgSuli/main">PR</a> for the full solution.</p>
+</div>
+<div class="sect3">
+<h4 id="design-considerations"><a class="link" href="#design-considerations">Design Considerations</a></h4>
+<div class="paragraph">
+<p><strong>Aspect:</strong> Should this be an optional attribute instead?
+<strong>Alternative 1(current choice):</strong> It is easier to implement it as an compulsory field.
+<strong>Pros:</strong> Adding the birthday details makes the AddressBook more personal.
+<strong>Cons:</strong> Users have no choice but to key in the birthday detail.
+<strong>Alternative 2:</strong> Make the birthday attribute optional.
+<strong>Pros:</strong> Allows the user freedom to decide what they want in the addressbook.
+<strong>Cons:</strong> Slightly more tedious to implement.</p>
+</div>
+<div class="paragraph">
+<p><mark>End of Extract</mark></p>
+</div>
+<hr>
+</div>
+</div>
+<div class="sect2">
+<h3 id="enhancement-proposed-implementing-a-theme-switcher"><a class="link" href="#enhancement-proposed-implementing-a-theme-switcher">Enhancement Proposed: Implementing a theme switcher</a></h3>
+<div class="paragraph">
+<p>This gives user an option to personalise their address book by providing an option for the theme.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="other-contributions"><a class="link" href="#other-contributions">Other contributions</a></h3>
+<div class="paragraph">
+<p>Added shorthand alias for HelpCommand, DeleteCommand, EditCommand, FavouriteCommand.</p>
+</div>
+<div class="paragraph">
+<p>Implemented white theme for Contact+ Pro</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="project-tba"><a class="link" href="#project-tba">Project: TBA</a></h2>
+<div class="sectionbody">
+
+</div>
+</div>
+</div>
+<div id="footer">
+<div id="footer-text">
+Last updated 2017-11-12 14:14:17 +00:00
+</div>
+</div>
+</body>
+</html>
