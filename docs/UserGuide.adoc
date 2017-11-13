@@ -469,10 +469,15 @@ Format: `clear`
 Exits the program. +
 Format: `exit`
 
+// tag::UI[]
 === Access the facebook profile of a contact
 
 If a person is registered with a facebook user-name, a facebook icon will appear beside his name. To view his facebook profile and feeds, simply click on the facebook icon. Note: you might have to log in due to facebook data security.
 
+=== Google search name or major
+
+To search for name or major of a person, simply click the name or major label on the card. The browser will display the result lists.
+// end::UI[]
 === Saving the data
 
 Address book data are saved in the hard disk automatically after any command that changes the data. +
