@@ -907,12 +907,16 @@ If the <code>redoStack</code> is empty, then there are no other commands left to
 <h3 id="grouping"><a class="link" href="#grouping">3.6. Grouping</a></h3>
 <div class="paragraph">
 <p>The grouping function is created to allow user to better organise his contacts.
-This is achieved by introducing <code>UniqueGroupList</code> into the <code>addressbook</code>, which is a list of <code>Group</code> objects.</p>
+This is achieved by introducing <code>UniqueGroupList</code> into the <code>addressbook</code>, which contains a list of <code>Group</code> objects.</p>
 </div>
 <div class="paragraph">
 <p><code>Group</code> objects are extensions of <code>UniquePersonList</code>, and contain all information of <code>Person</code> objects seperately
-from <code>UniquePersonList</code> in <code>addressbook</code> as a result of current implementation of <code>UniquePersonList</code>, which does
-not return direct reference to <code>Person</code> objects of interest.</p>
+from <code>UniquePersonList</code> in <code>addressbook</code>.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/GroupClassDiagram.png" alt="GroupClassDiagram" width="800">
+</div>
 </div>
 <div class="paragraph">
 <p>As <code>Person</code> in a <code>Group</code> and the corresponding <code>Person</code> in the <code>addressbook</code> are seperately kept, synchronization
@@ -923,18 +927,33 @@ is done to all operations that cause a change in existing <code>Person</code> to
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="java"><span class="directive">public</span> CommandResult executeUndoableCommand() <span class="directive">throws</span> CommandException {
-    ...
-    try {
-        model.updatePerson(personToEdit, editedPerson);
-        model.propagateToGroup(personToEdit, editedPerson);
-    } <span class="keyword">catch</span> (DuplicatePersonException dpe) {
-        <span class="keyword">throw</span> <span class="keyword">new</span> CommandException(MESSAGE_DUPLICATE_PERSON);
-    } <span class="keyword">catch</span> (PersonNotFoundException pnfe) {
-        <span class="keyword">throw</span> <span class="keyword">new</span> <span class="exception">AssertionError</span>(<span class="string"><span class="delimiter">&quot;</span><span class="content">The target person cannot be missing</span><span class="delimiter">&quot;</span></span>);
-    }
-    ....
+<pre class="CodeRay highlight"><code data-lang="java"><span class="keyword">try</span> {
+    model.updatePerson(personToEdit, editedPerson);
+    model.propagateToGroup(personToEdit, editedPerson, <span class="local-variable">this</span>.getClass());
+} <span class="keyword">catch</span> (DuplicatePersonException dpe) {
+    <span class="keyword">throw</span> <span class="keyword">new</span> CommandException(MESSAGE_EXECUTION_FAILURE, MESSAGE_DUPLICATE_PERSON);
+} <span class="keyword">catch</span> (PersonNotFoundException pnfe) {
+    <span class="keyword">throw</span> <span class="keyword">new</span> <span class="exception">AssertionError</span>(<span class="string"><span class="delimiter">&quot;</span><span class="content">The target person cannot be missing</span><span class="delimiter">&quot;</span></span>);
 }</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Though the function <code>propagateToGroup</code>, <code>personToEdit</code> is checked against all persons in all groups in <code>UniqueGroupList</code>
+, and replaces with <code>editedPerson</code> if there is a match.</p>
+</div>
+<div class="sect3">
+<h4 id="design-considerations-2"><a class="link" href="#design-considerations-2">3.6.1. Design Considerations</a></h4>
+<div class="paragraph">
+<p><strong>Aspect:</strong> Implementation of <code>Group</code><br>
+<strong>Alternative 1 (current choice):</strong> <code>Group</code> object saves the complete copy of <code>ReadOnlyPerson</code> objects from the <code>UniquePersonList</code><br>
+<strong>Pros:</strong> Easier implementation<br>
+<strong>Cons:</strong> Storage wastage as the information about a person is duplicated as many times as the number of groups he is in<br>
+<strong>Alternative 2:</strong> Saving <code>Group</code> as an attribute in the <code>Person</code> object<br>
+<strong>Pros:</strong> Easy to tell what group is a person in<br>
+<strong>Cons:</strong> to show all the person within a group, there is the need to loop through the entire <code>UniquePersonList</code>.</p>
+</div>
+<div class="paragraph">
+<p>On the hindsight, alternative 2 seems like a much cleaner implementation due to savings in storage and processing complexity. I have to admit that this is my design flaw at the initial stage.</p>
 </div>
 </div>
 </div>
@@ -997,7 +1016,7 @@ Only one index and one address with address prefix are accepted. If input format
 </table>
 </div>
 <div class="sect3">
-<h4 id="design-considerations-2"><a class="link" href="#design-considerations-2">3.7.1. Design Considerations</a></h4>
+<h4 id="design-considerations-3"><a class="link" href="#design-considerations-3">3.7.1. Design Considerations</a></h4>
 <div class="paragraph">
 <p><strong>Aspect:</strong> what the start and end addresses should be<br>
 <strong>Alternative 1 (current choice):</strong> The address input by the user is regarded as starting address by default, the address of the person in Contact+ Pro is set to end address.<br>
@@ -1124,7 +1143,7 @@ Edit a person, Add a person or Favorite a person.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="design-considerations-3"><a class="link" href="#design-considerations-3">3.8.3. Design Considerations</a></h4>
+<h4 id="design-considerations-4"><a class="link" href="#design-considerations-4">3.8.3. Design Considerations</a></h4>
 <div class="paragraph">
 <p><strong>Aspect:</strong> Where sorting should occur<br>
 <strong>Alternative 1 (current choice):</strong> On the lowest layer of <code>Model</code>, which is <code>UniquePersonList</code><br>
@@ -1190,7 +1209,7 @@ It is a compulsory attribute like the Name, Phone, Email, Address of the Person 
 <p>See this <a href="http://github.com/NgSuli/main">PR</a> for the full solution.</p>
 </div>
 <div class="sect3">
-<h4 id="design-considerations-4"><a class="link" href="#design-considerations-4">4.2.1. Design Considerations</a></h4>
+<h4 id="design-considerations-5"><a class="link" href="#design-considerations-5">4.2.1. Design Considerations</a></h4>
 <div class="paragraph">
 <p><strong>Aspect:</strong> Should this be an optional attribute instead?<br>
 <strong>Alternative 1(current choice):</strong> It is easier to implement it as an compulsory field.<br>
@@ -2494,7 +2513,7 @@ for <code>RemarkCommandParser</code>.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2017-11-13 14:18:07 +00:00
+Last updated 2017-11-13 15:00:45 +00:00
 </div>
 </div>
 </body>

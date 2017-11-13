@@ -173,7 +173,7 @@ The <code>undo</code> command fails as there are no undoable commands executed p
 <h4 id="implementation-2"><a class="link" href="#implementation-2">Implementation</a></h4>
 <div class="paragraph">
 <p>This enhancement is built upon the original implementation of <code>undo redo mechanism</code>. No change is made to the underlying mechanism.
-The multi-step undo is done through multiple usage of the undo mechanism.<br></p>
+The multi-step undo is done through repeated usage of the undo mechanism.<br></p>
 </div>
 <div class="paragraph">
 <p>The following is the original mechanism:</p>
@@ -551,7 +551,7 @@ Format: <code>editGroup GROUP_NAME gn NEW_GROUP_NAME</code> or <code>editGroup G
 <p><code>NEW_GROUP_NAME</code> must fit a valid group name format</p>
 </li>
 <li>
-<p>person of specified index <strong>within</strong> the group is removed</p>
+<p>person of specified index <strong>within</strong> the group is removed, so use <code>viewGroup</code> command to see the person in the group first</p>
 </li>
 </ul>
 </div>
@@ -616,12 +616,16 @@ Operation fails as 12 is not a valid group name.</p>
 <h3 id="grouping"><a class="link" href="#grouping">Grouping</a></h3>
 <div class="paragraph">
 <p>The grouping function is created to allow user to better organise his contacts.
-This is achieved by introducing <code>UniqueGroupList</code> into the <code>addressbook</code>, which is a list of <code>Group</code> objects.</p>
+This is achieved by introducing <code>UniqueGroupList</code> into the <code>addressbook</code>, which contains a list of <code>Group</code> objects.</p>
 </div>
 <div class="paragraph">
 <p><code>Group</code> objects are extensions of <code>UniquePersonList</code>, and contain all information of <code>Person</code> objects seperately
-from <code>UniquePersonList</code> in <code>addressbook</code> as a result of current implementation of <code>UniquePersonList</code>, which does
-not return direct reference to <code>Person</code> objects of interest.</p>
+from <code>UniquePersonList</code> in <code>addressbook</code>.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../images/GroupClassDiagram.png" alt="GroupClassDiagram" width="800">
+</div>
 </div>
 <div class="paragraph">
 <p>As <code>Person</code> in a <code>Group</code> and the corresponding <code>Person</code> in the <code>addressbook</code> are seperately kept, synchronization
@@ -632,24 +636,39 @@ is done to all operations that cause a change in existing <code>Person</code> to
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="java"><span class="directive">public</span> CommandResult executeUndoableCommand() <span class="directive">throws</span> CommandException {
-    ...
-    try {
-        model.updatePerson(personToEdit, editedPerson);
-        model.propagateToGroup(personToEdit, editedPerson);
-    } <span class="keyword">catch</span> (DuplicatePersonException dpe) {
-        <span class="keyword">throw</span> <span class="keyword">new</span> CommandException(MESSAGE_DUPLICATE_PERSON);
-    } <span class="keyword">catch</span> (PersonNotFoundException pnfe) {
-        <span class="keyword">throw</span> <span class="keyword">new</span> <span class="exception">AssertionError</span>(<span class="string"><span class="delimiter">&quot;</span><span class="content">The target person cannot be missing</span><span class="delimiter">&quot;</span></span>);
-    }
-    ....
+<pre class="CodeRay highlight"><code data-lang="java"><span class="keyword">try</span> {
+    model.updatePerson(personToEdit, editedPerson);
+    model.propagateToGroup(personToEdit, editedPerson, <span class="local-variable">this</span>.getClass());
+} <span class="keyword">catch</span> (DuplicatePersonException dpe) {
+    <span class="keyword">throw</span> <span class="keyword">new</span> CommandException(MESSAGE_EXECUTION_FAILURE, MESSAGE_DUPLICATE_PERSON);
+} <span class="keyword">catch</span> (PersonNotFoundException pnfe) {
+    <span class="keyword">throw</span> <span class="keyword">new</span> <span class="exception">AssertionError</span>(<span class="string"><span class="delimiter">&quot;</span><span class="content">The target person cannot be missing</span><span class="delimiter">&quot;</span></span>);
 }</code></pre>
 </div>
+</div>
+<div class="paragraph">
+<p>Though the function <code>propagateToGroup</code>, <code>personToEdit</code> is checked against all persons in all groups in <code>UniqueGroupList</code>
+, and replaces with <code>editedPerson</code> if there is a match.</p>
+</div>
+<div class="sect3">
+<h4 id="design-considerations-2"><a class="link" href="#design-considerations-2">Design Considerations</a></h4>
+<div class="paragraph">
+<p><strong>Aspect:</strong> Implementation of <code>Group</code><br>
+<strong>Alternative 1 (current choice):</strong> <code>Group</code> object saves the complete copy of <code>ReadOnlyPerson</code> objects from the <code>UniquePersonList</code><br>
+<strong>Pros:</strong> Easier implementation<br>
+<strong>Cons:</strong> Storage wastage as the information about a person is duplicated as many times as the number of groups he is in<br>
+<strong>Alternative 2:</strong> Saving <code>Group</code> as an attribute in the <code>Person</code> object<br>
+<strong>Pros:</strong> Easy to tell what group is a person in<br>
+<strong>Cons:</strong> to show all the person within a group, there is the need to loop through the entire <code>UniquePersonList</code>.</p>
+</div>
+<div class="paragraph">
+<p>On the hindsight, alternative 2 seems like a much cleaner implementation due to savings in storage and processing complexity. I have to admit that this is my design flaw at the initial stage.</p>
 </div>
 <div class="paragraph">
 <p><mark>End of Extract</mark></p>
 </div>
 <hr>
+</div>
 </div>
 <div class="sect2">
 <h3 id="other-contributions"><a class="link" href="#other-contributions">Other contributions</a></h3>
@@ -672,7 +691,7 @@ is done to all operations that cause a change in existing <code>Person</code> to
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2017-11-13 14:18:07 +00:00
+Last updated 2017-11-13 15:00:45 +00:00
 </div>
 </div>
 </body>
