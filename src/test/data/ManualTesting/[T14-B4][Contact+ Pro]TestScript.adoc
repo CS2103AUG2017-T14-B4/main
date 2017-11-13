@@ -11,6 +11,7 @@ Run the programme and the list of sample data should be loaded into the app.
 
 === Command Line
 
+
 ==== Locate Command
 
 To navigate from a starting address to the address of the first person in the list: +
@@ -19,10 +20,40 @@ Type `locate 1 a/nus`
 The first person in the list is Alex Yeoh, so the browser panel should display the recommended route
 from `nus` to Alex's address, which is `Blk 30 Geylang Street 29, #06-40` on Google Maps.
 
+==== Overview of parameters
+
+n/NAME p/PHONE e/EMAIL a/ADDRESS b/BIRTHDAY [r/REMARK][m/MAJOR] [fb/FACEBOOK][t/TAG]...
+
+
+==== Add Command
+
+To add a person into Contact+ Pro:
+`add n/jane p/98765432 e/jane@example.com b/01/02/1991
+
+==== Edit Command
+
+To edit the 3rd person for example, type in the command:
+`edit 3 p/12345678` or type `e 3 p/12345678`
+
+==== Delete Command
+
+To delete the 3rd person for example, type in the command:
+`delete 3` or `d 3`
+
+==== Clear Command
+
+To clear all contacts, type in the command:
+`clear`
+
+==== Help Command
+
+The help command can be accessed by the shorthand alias as well.
+Type in the command: `h`
+
 ==== Favorite Command
 
 To favorite the 3rd person, type in the command: +
-Type `favorite 3`
+Type `favorite 3` or Type `f 3`
 
 The `Result Display` should display the `favorited` followed by the name of the person.
 The favorited person in the list should have the heart Icon beside the name and should appear on the top
