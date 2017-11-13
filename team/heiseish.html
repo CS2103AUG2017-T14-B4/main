@@ -26,7 +26,7 @@ the students and help them keep in touch with friends and peers!</p>
 <p><strong>Code contributed</strong>: [<a href="https://github.com/CS2103AUG2017-T14-B4/main/blob/master/collated/main/heiseish.md">Functional code</a>] [<a href="https://github.com/CS2103AUG2017-T14-B4/main/blob/master/collated/test/heiseish.md">Test code</a>]</p>
 </div>
 <div class="sect2">
-<h3 id="enhancement-added-favorite"><a class="link" href="#enhancement-added-favorite">Enhancement Added: Favorite</a></h3>
+<h3 id="enhancement-added-favorite-and-default-sorting"><a class="link" href="#enhancement-added-favorite-and-default-sorting">Enhancement Added: Favorite and default Sorting</a></h3>
 <div class="sect3">
 <h4 id="external-behavior"><a class="link" href="#external-behavior">External behavior</a></h4>
 <hr>
@@ -168,6 +168,11 @@ a person at specified index:</p>
 }</code></pre>
 </div>
 </div>
+<div class="imageblock">
+<div class="content">
+<img src="../images/FavoriteCommandSequenceDiagram.png" alt="FavoriteCommandSequenceDiagram" width="600">
+</div>
+</div>
 <div class="paragraph">
 <p>And for UI, a simple <code>Label</code> is created to displaying <code>favorite</code>, a filled shape heart if the person is favorite and a heart outline otherwise</p>
 </div>
@@ -237,6 +242,107 @@ Edit a person, Add a person or Favorite a person.</p>
 </div>
 </div>
 <div class="sect2">
+<h3 id="enhancement-added-person-ui-redesigned-and-graphical-accessibility"><a class="link" href="#enhancement-added-person-ui-redesigned-and-graphical-accessibility">Enhancement Added: Person UI Redesigned and graphical accessibility</a></h3>
+<div class="sect3">
+<h4 id="external-behavior-2"><a class="link" href="#external-behavior-2">External behavior</a></h4>
+<hr>
+<div class="paragraph">
+<p><mark>Start of Extract [from: User Guide]</mark></p>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="access-the-facebook-profile-of-a-contact"><a class="link" href="#access-the-facebook-profile-of-a-contact">Access the facebook profile of a contact</a></h3>
+<div class="paragraph">
+<p>If a person is registered with a facebook user-name, a facebook icon will appear beside his name. To view his facebook profile and feeds, simply click on the facebook icon. Note: you might have to log in due to facebook data security.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="google-search-name-or-major"><a class="link" href="#google-search-name-or-major">Google search name or major</a></h3>
+<div class="paragraph">
+<p>To search for name or major of a person, simply click the name or major label on the card. The browser will display the result lists.</p>
+</div>
+<div class="paragraph">
+<p><mark>End of Extract</mark></p>
+</div>
+<div class="paragraph">
+<p>The person card looks like</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../images/personCard.png" alt="personCard" width="200">
+</div>
+</div>
+<div class="paragraph">
+<p>When clicked on the facebook icon</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../images/facebookProfile.png" alt="facebookProfile" width="200">
+</div>
+</div>
+<div class="paragraph">
+<p>When clicked on the address</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../images/googleMap.png" alt="googleMap" width="200">
+</div>
+</div>
+<hr>
+<div class="sect3">
+<h4 id="justification-2"><a class="link" href="#justification-2">Justification</a></h4>
+<div class="paragraph">
+<p>Graphical navigation enable easy usage of the application for users who are not familiar with command line style.
+It also enhances the visual of the app, make it more appealing to many users.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="implementation-2"><a class="link" href="#implementation-2">Implementation</a></h4>
+<hr>
+<div class="paragraph">
+<p><mark>Start of Extract [from: Developer Guide]</mark></p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="ui-graphical-navigation"><a class="link" href="#ui-graphical-navigation">Ui graphical navigation</a></h4>
+<div class="paragraph">
+<p>To enable UI graphical selection (clicking or tapping), the designate UI class (ie <code>Label</code> class)
+has to be able to handle the event. On the fxml file, an attribute indicate event handler when the user clicks on a
+label. Eg to favorite a person by clicking on the heart shape icon, an attribute <code>onMouseClicked="#toggleFavorite"</code> was
+added to the <code>Label</code> class displaying <code>favorite</code>.</p>
+</div>
+<div class="paragraph">
+<p>When the label favorite is pressed on, <code>toggleFavorite</code> gets called and raise an event in the EventCenter called
+<code>ToggleFavoritePersonEvent</code> and the id of the <code>personToFavorite</code> is passed into the event object. The event is then
+registered and action is dispatched in the <code>:LogicManager</code> using
+<code>@Subscribe</code> decorator:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="java"><span class="annotation">@Subscribe</span>
+<span class="directive">private</span> <span class="type">void</span> handleToggleFavoritePersonEvent(ToggleFavoritePersonEvent event)
+            <span class="directive">throws</span> CommandException, <span class="exception">ParseException</span> {
+    logger.info(LogsCenter.getEventHandlingLogMessage(event));
+    <span class="predefined-type">String</span> commandText = <span class="string"><span class="delimiter">&quot;</span><span class="content">favorite </span><span class="delimiter">&quot;</span></span> + event.getId();
+    CommandResult commandResult = execute(commandText);
+    logger.info(<span class="string"><span class="delimiter">&quot;</span><span class="content">Result: </span><span class="delimiter">&quot;</span></span> + commandResult.feedbackToUser);
+    raise(<span class="keyword">new</span> NewResultAvailableEvent(commandResult.feedbackToUser, <span class="predefined-constant">false</span>));
+}</code></pre>
+</div>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../images/UIfavorite.png" alt="UIfavorite" width="600">
+</div>
+</div>
+<div class="paragraph">
+<p><mark>End of Extract</mark></p>
+</div>
+<hr>
+</div>
+</div>
+<div class="sect2">
 <h3 id="enhancement-proposed-link-for-social-media-messaging-platform"><a class="link" href="#enhancement-proposed-link-for-social-media-messaging-platform">Enhancement Proposed: Link for social media/messaging platform</a></h3>
 <div class="paragraph">
 <p>To further connect the students, a social media profile can be linked to each person
@@ -254,7 +360,13 @@ in the contact book to let the user view with ease and message should the need a
 <p>Add favorite, remark, major and facebook attribute to the Person class.</p>
 </li>
 <li>
-<p>Add auto complete for command box.</p>
+<p>Complete favorite, remark command.</p>
+</li>
+<li>
+<p>Upgrade find command to find all attributes, with or without prefix.</p>
+</li>
+<li>
+<p>Add auto complete, command suggestion for command box.</p>
 </li>
 <li>
 <p>Replace google search with google map for direction searching.</p>
@@ -282,7 +394,7 @@ in the contact book to let the user view with ease and message should the need a
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2017-11-13 13:59:07 +00:00
+Last updated 2017-11-13 14:13:47 +00:00
 </div>
 </div>
 </body>
