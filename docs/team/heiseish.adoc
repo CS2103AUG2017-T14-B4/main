@@ -9,7 +9,7 @@ the students and help them keep in touch with friends and peers!
 
 *Code contributed*: [https://github.com/CS2103AUG2017-T14-B4/main/blob/master/collated/main/heiseish.md[Functional code]] [https://github.com/CS2103AUG2017-T14-B4/main/blob/master/collated/test/heiseish.md[Test code]]
 
-=== Enhancement Added: Favorite
+=== Enhancement Added: Favorite and default Sorting
 
 ==== External behavior
 
@@ -41,6 +41,48 @@ include::../DeveloperGuide.adoc[tag=favorite]
 
 ---
 
+=== Enhancement Added: Person UI Redesigned and graphical accessibility
+
+==== External behavior
+
+---
+#Start of Extract [from: User Guide]#
+
+include::../UserGuide.adoc[tag=UI]
+
+#End of Extract#
+
+The person card looks like
+
+image::personCard.png[width="200"]
+
+When clicked on the facebook icon
+
+image::facebookProfile.png[width="200"]
+
+When clicked on the address
+
+image::googleMap.png[width="200"]
+
+---
+
+==== Justification
+
+Graphical navigation enable easy usage of the application for users who are not familiar with command line style.
+It also enhances the visual of the app, make it more appealing to many users.
+
+==== Implementation
+
+---
+#Start of Extract [from: Developer Guide]#
+
+include::../DeveloperGuide.adoc[tag=UI]
+
+#End of Extract#
+
+---
+
+
 === Enhancement Proposed: Link for social media/messaging platform
 
 To further connect the students, a social media profile can be linked to each person
@@ -50,7 +92,9 @@ in the contact book to let the user view with ease and message should the need a
 
 * Update UI for PersonCard and GroupCard.
 * Add favorite, remark, major and facebook attribute to the Person class.
-* Add auto complete for command box.
+* Complete favorite, remark command.
+* Upgrade find command to find all attributes, with or without prefix.
+* Add auto complete, command suggestion for command box.
 * Replace google search with google map for direction searching.
 * Adjust text color in the result display to better indicate the type of results.
 * Add random color generator for (except for pre-defined) labels.
