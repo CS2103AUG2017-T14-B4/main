@@ -478,7 +478,6 @@ On the hindsight, alternative 2 seems like a much cleaner implementation due to 
 // end::group[]
 
 // tag::locate[]
-
 === Locate: Navigate to a person's address
 
 Locate function allows the user to find the route from the address entered to a person's address, and the route displayed is the recommended by the Google Maps. The parameters to be entered by the user are the index of the person to be located, and the starting address with the address prefix in the front.
@@ -575,6 +574,9 @@ public void favorite(ReadOnlyPerson toFavorite)
 }
 ----
 
+image::FavoriteCommandSequenceDiagram.png[width="600"]
+
+
 And for UI, a simple `Label` is created to displaying `favorite`, a filled shape heart if the person is favorite and a heart outline otherwise
 
 image::heart.png[width="40"]
@@ -622,6 +624,37 @@ Edit a person, Add a person or Favorite a person.
 **Cons:** Difficult to implement system tests. +
 // end::favorite[]
 
+// tag::UI[]
+==== Ui graphical navigation
+
+To enable UI graphical selection (clicking or tapping), the designate UI class (ie `Label` class)
+has to be able to handle the event. On the fxml file, an attribute indicate event handler when the user clicks on a
+label. Eg to favorite a person by clicking on the heart shape icon, an attribute `onMouseClicked="#toggleFavorite"` was
+added to the `Label` class displaying `favorite`.
+
+When the label favorite is pressed on, `toggleFavorite` gets called and raise an event in the EventCenter called
+`ToggleFavoritePersonEvent` and the id of the `personToFavorite` is passed into the event object. The event is then
+registered and action is dispatched in the `:LogicManager` using
+`@Subscribe` decorator:
+
+[source,java]
+----
+@Subscribe
+private void handleToggleFavoritePersonEvent(ToggleFavoritePersonEvent event)
+            throws CommandException, ParseException {
+    logger.info(LogsCenter.getEventHandlingLogMessage(event));
+    String commandText = "favorite " + event.getId();
+    CommandResult commandResult = execute(commandText);
+    logger.info("Result: " + commandResult.feedbackToUser);
+    raise(new NewResultAvailableEvent(commandResult.feedbackToUser, false));
+}
+----
+
+image::UIfavorite.png[width="600"]
+
+// end::UI[]
+
+
 // tag::birthday[]
 == Birthday Detail
 
@@ -638,13 +671,13 @@ Format: b/[dd/mm/yyyy]
 See this http://github.com/NgSuli/main[PR] for the full solution.
 
 ==== Design Considerations
-**Aspect:** Should this be an optional attribute instead?
-**Alternative 1(current choice):** It is easier to implement it as an compulsory field.
-**Pros:** Adding the birthday details makes the AddressBook more personal.
-**Cons:** Users have no choice but to key in the birthday detail.
-**Alternative 2:** Make the birthday attribute optional.
-**Pros:** Allows the user freedom to decide what they want in the addressbook.
-**Cons:** Slightly more tedious to implement.
+**Aspect:** Should this be an optional attribute instead? +
+**Alternative 1(current choice):** It is easier to implement it as an compulsory field. +
+**Pros:** Adding the birthday details makes the AddressBook more personal. +
+**Cons:** Users have no choice but to key in the birthday detail. +
+**Alternative 2:** Make the birthday attribute optional. +
+**Pros:** Allows the user freedom to decide what they want in the addressbook. +
+**Cons:** Slightly more tedious to implement. +
 
 // end::birthday[]
 
