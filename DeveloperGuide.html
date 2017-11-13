@@ -49,11 +49,13 @@
 <ul class="sectlevel2">
 <li><a href="#undo-redo-mechanism">3.1. Undo/Redo mechanism</a></li>
 <li><a href="#list-persons-whose-names-start-with-certain-alphabet">3.2. List Persons whose names start with certain alphabet</a></li>
-<li><a href="#logging">3.3. Logging</a></li>
-<li><a href="#configuration">3.4. Configuration</a></li>
-<li><a href="#storage-with-back-up">3.5. Storage with back up</a></li>
-<li><a href="#grouping">3.6. Grouping</a></li>
-<li><a href="#favorite">3.7. Favorite</a></li>
+<li><a href="#locate-a-person-from-the-address-entered">3.3. Locate a person from the address entered</a></li>
+<li><a href="#logging">3.4. Logging</a></li>
+<li><a href="#configuration">3.5. Configuration</a></li>
+<li><a href="#storage-with-back-up">3.6. Storage with back up</a></li>
+<li><a href="#grouping">3.7. Grouping</a></li>
+<li><a href="#locate-navigate-to-a-person-s-address">3.8. Locate: Navigate to a person&#8217;s address</a></li>
+<li><a href="#favorite">3.9. Favorite</a></li>
 </ul>
 </li>
 <li><a href="#birthday-detail">4. Birthday Detail</a>
@@ -808,7 +810,13 @@ If the <code>redoStack</code> is empty, then there are no other commands left to
 </div>
 </div>
 <div class="sect2">
-<h3 id="logging"><a class="link" href="#logging">3.3. Logging</a></h3>
+<h3 id="locate-a-person-from-the-address-entered"><a class="link" href="#locate-a-person-from-the-address-entered">3.3. Locate a person from the address entered</a></h3>
+<div class="paragraph">
+<p>Locate function is</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="logging"><a class="link" href="#logging">3.4. Logging</a></h3>
 <div class="paragraph">
 <p>We are using <code>java.util.logging</code> package for logging. The <code>LogsCenter</code> class is used to manage the logging levels and logging destinations.</p>
 </div>
@@ -846,13 +854,13 @@ If the <code>redoStack</code> is empty, then there are no other commands left to
 </div>
 </div>
 <div class="sect2">
-<h3 id="configuration"><a class="link" href="#configuration">3.4. Configuration</a></h3>
+<h3 id="configuration"><a class="link" href="#configuration">3.5. Configuration</a></h3>
 <div class="paragraph">
 <p>Certain properties of the application can be controlled (e.g App name, logging level) through the configuration file (default: <code>config.json</code>).</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="storage-with-back-up"><a class="link" href="#storage-with-back-up">3.5. Storage with back up</a></h3>
+<h3 id="storage-with-back-up"><a class="link" href="#storage-with-back-up">3.6. Storage with back up</a></h3>
 <div class="paragraph">
 <p>Upon the first-time run of this application, user is provided with a sample list of people, provided by <a href="https://github.com/CS2103AUG2017-T14-B4/main/src/main/java/seedu/address/storage/model/util/SampleDataUtil.java"><code>SampleDataUtil.java</code></a>. This is to give the user an idea of how the working application should look like.</p>
 </div>
@@ -903,7 +911,7 @@ If the <code>redoStack</code> is empty, then there are no other commands left to
 </div>
 </div>
 <div class="sect2">
-<h3 id="grouping"><a class="link" href="#grouping">3.6. Grouping</a></h3>
+<h3 id="grouping"><a class="link" href="#grouping">3.7. Grouping</a></h3>
 <div class="paragraph">
 <p>The grouping function is created to allow user to better organise his contacts.
 This is achieved by introducing <code>UniqueGroupList</code> into the <code>addressbook</code>, which is a list of <code>Group</code> objects.</p>
@@ -938,7 +946,79 @@ is done to all operations that cause a change in existing <code>Person</code> to
 </div>
 </div>
 <div class="sect2">
-<h3 id="favorite"><a class="link" href="#favorite">3.7. Favorite</a></h3>
+<h3 id="locate-navigate-to-a-person-s-address"><a class="link" href="#locate-navigate-to-a-person-s-address">3.8. Locate: Navigate to a person&#8217;s address</a></h3>
+<div class="paragraph">
+<p>Locate function allows the user to find the route from the address entered to a person&#8217;s address, and the route displayed is the recommended by the Google Maps. The parameters to be entered by the user are the index of the person to be located, and the starting address with the address prefix in the front.</p>
+</div>
+<div class="paragraph">
+<p>During the implementation, the LocateCommandParser parses the input argument and extracts the index of the person and the starting address, and passes these values to a new LocateCommand object. The LocateCommand object obtains the address based on the index, and raises an event called <code>BrowserPanelLocateEvent</code> with the 2 addresses.</p>
+</div>
+<div class="paragraph">
+<p>Below shows the implementation of <code>BrowserPanelLocateEvent</code>:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="java"><span class="directive">public</span> <span class="type">class</span> <span class="class">BrowserPanelLocateEvent</span> <span class="directive">extends</span> BaseEvent {
+
+    <span class="directive">private</span> <span class="directive">final</span> <span class="predefined-type">String</span> start;
+    <span class="directive">private</span> <span class="directive">final</span> <span class="predefined-type">String</span> end;
+
+    <span class="directive">public</span> BrowserPanelLocateEvent(<span class="predefined-type">String</span> start, <span class="predefined-type">String</span> end) {
+        <span class="local-variable">this</span>.start = start;
+        <span class="local-variable">this</span>.end = end;
+    }
+
+    <span class="annotation">@Override</span>
+    <span class="directive">public</span> <span class="predefined-type">String</span> toString() {
+        <span class="keyword">return</span> <span class="local-variable">this</span>.getClass().getSimpleName();
+    }
+
+    <span class="directive">public</span> <span class="predefined-type">String</span> getEndAddress() {
+        <span class="keyword">return</span> end;
+    }
+
+    <span class="directive">public</span> <span class="predefined-type">String</span> getStartAddress() {
+        <span class="keyword">return</span> start;
+    }
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The sequence diagram shown below shows how locate command works with input <code>locate 1 a/clementi</code>:</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/LocateCommandSequenceDiagram.png" alt="LocateCommandSequenceDiagram" width="800">
+</div>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+Only one index and one address with address prefix are accepted. If input format is different, an invalid input message will be prompted. If the index given is wrong, an invalid person displayed index message will be prompted.
+</td>
+</tr>
+</table>
+</div>
+<div class="sect3">
+<h4 id="design-considerations-2"><a class="link" href="#design-considerations-2">3.8.1. Design Considerations</a></h4>
+<div class="paragraph">
+<p><strong>Aspect:</strong> what the start and end addresses should be<br>
+<strong>Alternative 1 (current choice):</strong> The address input by the user is regarded as starting address by default, the address of the person in Contact+ Pro is set to end address.<br>
+<strong>Pros:</strong> Easier implementation<br>
+Command usage is more straight forward for the user.<br>
+<strong>Cons:</strong> User is not able to navigate from a person&#8217;s address to a new location.<br>
+<strong>Alternative 2:</strong> The user decides which address is the start address and which is the end address.
+<strong>Pros:</strong> User has more freedom when using this locate command.<br>
+<strong>Cons:</strong> More inputs are expected from the user, causing the command to be more complicated.</p>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="favorite"><a class="link" href="#favorite">3.9. Favorite</a></h3>
 <div class="paragraph">
 <p>The Favorite function is created for frequent users who have have certain "close contacts" and
 want the contacts on top of their list for the ease of access.
@@ -955,7 +1035,7 @@ In order to implement such feature, two things need to be implemented:</p>
 </ul>
 </div>
 <div class="sect3">
-<h4 id="favorite-class"><a class="link" href="#favorite-class">3.7.1. Favorite class</a></h4>
+<h4 id="favorite-class"><a class="link" href="#favorite-class">3.9.1. Favorite class</a></h4>
 <div class="paragraph">
 <p>A favorite class is implemented and used by Person class. A person object does not construct with a favorite object but it is
 able to setFavorite a new favorite object.
@@ -1016,7 +1096,7 @@ image::heart.png[width="40"]</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="sorting"><a class="link" href="#sorting">3.7.2. Sorting</a></h4>
+<h4 id="sorting"><a class="link" href="#sorting">3.9.2. Sorting</a></h4>
 <div class="paragraph">
 <p>A sorting algorithm needs to be implemented for the <code>UniquePersonList</code> of the <code>Model</code> Component.
 Fortunately, it can be easily done with <code>List.sort()</code> and  <code>Java predicate</code>. The priority of sorting is such that
@@ -1042,9 +1122,9 @@ Edit a person, Add a person or Favorite a person.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="design-considerations-2"><a class="link" href="#design-considerations-2">3.7.3. Design Considerations</a></h4>
+<h4 id="design-considerations-3"><a class="link" href="#design-considerations-3">3.9.3. Design Considerations</a></h4>
 <div class="paragraph">
-<p><strong>Aspect:</strong> Where sorting should occurs<br>
+<p><strong>Aspect:</strong> Where sorting should occur<br>
 <strong>Alternative 1 (current choice):</strong> On the lowest layer of <code>Model</code>, which is <code>UniquePersonList</code><br>
 <strong>Pros:</strong> No need to have sorting in upper layer.<br>
 <strong>Cons:</strong> Permanently mutate the data list.<br>
@@ -1075,7 +1155,7 @@ It is a compulsory attribute like the Name, Phone, Email, Address of the Person 
 <p>See this <a href="http://github.com/NgSuli/main">PR</a> for the full solution.</p>
 </div>
 <div class="sect3">
-<h4 id="design-considerations-3"><a class="link" href="#design-considerations-3">4.2.1. Design Considerations</a></h4>
+<h4 id="design-considerations-4"><a class="link" href="#design-considerations-4">4.2.1. Design Considerations</a></h4>
 <div class="paragraph">
 <p><strong>Aspect:</strong> Should this be an optional attribute instead?
 <strong>Alternative 1(current choice):</strong> It is easier to implement it as an compulsory field.
@@ -2379,7 +2459,7 @@ for <code>RemarkCommandParser</code>.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2017-11-12 18:28:30 +00:00
+Last updated 2017-11-13 02:14:55 +00:00
 </div>
 </div>
 </body>
