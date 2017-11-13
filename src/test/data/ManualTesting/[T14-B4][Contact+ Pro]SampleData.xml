@@ -235,20 +235,20 @@
         <facebook></facebook>
         <favorite>false</favorite>
     </persons>
-    <tags>colleagues</tags>
-    <tags>classmates</tags>
-    <tags>neighbours</tags>
-    <tags>family</tags>
-    <tags>friends</tags>
     <tags>PokemonGoRaid</tags>
-    <tags>StandfordBoi</tags>
-    <tags>Joker</tags>
-    <tags>ReallyNeedsHealing</tags>
-    <tags>CS2103</tags>
     <tags>monkey</tags>
-    <tags>PhucsBF</tags>
+    <tags>ReallyNeedsHealing</tags>
+    <tags>neighbours</tags>
     <tags>StarringInUpcomingIPmanMovie</tags>
+    <tags>friends</tags>
+    <tags>StandfordBoi</tags>
+    <tags>CS2103</tags>
+    <tags>Joker</tags>
+    <tags>colleagues</tags>
+    <tags>PhucsBF</tags>
+    <tags>classmates</tags>
     <tags>Close</tags>
+    <tags>family</tags>
     <groups>
         <groupName>Avengers</groupName>
         <persons>
@@ -383,6 +383,56 @@
             <facebook></facebook>
             <favorite>false</favorite>
             <tagged>colleagues</tagged>
+        </persons>
+    </groups>
+    <groups>
+        <groupName>\The_Slackers/</groupName>
+        <persons>
+            <name>Charlotte Oliveiro</name>
+            <phone>93210283</phone>
+            <email>charlotte@example.com</email>
+            <address>Blk 11 Ang Mo Kio Street 74, #11-04</address>
+            <birthday>01/01/1991</birthday>
+            <remark></remark>
+            <major>Information System</major>
+            <facebook></facebook>
+            <favorite>false</favorite>
+            <tagged>neighbours</tagged>
+        </persons>
+        <persons>
+            <name>David Li</name>
+            <phone>91031282</phone>
+            <email>lidavid@example.com</email>
+            <address>Blk 436 Serangoon Gardens Street 26, #16-43</address>
+            <birthday>01/01/1991</birthday>
+            <remark></remark>
+            <major>Business Analytics</major>
+            <facebook></facebook>
+            <favorite>false</favorite>
+            <tagged>family</tagged>
+        </persons>
+        <persons>
+            <name>Jerald Lim</name>
+            <phone>81020104</phone>
+            <email>jerald@hotmail.com</email>
+            <address>#322, Clementi Avenue</address>
+            <birthday>01/12/1995</birthday>
+            <remark>Good friends</remark>
+            <major>Maths</major>
+            <facebook></facebook>
+            <favorite>false</favorite>
+            <tagged>PokemonGoRaid</tagged>
+        </persons>
+        <persons>
+            <name>Kuroky</name>
+            <phone>91829104</phone>
+            <email>kuro@yahoo.com</email>
+            <address>89, Old Airport Road, #4-15</address>
+            <birthday>01/10/1991</birthday>
+            <remark>God at Dota</remark>
+            <major>Computer Engineering</major>
+            <facebook></facebook>
+            <favorite>false</favorite>
         </persons>
     </groups>
 </addressbook>
