@@ -21,6 +21,7 @@ import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.ui.DeselectAllEvent;
 import seedu.address.commons.events.ui.ExitAppRequestEvent;
 import seedu.address.commons.events.ui.GroupPanelSelectionChangedEvent;
+import seedu.address.commons.events.ui.RefreshGroupPanelSelectionEvent;
 import seedu.address.commons.events.ui.ShowHelpRequestEvent;
 import seedu.address.commons.util.FxViewUtil;
 import seedu.address.logic.Logic;
@@ -237,6 +238,18 @@ public class MainWindow extends UiPart<Region> {
     @Subscribe
     private void handleGroupPanelSelectionChangedEvent(GroupPanelSelectionChangedEvent event) {
         logic.updateFilteredPersonList(new GroupContainsPersonPredicate(event.getNewSelection().group));
+    }
+
+    @Subscribe
+    private void handleRefreshSelectedGroupEvent(RefreshGroupPanelSelectionEvent event) {
+        if (groupListPanel.noGroupSelected()) {
+            logic.updateFilteredPersonList(new Predicate<ReadOnlyPerson>() {
+                @Override
+                public boolean test(ReadOnlyPerson readOnlyPerson) {
+                    return true;
+                }
+            });
+        }
     }
 
     @Subscribe

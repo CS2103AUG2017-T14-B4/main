@@ -102,5 +102,15 @@ public class Group extends UniquePersonList {
         }
     }
 
+    /**
+     * sort the list by a user specified attribute and update preview
+     * @param attribute
+     */
+    public void sortPersonBy(int attribute) {
+        super.sortPersonBy(attribute);
+        super.sort();
+        updatePreviews();
+    }
+
 }
 //@@author

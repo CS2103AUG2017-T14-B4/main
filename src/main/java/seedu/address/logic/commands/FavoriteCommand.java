@@ -5,8 +5,10 @@ import static seedu.address.commons.core.Messages.MESSAGE_EXECUTION_FAILURE;
 
 import java.util.List;
 
+import seedu.address.commons.core.EventsCenter;
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
+import seedu.address.commons.events.ui.RefreshGroupPanelSelectionEvent;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.person.Favorite;
 import seedu.address.model.person.Person;
@@ -54,6 +56,10 @@ public class FavoriteCommand extends UndoableCommand {
         Person favoritedPerson = new Person(personToFavorite);
         Favorite newFavorite = new Favorite(!personToFavorite.getFavorite().favorite);
         favoritedPerson.setFavorite(newFavorite);
+
+
+        EventsCenter.getInstance().post(new RefreshGroupPanelSelectionEvent());
+
 
         return new CommandResult(String.format(MESSAGE_FAVORITE_PERSON_SUCCESS, favoritedPerson));
 

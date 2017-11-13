@@ -17,6 +17,7 @@ import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.ui.DeselectAllEvent;
 import seedu.address.commons.events.ui.GroupPanelSelectionChangedEvent;
 import seedu.address.commons.events.ui.JumpToListRequestEvent;
+import seedu.address.commons.events.ui.RefreshGroupPanelSelectionEvent;
 import seedu.address.model.group.Group;
 
 /**
@@ -58,6 +59,10 @@ public class GroupListPanel extends UiPart<Region> {
                 });
     }
 
+    public boolean noGroupSelected() {
+        return groupListView.getSelectionModel().getSelectedIndex() == -1;
+    }
+
     /**
      * Scrolls to the {@code GroupCard} at the {@code index} and selects it.
      */
@@ -68,6 +73,15 @@ public class GroupListPanel extends UiPart<Region> {
             groupListView.getSelectionModel().select(index);
         });
     }
+
+    @Subscribe
+    private void handleRefreshSelectedGroupEvent(RefreshGroupPanelSelectionEvent event) {
+        int selectedIdx = groupListView.getSelectionModel().getSelectedIndex();
+        if (selectedIdx != -1) {
+            scrollTo(selectedIdx);
+        }
+    }
+
 
     @Subscribe
     /**

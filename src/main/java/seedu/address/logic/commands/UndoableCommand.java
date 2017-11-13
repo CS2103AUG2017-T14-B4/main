@@ -8,6 +8,7 @@ import java.util.List;
 
 import seedu.address.commons.core.EventsCenter;
 import seedu.address.commons.core.index.Index;
+import seedu.address.commons.events.ui.DeselectAllEvent;
 import seedu.address.commons.events.ui.JumpToListRequestEvent;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.AddressBook;
@@ -42,6 +43,7 @@ public abstract class UndoableCommand extends Command {
         model.resetData(previousAddressBook);
         if (!(this instanceof  GroupTypeUndoableCommand)) {
             model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
+            EventsCenter.getInstance().post(new DeselectAllEvent());
         } else {
             Index temp = ((GroupTypeUndoableCommand) this).undoGroupIndex;
             EventsCenter.getInstance().post(new JumpToListRequestEvent(temp, true));
@@ -59,12 +61,9 @@ public abstract class UndoableCommand extends Command {
         try {
             executeUndoableCommand();
         } catch (CommandException ce) {
-            if (!(this instanceof GroupTypeUndoableCommand)) {
-                throw new AssertionError("The command has been successfully executed previously; "
-                        + "it should not fail now");
-            } else {
-                throw new CommandException(ce.getExceptionHeader(), constructNewCommandExceptionMsg(ce));
-            }
+            System.out.println("Triggered");
+            throw new CommandException(ce.getExceptionHeader(), constructNewCommandExceptionMsg(ce));
+
         }
         if (!(this instanceof GroupTypeUndoableCommand)) {
             model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
@@ -77,8 +76,8 @@ public abstract class UndoableCommand extends Command {
      * @return
      */
     private String constructNewCommandExceptionMsg(CommandException ce) {
-        return ce.getMessage() + "\n\nCommand you tried to redo: "
-                + ((EditGroupCommand) this).reconstructCommandString();
+        return ce.getMessage()
+                + "\n\nHint: Failure might be due to different environment from previous to current command execution.";
     }
     //@@author
 

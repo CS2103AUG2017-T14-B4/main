@@ -174,6 +174,8 @@ public class AddressBook implements ReadOnlyAddressBook {
     public void sortPersonBy(int attribute) {
         persons.sortPersonBy(attribute);
         persons.sort();
+        groups.forEach(group -> group.sortPersonBy(attribute));
+
     }
     //@@author
 

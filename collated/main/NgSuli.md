@@ -1,5 +1,5 @@
 # NgSuli
-###### /resources/view/WhiteTheme.css
+###### \resources\view\WhiteTheme.css
 ``` css
 .background {
     -fx-background-color: derive(white, 20%);

@@ -2,6 +2,9 @@ package seedu.address.logic.commands;
 
 import java.util.function.Predicate;
 
+import seedu.address.commons.core.EventsCenter;
+import seedu.address.commons.events.ui.DeselectAllEvent;
+
 /**
  * Finds and lists all persons in address book whose name contains any of the argument keywords.
  * Keyword matching is case sensitive.
@@ -32,6 +35,8 @@ public class FindCommand extends Command {
 
     @Override
     public CommandResult execute() {
+
+        EventsCenter.getInstance().post(new DeselectAllEvent());
         model.updateFilteredPersonList(predicate);
 
         // displays a popup window to show number of persons found

@@ -11,7 +11,6 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 
-
 <VBox xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1">
     <stylesheets>
         <URL value="@WhiteTheme.css" />
@@ -41,7 +40,7 @@
 
     <!-- @@author hthjthtrh -->
     <SplitPane id="splitPane" fx:id="splitPane" dividerPositions="0.5, 0.5" VBox.vgrow="ALWAYS">
-      <SplitPane dividerPositions="0.5" maxWidth="280.0" minWidth="200.0" orientation="VERTICAL" prefHeight="200.0" prefWidth="200.0">
+      <SplitPane dividerPositions="0.5" maxWidth="320.0" minWidth="200.0" orientation="VERTICAL" prefHeight="200.0" prefWidth="200.0">
          <items>
             <Pane maxHeight="30.0" minHeight="30.0" prefHeight="30.0">
                <children>
@@ -63,7 +62,7 @@
          </items>
       </SplitPane>
         <!-- @@author -->
-      <SplitPane dividerPositions="0.5" maxWidth="400.0" minWidth="320.0" orientation="VERTICAL" prefHeight="200.0" prefWidth="320.0">
+      <SplitPane dividerPositions="0.5" maxWidth="450.0" minWidth="320.0" orientation="VERTICAL" prefHeight="200.0" prefWidth="320.0">
          <items>
             <Pane maxHeight="30.0" minHeight="30.0" prefHeight="30.0">
                <children>
