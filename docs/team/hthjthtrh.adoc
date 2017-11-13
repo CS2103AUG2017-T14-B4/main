@@ -48,7 +48,7 @@ Allows user to undo multiple changes should the user only realise the mistakes s
 ==== Implementation
 
 This enhancement is built upon the original implementation of `undo redo mechanism`. No change is made to the underlying mechanism.
-The multi-step undo is done through multiple usage of the undo mechanism. +
+The multi-step undo is done through repeated usage of the undo mechanism. +
 
 The following is the original mechanism:
 

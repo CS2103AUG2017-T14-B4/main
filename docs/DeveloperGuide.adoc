@@ -437,11 +437,13 @@ Back up file is kept up-to-date by updating itself when an AddressBookChangedEve
 === Grouping
 
 The grouping function is created to allow user to better organise his contacts.
-This is achieved by introducing `UniqueGroupList` into the `addressbook`, which is a list of `Group` objects.
+This is achieved by introducing `UniqueGroupList` into the `addressbook`, which contains a list of `Group` objects.
 
 `Group` objects are extensions of `UniquePersonList`, and contain all information of `Person` objects seperately
-from `UniquePersonList` in `addressbook` as a result of current implementation of `UniquePersonList`, which does
-not return direct reference to `Person` objects of interest.
+from `UniquePersonList` in `addressbook`.
+
+image::GroupClassDiagram.png[width="800"]
+
 
 As `Person` in a `Group` and the corresponding `Person` in the `addressbook` are seperately kept, synchronization
 is done to all operations that cause a change in existing `Person` to propagate the changes down to `Group`.
@@ -449,20 +451,30 @@ is done to all operations that cause a change in existing `Person` to propagate 
 Code snippet demonstrating propagation of change using EditCommand as an example:
 [source,java]
 ----
-public CommandResult executeUndoableCommand() throws CommandException {
-    ...
-    try {
-        model.updatePerson(personToEdit, editedPerson);
-        model.propagateToGroup(personToEdit, editedPerson);
-    } catch (DuplicatePersonException dpe) {
-        throw new CommandException(MESSAGE_DUPLICATE_PERSON);
-    } catch (PersonNotFoundException pnfe) {
-        throw new AssertionError("The target person cannot be missing");
-    }
-    ....
+try {
+    model.updatePerson(personToEdit, editedPerson);
+    model.propagateToGroup(personToEdit, editedPerson, this.getClass());
+} catch (DuplicatePersonException dpe) {
+    throw new CommandException(MESSAGE_EXECUTION_FAILURE, MESSAGE_DUPLICATE_PERSON);
+} catch (PersonNotFoundException pnfe) {
+    throw new AssertionError("The target person cannot be missing");
 }
 ----
 
+Though the function `propagateToGroup`, `personToEdit` is checked against all persons in all groups in `UniqueGroupList`
+, and replaces with `editedPerson` if there is a match.
+
+==== Design Considerations
+
+**Aspect:** Implementation of `Group` +
+**Alternative 1 (current choice):** `Group` object saves the complete copy of `ReadOnlyPerson` objects from the `UniquePersonList` +
+**Pros:** Easier implementation +
+**Cons:** Storage wastage as the information about a person is duplicated as many times as the number of groups he is in +
+**Alternative 2:** Saving `Group` as an attribute in the `Person` object +
+**Pros:** Easy to tell what group is a person in +
+**Cons:** to show all the person within a group, there is the need to loop through the entire `UniquePersonList`.
+
+On the hindsight, alternative 2 seems like a much cleaner implementation due to savings in storage and processing complexity. I have to admit that this is my design flaw at the initial stage.
 // end::group[]
 
 // tag::locate[]
