@@ -14,7 +14,7 @@ the students and help them keep in touch with friends and peers!
 ==== Justification
 
 A user will lose his contacts' information if the data file is deleted or corrupted due to unforeseen circumstances.
-Having a back-up storage will prevent the pain of losing all those information.
+Having a automatic back-up storage will prevent the pain of losing all those information.
 
 ==== Implementation
 
@@ -43,7 +43,8 @@ include::../UserGuide.adoc[tag=undo]
 
 ==== Justification
 
-Allows user to undo multiple changes should the user only realise the mistakes steps later.
+A careless user might execute a few wrong commands and only realise the mistakes steps later.
+This enhanced undo command allows user to undo multiple changes in one go, instead of the chore of repeatedly keying in `undo`
 
 ==== Implementation
 
@@ -78,7 +79,8 @@ include::../UserGuide.adoc[tag=group]
 
 ==== Justification
 
-Allows user to link a group of closely related contacts. Gives the user a clearer categorisation of his contacts.
+As an application targeting NUS students, we are no stranger to projects.
+These commands allows user to link a group of his/her project group teammates and gives the user a clearer categorisation of his contacts.
 
 ==== Implementation
 
