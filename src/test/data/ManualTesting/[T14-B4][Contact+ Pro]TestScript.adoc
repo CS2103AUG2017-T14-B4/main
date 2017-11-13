@@ -47,7 +47,104 @@ The programme should now list 8 people in total who have major that contains the
 To return to all persons view: +
 Type `list`.
 
-{Add more test cases here}
+==== Delete Command
+
+Delete command can now delete multiple person in one go +
+Type `delete 1 4 9 22`
+
+Person at index 1, 4 and 9 are deleted. While index 22 is out of bound, it is simply ignored.
+
+However if any index is of invalid index format, user will be alarmed of the correct usage with an alert dialogue+
+Type `delete -1 0 Alex Yeoh`
+
+==== Undo Command
+
+Undo command now allows multi-step undo +
+Type: +
+`edit 1 n/Some Name` +
+`delete 4` +
+`favorite 2` +
+`Undo 3`
+
+Data is restored to three steps before. Alternatively: +
+Type `undo all`
+
+This will restore the application data to the initial state in current session.
+
+==== Create Group Command
+
+To create a group called `Demo_Day_Group` for person at index 4 5 6: +
+Type `createGroup Demo_Day_Group 4 5 6`
+
+`Result display` would show the success message of the group you just created.
+The newly created group `Demo_Day_Group` would be directly selected in the `Groups` list and persons in the group are displayed in `Contacts` list +
+
+[NOTE]
+====
+- The program will reject the execution if group name or any index is of invalid value / format +
+- A group cannot be created empty
+====
+
+
+To return to all persons view: +
+Type `list`.
+
+==== Delete Group Command
+
+Now that we have 5 groups, and we want to get rid of the group called `\The_Slackers/` at index 5, +
+Type `deleteGroup \The_Slackers/`
+
+This deletes the group and `Result Display` will inform user of the group just deleted. +
+
+Alternatively, we can use the index to delete the group too: +
+
+Type `undo` to bring back the group +
+Type `deleteGroup 5`
+
+==== View Group Command
+
+To list the people belonging to the group `ComputerScience` at index 3, +
+Type `viewGroup ComputerScience`
+
+The group will be selected in the `Groups` list and the people in the group are displayed in the `Contacts` list. +
+
+Alternatively, use the index to view the group: +
+Type `list` to de-select the group and display all person in the app +
+Type `viewGroup 3`
+
+[NOTE]
+====
+- Other non-group related commands can still be executed when we are viewing a group. However,
+these commands will take effect on the full contact list instead of locally within the group.
+- Eg. using `delete 3` to delete `Mark Zuckerberg` deletes the person from the contacts rather than from the group. This is where the next command comes in
+====
+
+==== Edit Group Command
+
+This command allows the user to perform three functions:  +
+====
+- change group name
+- add a person to the group
+- delete a person from the group
+====
+
+To change the group name of group `Demo_Day_Group` to `Testathon_Day_Group` +
+Type `editGroup Demo_Day_Group gn Testathon_Day_Group`
+
+Alternatively, use the index of `Demo_Day_Group` to indicate the group: +
+Type `undo` +
+Type `editGroup 4 gn Testathon_Day_Group`
+
+To add `Alex Yeoh` at index 1 to the group `CS2103`, +
+Type `editGroup CS2103 add 1`. Again, group index can also be used to indicate the group. +
+
+The group `CS2103` is selected in `Groups` list and `Alex Yeoh` can be seen at index 1 in the group
+
+To delete `Tony Stark` from the group `Avengers`, +
+Type `viewGroup Avengers` to select the group, then, using the index of `Tony Stark` in the group, +
+Type `editGroup Avengers delete 1`.
+
+Again, group index can also be used to indicate the group. However, it is not recommended to delete people blindly from the group
 
 ---
 

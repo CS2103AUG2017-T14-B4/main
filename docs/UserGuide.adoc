@@ -257,7 +257,7 @@ Format: `editGroup GROUP_NAME gn NEW_GROUP_NAME` or `editGroup GROUP_INDEX gn NE
 ****
 * This command supports three kinds of operations: 1. change group name 2. add a person to the group 3. delete a person from the group
 * `NEW_GROUP_NAME` must fit a valid group name format
-* person of specified index *within* the group is removed
+* person of specified index *within* the group is removed, so use `viewGroup` command to see the person in the group first
 ****
 
 Examples:
