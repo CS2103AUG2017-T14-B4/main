@@ -109,13 +109,13 @@ Edits the name of the 2nd person to be `Betsy Crower` and clears all existing ta
 === Locating persons by name: `find`
 
 *Unrestricted search
-Finds persons whose names, addresses, phones, emails or tags contain any of the given keywords or find favorite / unfavorite contacts. +
+Finds persons whose names, addresses, phones, emails, tags, major, remark or facebook id contain any of the given keywords or find favorite / unfavorite contacts. +
 Format: `find KEYWORD [MORE_KEYWORDS]`
 
 ****
 * The search is case insensitive. e.g `hans` will match `Hans`
 * The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
-* Only full words will be matched e.g. `Han` will not match `Hans`
+* Any words containing the searched substring will be matched as weell e.g. `Han` will match `Hans`
 * Persons matching at least one keyword will be returned (i.e. `OR` search). e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
 ****
 
@@ -138,7 +138,8 @@ Format: `find [PREFIX/KEYWORD]`
 ****
 * The search is case insensitive. e.g `hans` will match `Hans`
 * If multiple prefixes are provided, the search will only search based on the search term +
-with highest priority in the order: name > phone > address > email > tag
+with highest priority in the order: name > phone > address > email > tag > remark > major >
+facebook id.
 ****
 
 Examples:
