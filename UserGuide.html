@@ -262,7 +262,7 @@ Edits the name of the 2nd person to be <code>Betsy Crower</code> and clears all 
 <h3 id="locating-persons-by-name-code-find-code"><a class="link" href="#locating-persons-by-name-code-find-code">2.5. Locating persons by name: <code>find</code></a></h3>
 <div class="paragraph">
 <p>*Unrestricted search
-Finds persons whose names, addresses, phones, emails or tags contain any of the given keywords or find favorite / unfavorite contacts.<br>
+Finds persons whose names, addresses, phones, emails, tags, major, remark or facebook id contain any of the given keywords or find favorite / unfavorite contacts.<br>
 Format: <code>find KEYWORD [MORE_KEYWORDS]</code></p>
 </div>
 <div class="sidebarblock">
@@ -276,7 +276,7 @@ Format: <code>find KEYWORD [MORE_KEYWORDS]</code></p>
 <p>The order of the keywords does not matter. e.g. <code>Hans Bo</code> will match <code>Bo Hans</code></p>
 </li>
 <li>
-<p>Only full words will be matched e.g. <code>Han</code> will not match <code>Hans</code></p>
+<p>Any words containing the searched substring will be matched as weell e.g. <code>Han</code> will match <code>Hans</code></p>
 </li>
 <li>
 <p>Persons matching at least one keyword will be returned (i.e. <code>OR</code> search). e.g. <code>Hans Bo</code> will return <code>Hans Gruber</code>, <code>Bo Yang</code></p>
@@ -323,7 +323,8 @@ Format: <code>find [PREFIX/KEYWORD]</code></p>
 </li>
 <li>
 <p>If multiple prefixes are provided, the search will only search based on the search term<br>
-with highest priority in the order: name &gt; phone &gt; address &gt; email &gt; tag</p>
+with highest priority in the order: name &gt; phone &gt; address &gt; email &gt; tag &gt; remark &gt; major &gt;
+facebook id.</p>
 </li>
 </ul>
 </div>
@@ -993,7 +994,7 @@ e.g.<code>select 2</code></p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2017-11-13 16:01:25 +00:00
+Last updated 2017-11-20 08:27:29 +00:00
 </div>
 </div>
 </body>

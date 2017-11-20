@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<!--[if IE]><meta http-equiv="X-UA-Compatible" content="IE=edge"><![endif]-->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="generator" content="Asciidoctor 1.5.3">
+<title>Contact+ Pro Test Script</title>
+<link rel="stylesheet" href="stylesheets/gh-pages.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="stylesheets/coderay-asciidoctor.css">
+</head>
+<body class="article">
+<div id="header">
+<h1>Contact+ Pro Test Script</h1>
+</div>
+<div id="content">
+<div class="sect1">
+<h2 id="load-the-sample-data"><a class="link" href="#load-the-sample-data">1. Load the Sample Data</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Simply put the <code>SampleData.xml</code> in the <code>data</code> folder from the directory root that contains <code>Contact+ Pro.jar</code>.
+Run the programme and the list of sample data should be loaded into the app.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="manual-tests"><a class="link" href="#manual-tests">2. Manual Tests</a></h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="command-line"><a class="link" href="#command-line">2.1. Command Line</a></h3>
+<div class="sect3">
+<h4 id="locate-command"><a class="link" href="#locate-command">2.1.1. Locate Command</a></h4>
+<div class="paragraph">
+<p>To navigate from a starting address to the address of the first person in the list:<br>
+Type <code>locate 1 a/nus</code></p>
+</div>
+<div class="paragraph">
+<p>The first person in the list is Alex Yeoh, so the browser panel should display the recommended route
+from <code>nus</code> to Alex&#8217;s address, which is <code>Blk 30 Geylang Street 29, #06-40</code> on Google Maps.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="overview-of-parameters"><a class="link" href="#overview-of-parameters">2.1.2. Overview of parameters</a></h4>
+<div class="paragraph">
+<p>n/NAME p/PHONE e/EMAIL a/ADDRESS b/BIRTHDAY [r/REMARK][m/MAJOR] [fb/FACEBOOK][t/TAG]&#8230;&#8203;</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="add-command"><a class="link" href="#add-command">2.1.3. Add Command</a></h4>
+<div class="paragraph">
+<p>To add a person into Contact+ Pro:
+`add n/jane p/98765432 e/jane@example.com b/01/02/1991</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="edit-command"><a class="link" href="#edit-command">2.1.4. Edit Command</a></h4>
+<div class="paragraph">
+<p>To edit the 3rd person for example, type in the command:
+<code>edit 3 p/12345678</code> or type <code>e 3 p/12345678</code></p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="delete-command"><a class="link" href="#delete-command">2.1.5. Delete Command</a></h4>
+<div class="paragraph">
+<p>To delete the 3rd person for example, type in the command:
+<code>delete 3</code> or <code>d 3</code></p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="clear-command"><a class="link" href="#clear-command">2.1.6. Clear Command</a></h4>
+<div class="paragraph">
+<p>To clear all contacts, type in the command:
+<code>clear</code></p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="help-command"><a class="link" href="#help-command">2.1.7. Help Command</a></h4>
+<div class="paragraph">
+<p>The help command can be accessed by the shorthand alias as well.
+Type in the command: <code>h</code></p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="favorite-command"><a class="link" href="#favorite-command">2.1.8. Favorite Command</a></h4>
+<div class="paragraph">
+<p>To favorite the 3rd person, type in the command:<br>
+Type <code>favorite 3</code> or Type <code>f 3</code></p>
+</div>
+<div class="paragraph">
+<p>The <code>Result Display</code> should display the <code>favorited</code> followed by the name of the person.
+The favorited person in the list should have the heart Icon beside the name and should appear on the top
+section of the list (along with other favorited persons).</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>To un-favorite a person, simply input the <code>favorite</code> command again with the person&#8217;s index,
+ie <code>favorite 3</code>.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect3">
+<h4 id="find-command"><a class="link" href="#find-command">2.1.9. Find Command</a></h4>
+<div class="paragraph">
+<p>Find command has been powered to search through any properties of a person&#8217;s class.<br>
+Type <code>find Alex</code></p>
+</div>
+<div class="paragraph">
+<p>The programme should now only display <code>Alex Yeoh</code> since she&#8217;s the only person whose attributes contains
+that substring.</p>
+</div>
+<div class="paragraph">
+<p>For specific attribute search, use a prefix before the searched string:<br>
+Type <code>find m/Computer Science</code></p>
+</div>
+<div class="paragraph">
+<p>The programme should now list 8 people in total who have major that contains the subtring
+<code>Computer Science</code>.</p>
+</div>
+<div class="paragraph">
+<p>To search for favorite persons only:<br>
+Type <code>find favorite</code>.<br></p>
+</div>
+<div class="paragraph">
+<p>The programme should list out the persons who are favorite.</p>
+</div>
+<div class="paragraph">
+<p>To search for unfavorite persons:<br>
+Type <code>find unfavorite</code>.<br></p>
+</div>
+<div class="paragraph">
+<p>The programme should list out the remaining persons who are not favorite.</p>
+</div>
+<div class="paragraph">
+<p>To return to all persons view:<br>
+Type <code>list</code>.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="listalp-command"><a class="link" href="#listalp-command">2.1.10. Listalp Command</a></h4>
+<div class="paragraph">
+<p>Listalp command allows user to search for persons whose names start with a certain alphabet.<br>
+Type <code>listalp a</code>.</p>
+</div>
+<div class="paragraph">
+<p>Persons whose names start with 'a' should be displayed in the list.</p>
+</div>
+<div class="paragraph">
+<p>To return to all persons view:<br>
+Type <code>list</code>.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="delete-command-2"><a class="link" href="#delete-command-2">2.1.11. Delete Command</a></h4>
+<div class="paragraph">
+<p>Delete command can now delete multiple person in one go<br>
+Type <code>delete 1 4 9 22</code></p>
+</div>
+<div class="paragraph">
+<p>Person at index 1, 4 and 9 are deleted. While index 22 is out of bound, it is simply ignored.</p>
+</div>
+<div class="paragraph">
+<p>However if any index is of invalid index format, user will be alarmed of the correct usage with an alert dialogue+
+Type <code>delete -1 0 Alex Yeoh</code></p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="undo-command"><a class="link" href="#undo-command">2.1.12. Undo Command</a></h4>
+<div class="paragraph">
+<p>Undo command now allows multi-step undo<br>
+Type:<br>
+<code>edit 1 n/Some Name</code><br>
+<code>delete 4</code><br>
+<code>favorite 2</code><br>
+<code>Undo 3</code></p>
+</div>
+<div class="paragraph">
+<p>Data is restored to three steps before. Alternatively:<br>
+Type <code>undo all</code></p>
+</div>
+<div class="paragraph">
+<p>This will restore the application data to the initial state in current session.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="create-group-command"><a class="link" href="#create-group-command">2.1.13. Create Group Command</a></h4>
+<div class="paragraph">
+<p>To create a group called <code>Demo_Day_Group</code> for person at index 4 5 6:<br>
+Type <code>createGroup Demo_Day_Group 4 5 6</code></p>
+</div>
+<div class="paragraph">
+<p><code>Result display</code> would show the success message of the group you just created.
+The newly created group <code>Demo_Day_Group</code> would be directly selected in the <code>Groups</code> list and persons in the group are displayed in <code>Contacts</code> list<br></p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="ulist">
+<ul>
+<li>
+<p>The program will reject the execution if group name or any index is of invalid value / format<br></p>
+</li>
+<li>
+<p>A group cannot be created empty</p>
+</li>
+</ul>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>To return to all persons view:<br>
+Type <code>list</code>.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="delete-group-command"><a class="link" href="#delete-group-command">2.1.14. Delete Group Command</a></h4>
+<div class="paragraph">
+<p>Now that we have 5 groups, and we want to get rid of the group called <code>\The_Slackers/</code> at index 5,<br>
+Type <code>deleteGroup \The_Slackers/</code></p>
+</div>
+<div class="paragraph">
+<p>This deletes the group and <code>Result Display</code> will inform user of the group just deleted.<br></p>
+</div>
+<div class="paragraph">
+<p>Alternatively, we can use the index to delete the group too:<br></p>
+</div>
+<div class="paragraph">
+<p>Type <code>undo</code> to bring back the group<br>
+Type <code>deleteGroup 5</code></p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="view-group-command"><a class="link" href="#view-group-command">2.1.15. View Group Command</a></h4>
+<div class="paragraph">
+<p>To list the people belonging to the group <code>ComputerScience</code> at index 3,<br>
+Type <code>viewGroup ComputerScience</code></p>
+</div>
+<div class="paragraph">
+<p>The group will be selected in the <code>Groups</code> list and the people in the group are displayed in the <code>Contacts</code> list.<br></p>
+</div>
+<div class="paragraph">
+<p>Alternatively, use the index to view the group:<br>
+Type <code>list</code> to de-select the group and display all person in the app<br>
+Type <code>viewGroup 3</code></p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="ulist">
+<ul>
+<li>
+<p>Other non-group related commands can still be executed when we are viewing a group. However,
+these commands will take effect on the full contact list instead of locally within the group.</p>
+</li>
+<li>
+<p>Eg. using <code>delete 3</code> to delete <code>Mark Zuckerberg</code> deletes the person from the contacts rather than from the group. This is where the next command comes in</p>
+</li>
+</ul>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect3">
+<h4 id="edit-group-command"><a class="link" href="#edit-group-command">2.1.16. Edit Group Command</a></h4>
+<div class="paragraph">
+<p>This command allows the user to perform three functions: <br></p>
+</div>
+<div class="exampleblock">
+<div class="content">
+<div class="ulist">
+<ul>
+<li>
+<p>change group name</p>
+</li>
+<li>
+<p>add a person to the group</p>
+</li>
+<li>
+<p>delete a person from the group</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p>To change the group name of group <code>Demo_Day_Group</code> to <code>Testathon_Day_Group</code><br>
+Type <code>editGroup Demo_Day_Group gn Testathon_Day_Group</code></p>
+</div>
+<div class="paragraph">
+<p>Alternatively, use the index of <code>Demo_Day_Group</code> to indicate the group:<br>
+Type <code>undo</code><br>
+Type <code>editGroup 4 gn Testathon_Day_Group</code></p>
+</div>
+<div class="paragraph">
+<p>To add <code>Alex Yeoh</code> at index 1 to the group <code>CS2103</code>,<br>
+Type <code>editGroup CS2103 add 1</code>. Again, group index can also be used to indicate the group.<br></p>
+</div>
+<div class="paragraph">
+<p>The group <code>CS2103</code> is selected in <code>Groups</code> list and <code>Alex Yeoh</code> can be seen at index 1 in the group</p>
+</div>
+<div class="paragraph">
+<p>To delete <code>Tony Stark</code> from the group <code>Avengers</code>,<br>
+Type <code>viewGroup Avengers</code> to select the group, then, using the index of <code>Tony Stark</code> in the group,<br>
+Type <code>editGroup Avengers delete 1</code>.</p>
+</div>
+<div class="paragraph">
+<p>Again, group index can also be used to indicate the group. However, it is not recommended to delete people blindly from the group</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="sort-command"><a class="link" href="#sort-command">2.1.17. Sort Command</a></h4>
+<div class="paragraph">
+<p>Sort command allows user to sort the list of persons based on <code>name</code>, <code>phone</code>, <code>email</code> and <code>address</code>.
+The default order of sorting is ascending.<br></p>
+</div>
+<div class="paragraph">
+<p>To sort the list of persons based on <code>name</code>:<br>
+Type <code>sort name</code>.</p>
+</div>
+<div class="paragraph">
+<p>To sort the list of persons based on <code>phone</code>:<br>
+Type <code>sort phone</code>.</p>
+</div>
+<div class="paragraph">
+<p>To sort the list of persons based on <code>email</code>:<br>
+Type <code>sort email</code>.</p>
+</div>
+<div class="paragraph">
+<p>To sort the list of persons based on <code>address</code>:<br>
+Type <code>sort address</code>.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>Only four attributes are allowed for sort command. an error message will be prompted if the inputs are different.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>After sorting, the favorite contacts will still be on the top of the list followed by unfavorite contacts.
+The order within favorite contacts and unfavorite contacts will be sorted based on the attribute inputed.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect3">
+<h4 id="deletetag-command"><a class="link" href="#deletetag-command">2.1.18. DeleteTag Command</a></h4>
+<div class="paragraph">
+<p>DeleteTag command allows user to delete a certain tag from all contacts.</p>
+</div>
+<div class="paragraph">
+<p>To delete <code>colleagues</code> tag:<br>
+Type <code>deleteTag colleagues</code>.</p>
+</div>
+<hr>
+</div>
+</div>
+<div class="sect2">
+<h3 id="graphical-navigation"><a class="link" href="#graphical-navigation">2.2. Graphical navigation</a></h3>
+<div class="sect3">
+<h4 id="when-clicking-on-a-group"><a class="link" href="#when-clicking-on-a-group">2.2.1. When clicking on a Group</a></h4>
+<div class="paragraph">
+<p>Click on a group and the list of persons in that group will appear on the
+person list panel on the right.</p>
+</div>
+<div class="paragraph">
+<p>To return to all persons view:<br>
+Type <code>list</code>.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="when-clicking-on-a-person"><a class="link" href="#when-clicking-on-a-person">2.2.2. When clicking on a Person</a></h4>
+<div class="paragraph">
+<p>Click on a person cell (Avoid clicking on the details or other functions might get triggered),
+a google mape will appear showing the location of the address of that person.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="when-clicking-on-a-person-s-name"><a class="link" href="#when-clicking-on-a-person-s-name">2.2.3. When clicking on a Person&#8217;s name</a></h4>
+<div class="paragraph">
+<p>Click on a person name label and the browser panel should display a google search result list
+with the name as a parameter.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="when-clicking-on-a-person-s-major"><a class="link" href="#when-clicking-on-a-person-s-major">2.2.4. When clicking on a Person&#8217;s major</a></h4>
+<div class="paragraph">
+<p>Click on a person major label and the browser panel should display a google search result list
+with the string <code>NUS</code> + major.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="when-clicking-on-a-person-s-heart-heart-outline-shape"><a class="link" href="#when-clicking-on-a-person-s-heart-heart-outline-shape">2.2.5. When clicking on a Person&#8217;s heart/heart outline shape</a></h4>
+<div class="paragraph">
+<p>Click on a person&#8217;s heart/heart outline shape will trigger the <code>favorite</code> command on that person.
+When the person <code>Alex Yeoh</code> is favorited in the list, click on the heart shape and she will
+be un-favorited (heart shape turns into a heart outline).</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="when-clicking-on-a-person-s-facebook-icon"><a class="link" href="#when-clicking-on-a-person-s-facebook-icon">2.2.6. When clicking on a Person&#8217;s facebook icon</a></h4>
+<div class="paragraph">
+<p>When a person&#8217;s facebook icon is shown, click on it will make the browser panel display the profile
+page of the person.
+Click on <code>Mark Zuckerberg</code> 's facebook icon to go to his facebook profile.</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div id="footer">
+<div id="footer-text">
+Last updated 2017-11-20 08:27:29 +00:00
+</div>
+</div>
+</body>
+</html>
