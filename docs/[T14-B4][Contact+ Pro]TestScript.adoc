@@ -38,7 +38,7 @@ n/NAME p/PHONE e/EMAIL a/ADDRESS b/BIRTHDAY [r/REMARK][m/MAJOR] [fb/FACEBOOK][t/
 ==== Add Command
 
 To add a person into Contact+ Pro:
-`add n/jane p/98765432 e/jane@example.com b/01/02/1991
+`add n/jane p/98765432 e/jane@example.com a/456, Jurong East Ave 6, #09-111 b/01/02/1991
 
 ==== Edit Command
 
@@ -63,7 +63,7 @@ Type in the command: `h`
 ==== Favorite Command
 
 To favorite the 3rd person, type in the command: +
-Type `favorite 3` or Type `f 3`
+Type `favorite 3` or Type `fav 3`
 
 The `Result Display` should display the `favorited` followed by the name of the person.
 The favorited person in the list should have the heart Icon beside the name and should appear on the top
